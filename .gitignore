@@ -1,0 +1,21 @@
+# Ambiente virtual Python
+.venv/
+
+# Arquivos de log (caso venham a ser criados)
+*.log
+
+# Arquivos temporários e de backup
+*.swp
+*.swo
+*.bak
+*~
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Cache de dependências (caso use pip cache no futuro)
+__pycache__/
+*.pyc
+*.pyo
+
