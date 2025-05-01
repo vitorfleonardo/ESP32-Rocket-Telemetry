@@ -4,6 +4,9 @@ site_url: https://melohugo.github.io/PI1/
 nav:
   - Início: index.md
 
+  - Planejamento:
+    - EAP: planejamento/eap.md
+
 theme:
   name: material
   icon: 
