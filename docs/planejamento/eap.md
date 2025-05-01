@@ -27,6 +27,8 @@ A EAP serve para:
 | 1.1.3.3          | Identificação de stakeholders                              |
 | 1.1.3.4          | Plano de comunicação e reuniões                            |
 | 1.1.3.5          | Plano de gerenciamento de riscos                           |
+| 1.1.3.6          | Matriz CSD (Certezas, Suposições, Dúvidas)                 |
+| 1.1.3.7          | Análise SWOT                                               |
 | 1.1.4            | Levantamento de Requisitos                                 |
 | 1.1.4.1          | Análise documental                                         |
 | 1.1.4.2          | Especificação Suplementar FURPS+                           |
@@ -34,6 +36,8 @@ A EAP serve para:
 | 1.1.4.4          | Prototipação de telas                                      |
 | 1.1.4.5          | Levantamento de requisitos não funcionais                  |
 | 1.1.4.6          | Priorização dos requisitos                                 |
+| 1.1.4.6.1        | MoSCoW                                                     |
+| 1.1.4.6.2        | 5W2H                                                       |
 | 1.1.5            | Backlog do Sistema                                         |
 | 1.1.5.1          | Definição dos épicos                                       |
 | 1.1.5.2          | História de usuário                                        |
@@ -41,13 +45,15 @@ A EAP serve para:
 | 1.1.6.1          | Diagrama de blocos                                         |
 | 1.1.6.2          | Diagrama de classes                                        |
 | 1.1.6.3          | Escolha de tecnologias                                     |
-| 1.1.6.4          | Definição de padrões de codificação                        |
-| 1.1.6.5          | Definição de endpoints e APIs                              |
+| 1.1.6.4          | Diagrama de Entidade e Relacionamento                      |
+| 1.1.6.5          | Definição de padrões de codificação                        |
+| 1.1.6.6          | Definição de endpoints e APIs                              |
 | 1.2              | Execução                                                   |
 | 1.2.1            | Documentação                                               |
 | 1.2.1.1          | Manual do usuário                                          |
 | 1.2.1.2          | Documentação técnica                                       |
 | 1.2.1.3          | Registro de decisões técnicas                              |
+| 1.2.1.4          | Diário de bordo de desenvolvimento                         |
 | 1.2.2            | Análise de dados                                           |
 | 1.2.2.1          | Coleta                                                     |
 | 1.2.2.1.1        | Comunicação com o foguete                                  |
@@ -56,7 +62,7 @@ A EAP serve para:
 | 1.2.2.4          | Processamento dos dados                                    |
 | 1.2.2.5          | Limpeza dos dados                                          |
 | 1.2.2.6          | Verificação de integridade dos dados                       |
-| 1.2.2.7          | Exportação dos dados                                       |
+| 1.2.2.7          | Exportação dos dados (CSV, JSON, etc.)                     |
 | 1.2.3            | Testes                                                     |
 | 1.2.3.1          | Testes unitários                                           |
 | 1.2.3.2          | Testes de integração                                       |
