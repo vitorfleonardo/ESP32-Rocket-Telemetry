@@ -29,6 +29,6 @@ Este repositório contém a documentação em Markdown.
     mkdocs serve
     ```
 
-### Para mais detalhes de como contribuir, consulte o arquivo CONTRIBUTING.md.
+### Para mais detalhes de como contribuir, consulte o arquivo CONTRIBUTING.md
 
 🛠️ Projeto em construção.
