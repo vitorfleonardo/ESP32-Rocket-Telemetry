@@ -5,6 +5,7 @@ nav:
   - Início: index.md
 
   - Planejamento:
+    - TAP: planejamento/tap.md
     - EAP: planejamento/eap.md
 
 theme:
