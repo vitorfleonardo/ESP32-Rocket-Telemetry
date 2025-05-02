@@ -68,9 +68,7 @@ Um cronograma é uma ferramenta de planejamento que organiza as atividades de um
 | Backup e repositório                             | 09/07/2025   | 16/07/2025  | 8 dias  | Todos               |
 | Feedback e retrospectiva                         | 16/07/2025   | 16/07/2025  | 1 dia   | Todos               |
 
-
-
-## Bibliografia
+# Bibliografia
 
 > MAXIMIANO, Antonio Cesar Amaru. Administração: teoria e prática no contexto brasileiro. 7. ed. São Paulo: Atlas, 2011.
 
@@ -79,5 +77,3 @@ Um cronograma é uma ferramenta de planejamento que organiza as atividades de um
 | Versão | Data | Descrição | Autor(es) | Data de revisão | Revisor(es) |
 | :-: | :-: | :-: | :-: | :-: | :-: |
 | `1.0` | 02/05/2025  | Documentação do cronograma | [Luiza Maluf](https://github.com/LuizaMaluf) | xx/xx/xxxx  | [Revisor](https://link) |
-
-
