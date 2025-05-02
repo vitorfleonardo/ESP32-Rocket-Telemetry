@@ -56,6 +56,7 @@ A EAP serve para:
 | 1.2.1.4          | Diário de bordo de desenvolvimento                         |
 | 1.2.2            | Análise de dados                                           |
 | 1.2.2.1          | Coleta                                                     |
+| 1.2.2.2          | Definição das variáveis obtidas pela parte de Hardware     |
 | 1.2.2.1.1        | Comunicação com o foguete                                  |
 | 1.2.2.2          | Armazenamento dos dados                                    |
 | 1.2.2.3          | Geração dos gráficos                                       |
