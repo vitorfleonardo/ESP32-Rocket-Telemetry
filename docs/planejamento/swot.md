@@ -32,7 +32,6 @@
 
 - **Condições climáticas desfavoráveis**: O clima exerce um papel fundamental nos testes e lançamentos do foguete. Condições climáticas adversas, como chuva ou ventos fortes, podem inviabilizar atividades práticas e comprometer o andamento do projeto próximo da data de entrega final.
 
-
 ## Histórico de versão
 
 | Versão | Data | Descrição | Autor(es) | Data de revisão | Revisor(es) |
