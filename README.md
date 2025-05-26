@@ -5,12 +5,14 @@ Este repositório contém o primeiro cliente de visualização em Python e a doc
 ## 🚀 Como rodar localmente
 
 1. Clone o repositório:
+
 ```bash
 git clone https://github.com/melohugo/PI1.git
 cd PI1
 ```
 
-2. Crie um ambiente virtual e instale as dependencias:
+1. Crie um ambiente virtual e instale as dependencias:
+
 ```bash
 python -m venv .venv
 
@@ -23,19 +25,21 @@ pip install -r requirements.txt
 
 ### Python
 
-3. Instalar as depêndencias do cliente:
+1. Instalar as depêndencias do cliente:
+
 ```bash
 pip install -r source/requirements.txt
 ```
 
-4. Executar programa:
+1. Executar programa:
+
 ```bash
 python source/__init__.py
 ```
 
 ### Documentação
 
-3. Executar a documentação
+1. Executar a documentação
 
 ```bash
 mkdocs serve
