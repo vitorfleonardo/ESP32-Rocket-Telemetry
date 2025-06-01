@@ -19,3 +19,11 @@ __pycache__/
 *.pyc
 *.pyo
 
+/latex/*
+!/latex/Makefile
+!/latex/doc_pi1.tex
+!/latex/doc_pi1.pdf
+!/latex/bibliografia.bib
+!/latex/fixos/
+!/latex/figuras/
+!/latex/editaveis/

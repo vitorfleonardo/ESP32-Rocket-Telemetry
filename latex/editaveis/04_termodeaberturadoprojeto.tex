@@ -1,0 +1,162 @@
+\chapter{Termo de Abertura do Projeto}
+
+%\textcolor{red}{Termo de abertura do projeto / Project Charter. Um documento publicado pelo iniciador ou patrocinador do projeto que autoriza formalmente a existência de um projeto e fornece ao gerente do projeto a autoridade para aplicar os recursos organizacionais nas atividades do projeto.}
+
+\section{Dados do projeto}
+\begin{description}
+    \item [Nome do Projeto:] Foguete d’Água com Base Automatizada
+    \item [Data de abertura:] 23/04/2025
+    \item [Código:] 2-A
+    \item [Patrocinador:] Universidade de Brasília
+    % \item [Responsável:] ???
+    \item[Gerente do projeto:] Vitor Feijó Leonardo \\
+    Matrícula: 221008516 \\
+    E-mail: \texttt{221008516@aluno.unb.br} \\
+    Telefone: +55\,(61)\,99243-6348
+\end{description}
+
+\section{Objetivos}
+
+Desenvolver, até 16 de julho de 2025, um sistema original e funcional de lançamento automatizado de foguetes d'água, com controle de trajetória baseado em dados reais (pressão, ângulo, altitude, velocidade, aceleração), assegurando a reutilização em três lançamentos com precisão de até ±0,5 metro nas distâncias de 10 m, 20 m e 30 m, respeitando o limite orçamentário de R\$ 1.000{,}00.
+
+
+\section{Mercado-alvo}
+
+O projeto tem como mercado-alvo principal instituições educacionais e grupos de pesquisa que atuam nas áreas de engenharia, física aplicada e educação científica, especialmente em níveis médio, técnico e superior. Entre os potenciais beneficiários estão professores e estudantes envolvidos em atividades práticas de ensino de ciências, clubes de astronomia e olimpíadas científicas, que podem utilizar o sistema como ferramenta didática para explorar conceitos de física, matemática, programação e controle de sistemas dinâmicos.
+
+Além do ambiente acadêmico, o projeto atende também às necessidades de pesquisadores e entusiastas da engenharia experimental que necessitam de plataformas acessíveis para testes de controle de trajetória, aquisição de dados em tempo real e automação de sistemas mecatrônicos. A proposta oferece um modelo de baixo custo e alta reusabilidade, adequado para experimentação segura em ambientes controlados.
+
+De forma indireta, o sistema pode ainda inspirar iniciativas voltadas à popularização da ciência e inovação tecnológica, sendo compatível com projetos de extensão universitária e feiras científicas, contribuindo para a disseminação do conhecimento e estímulo à formação científica em contextos educacionais diversos.
+
+\section{Requisitos}
+
+%\subsection{Requisitos Gerais}
+\begin{table}[htpb]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\caption{Requisitos Gerais}
+\begin{tabular}{|c|p{0.85\linewidth}|}
+\hline
+\textbf{Código} & \textbf{Descrição} \\
+\hline
+RF1 & O sistema deve executar, de forma totalmente automática, três lançamentos reutilizáveis de um mesmo foguete d'água, programados para alcançarem precisamente 10\,m, 20\,m e 30\,m, com tolerância de ±0,5\,m. \\
+%\hline
+%RF2 & A plataforma de lançamento deve ajustar o ângulo de disparo entre 0° e 90° com resolução de 0,1°, usando atuador eletromecânico controlado por malha fechada. \\
+%\hline
+% RF3 & O dispositivo de segurança deve travar o disparo se qualquer pessoa ou objeto for detectado a menos de 5\,m do cano de lançamento, via sensor ultrassônico ou LiDAR. \\
+\hline
+RF2 & O software embarcado deve coletar, em tempo real, sinais de volume de água, pressão interna, ângulo de lançamento, posição e altitude, velocidade e aceleração (conforme especificações de precisão). \\
+\hline
+RF3 & O firmware deve timestampar cada amostra com resolução e transmitir via Wi-Fi ou MicroSD para a unidade de processamento principal. \\
+\hline
+RF4 & O módulo de processamento principal deve armazenar os dados em banco JSON, garantindo integridade transacional e histórico completo de cada voo. \\
+\hline
+\end{tabular}
+\label{tab:requisitos-funcionais}
+\end{table}
+
+
+\begin{table}[htpb]
+\centering
+\scriptsize % Font size as per your example
+\setlength{\tabcolsep}{4pt} % Column separation as per your example
+\caption{Requisitos de Software} % A suitable caption for this table
+%\begin{tabular}{|l|p{10cm}|} % Defines columns: Left-aligned ID, Paragraph (10cm width) for Description
+\begin{tabular}{|c|p{0.85\linewidth}|}
+%\hline
+%\multicolumn{2}{|c|}{\textbf{REQUISITOS}} \\ % Main header spanning both columns
+\hline
+\textbf{Código} & \textbf{Descrição} \\
+\hline
+RQ01 & Importar dados de voo em JSON de dispositivo externo \\
+\hline
+RQ02 & Exibir gráfico de velocidade vertical vs. tempo. \\
+\hline
+RQ03 & Exibir gráfico de aceleração vertical vs. tempo. \\
+\hline
+RQ04 & Exibir gráfico de dispersão da trajetória no plano X e Y. \\
+\hline
+RQ05 & Exibir gráfico de altitude vs. tempo. \\
+\hline
+RQ06 & Exibir valores máximos e mínimos de aceleração, velocidade e ângulo. \\
+\hline
+RQ07 & Exibir tempo de execução e intervalos de amostragem. \\
+\hline
+RQ08 & Exportar dados do voo em CSV. \\
+\hline
+RQ09 & Importar arquivos CSV para comparação e simulação. \\
+\hline
+RQ10 & Aplicar filtro de média móvel nos dados dos sensores. \\
+\hline
+\end{tabular}
+\label{tab:requisitos_detalhados} % A label for referencing the table
+\end{table}
+
+
+%\subsection{Requisitos de Hardware}
+\begin{table}[htpb]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\caption{Requisitos de Hardware}
+\begin{tabular}{|c|p{0.85\linewidth}|}
+\hline
+\textbf{Código} & \textbf{Descrição} \\
+\hline
+RH1 & Base de lançamento em alumínio ou aço inox, peso máximo de 2 kg, dimensões não superiores a 30 × 30 × 40 cm. \\
+\hline
+RH2 & Atuador de torque maior que 5 Nm para ajuste de ângulo, suportando 12 V DC. \\
+\hline
+RH3 & Microcontrolador de 32 bits com ADC de 12 bits ou superior, memória RAM maior que 64 kB e Flash maior que 256 kB. \\
+\hline
+RH4 & Fonte portátil (bateria LiPo 3S) capaz de alimentar todo o sistema por, ao menos, 4 h contínuas. \\
+\hline
+\end{tabular}
+\label{tab:requisitos-hardware}
+\end{table}
+
+\begin{samepage}
+%\subsection{Requisitos de Custos e Materiais}
+\begin{table}[htpb]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\caption{Requisitos de Custos e Materiais}
+\begin{tabular}{|c|p{0.85\linewidth}|}
+\hline
+\textbf{Código} & \textbf{Descrição} \\
+\hline
+RC1 & Custo total de componentes eletrônicos, mecânicos e estruturais não deve exceder R\$ 1.000,00. \\
+%\hline
+%RC2 & Todos os sensores e atuadores devem ser de fornecedores com garantia mínima de 1 ano. \\
+\hline
+RC2 & Materiais de construção (tubos, fixadores, conexões) devem ser reutilizáveis e modulares, facilitando montagem/desmontagem em menos de 1 h. \\
+\hline
+\end{tabular}
+\label{tab:requisitos-custos}
+\end{table}
+\end{samepage}
+
+\section{Justificativa}
+
+O projeto justifica-se pela necessidade de promover a aplicação prática e integrada de conhecimentos das diferentes engenharias da Faculdade de Ciências e Tencologias em Engenharia (FCTE), por meio do desenvolvimento de uma solução original, segura e funcional para o lançamento automatizado de foguetes d’água. 
+
+Além disso, o projeto representa uma oportunidade para suprir a carência de sistemas didáticos acessíveis e reutilizáveis voltados ao ensino de física aplicada, automação e controle de trajetória em ambientes educacionais. Desse modo, integrando sensores e ferramentas de análise, a solução contribui para o avanço de práticas experimentais no ensino de engenharia e ciências, podendo ser adotada por instituições de ensino e centros de pesquisa como recurso pedagógico. 
+
+
+
+\section{Indicadores}
+
+\begin{enumerate}
+  \item \textbf{Precisão da distância atingida:} diferença absoluta entre a distância real alcançada e as metas de 10m, 20m e 30m, com tolerância máxima de 0,5m.
+  \item \textbf{Número de lançamentos bem-sucedidos:} total de disparos realizados com o mesmo foguete sem falhas estruturais ou funcionais (meta: 3 lançamentos).
+  \item \textbf{Tempo de montagem e preparação para o lançamento:} tempo médio entre o início da montagem até a execução do disparo (em minutos).
+  \item \textbf{Número de dados coletados por voo:} total de amostras válidas registradas por sensores durante cada lançamento (em $N$ leituras).
+  \item \textbf{Taxa de perda de dados:} percentual de dados esperados que não foram coletados ou foram invalidados por falha de sensor, ou transmissão.
+  \item \textbf{Tempo total de voo:} duração média entre o lançamento e o retorno do foguete ao solo, medido por sensores (em segundos).
+  \item \textbf{Desvio angular no lançamento:} diferença entre o ângulo configurado e o ângulo real de disparo detectado (em graus).
+  \item \textbf{Número de erros críticos no sistema embarcado:} quantidade de falhas que impedem a coleta, transmissão ou registro de dados em um lançamento.
+  \item \textbf{Número de funcionalidades do software implementadas com sucesso:} total de recursos entregues em relação ao planejado (ex.: gráficos, filtro de ruído, exportação de dados, visualização histórica, etc.).
+  \item \textbf{Atraso no cronograma:} dias de diferença entre o plano de entregas e a data real de finalização de cada etapa do projeto (em dias corridos).
+\end{enumerate}
