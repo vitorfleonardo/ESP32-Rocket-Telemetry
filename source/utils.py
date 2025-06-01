@@ -1,9 +1,3 @@
-
-# Ask 
-def ask(a: str) -> None:
-    return input(a).strip()
-
-
-# 
-def read(path: str) -> any:
-    return ""
+# Pedir valor al usuario.
+def ask(prompt: str) -> str:
+    return input(prompt).strip()
