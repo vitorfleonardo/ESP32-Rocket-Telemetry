@@ -958,32 +958,38 @@ Armazenamento condicional dos dados: Os dados são armazenados no cartão SD ape
 Essa abordagem de firmware em tempo real permite uma resposta rápida e eficiente aos eventos do voo, garantindo a coleta confiável dos dados e o controle preciso do sistema.
 
 
-%\begin{figure}[h!]
-%    \centering
-%    \begin{tikzpicture}[node distance=2cm,
-%        block/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, align=center},
-%        cloud/.style={ellipse, draw, minimum width=2cm, minimum height=1cm, align=center},
-%        %arrow/.style={-Stealth}
-%        ]
-%
-%        \node (start)      [block] {Início do Loop};
-%        \node (read)       [block, below of=start] {Leitura dos Sensores\\(MPU-6500, etc.)};
-%        \node (preprocess) [block, below of=read]  {Pré-processamento\\dos Dados\\(Filtragem, etc.)};
-%        \node (detect)     [block, below of=preprocess] {Detecção de\\Eventos\\(Início, etc.)};
-%        \node (store)      [block, below of=detect]  {Armazenamento Cond.\\no Cartão SD\\(Se Evento ou Tempo)};
-%        \node (end)        [block, below of=store]   {Fim do Loop\\(Retorna ao Início)};
-%
-%        \draw[arrow] (start)  -- (read);
-%        \draw[arrow] (read)       -- (preprocess);
-%        \draw[arrow] (preprocess) -- (detect);
-%        \draw[arrow] (detect)     -- (store);
-%        \draw[arrow] (store)      -- (end);
-%        %\draw[arrow] (end)        -- (start);
-%
-%    \end{tikzpicture}
-%    \caption{Diagrama de Blocos do Firmware}
-%    \label{fig:firmware_diagram}
-%\end{figure}
+\usetikzlibrary{arrows.meta}   % Required for Stealth arrow
+\usetikzlibrary{positioning}   % For improved node positioning
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2cm,
+        block/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, align=center},
+        cloud/.style={ellipse, draw, minimum width=2cm, minimum height=1cm, align=center},
+        arrow/.style={-Stealth}  % UNCOMMENTED style definition
+        ]
+
+        % Nodes with modern positioning syntax
+        \node (start)      [block] {Início do Loop};
+        \node (read)       [block, below=of start] {Leitura dos Sensores-MPU-6500, etc.)};
+        \node (preprocess) [block, below=of read]  {Pré-processamento\\dos Dados-Filtragem, etc.)};
+        \node (detect)     [block, below=of preprocess] {Detecção de\\Eventos-Início, etc.)};
+        \node (store)      [block, below=of detect]  {Armazenamento Cond.\\no Cartão SD-Se Evento ou Tempo)};
+        \node (end)        [block, below=of store]   {Fim do Loop-Retorna ao Início)};
+
+        % Arrows using the defined style
+        \draw[arrow] (start)  -- (read);
+        \draw[arrow] (read)       -- (preprocess);
+        \draw[arrow] (preprocess) -- (detect);
+        \draw[arrow] (detect)     -- (store);
+        \draw[arrow] (store)      -- (end);
+        %\draw[arrow] (end)        -- (start);
+
+    \end{tikzpicture}
+    \caption{Diagrama de Blocos do Firmware}
+    \label{fig:firmware_diagram}
+\end{figure}
 
 
 \textbf{Seleção dos Componentes de Hardware}
@@ -1019,14 +1025,14 @@ Esta seção detalha as conexões elétricas entre os componentes do sistema. É
 
 A Figura \ref{fig:esquematico_basico} apresenta um diagrama esquemático simplificado das conexões entre os principais componentes do sistema.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}
         \node[rectangle, draw] (bateria) at (0, 3) {Bateria (LiPo 4.2V)};
         \node[rectangle, draw] (esp32) at (0, 1) {ESP32};
         \node[rectangle, draw] (mpu6500) at (-2, -1) {MPU6500};
         \node[rectangle, draw] (sdcard) at (2, -1) {SD Card};
-        \node[rectangle, draw] (regulador) at (2.5, 1) {Regulador (Interno)};
+        \node[rectangle, draw] (regulador) at (3, 1) {Regulador (Interno)};
 
         \draw[->] (bateria.south) -- (esp32.north) node[midway, left] {};
         \draw[->] (esp32.east) -- (regulador.west) node[midway, above] {};
@@ -1039,8 +1045,17 @@ A Figura \ref{fig:esquematico_basico} apresenta um diagrama esquemático simplif
 
 \paragraph{Detalhes das Conexões e Pinos}
 
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{figuras/eletronica-pinagem-esquematico.png}
+%
+%    \caption{Esquemático de Conexões}
+%    \label{fig_esq_conexoes}
+%\end{figure}
+
  \textbf{Bateria LiPo (4.2V) para ESP32:}
 
+d
 Bateria Positivo (+) $\rightarrow$ ESP32 Vin: A entrada Vin do ESP32 aceita tensões mais altas e possui um regulador interno para fornecer a tensão de operação de 3.3V.
 
 Bateria Negativo (-) $\rightarrow$ ESP32 GND: Todos os dispositivos devem compartilhar um terra comum para garantir o correto funcionamento do circuito.
@@ -1103,6 +1118,81 @@ Foca na análise do consumo energético do sistema, na seleção e validação d
 %    \caption{Esquemático do Sistema de Energia}
 %    \label{fig_esquematico_energia}
 %\end{figure}
+
+Para que o dimensionamento energético possa ser feito, todos os componentes do sistema que consumirão energia, como sensores, microcontroladores, atuadores e módulos de armazenamento de dados devem ser listados. A Tabela~\ref{tab:componentes} consolida as principais informações elétricas dos dispositivos utilizados para a realização dos cálculos.
+
+\begin{table}[ht]
+    \centering
+    \caption{Informações elétricas dos componentes}
+    \label{tab:componentes}
+    \begin{tabular}{l c c c}
+        \toprule
+        Nome & Tensão (V) & Corrente (mA) & Tempo estimado (s) \\
+        \midrule
+        ESP-32 & 3.3 & 160 & 30 \\
+        BME-280 & 3.3 & 1 & 30 \\
+        MPU-6500 & 3.3 & 4 & 30 \\
+        SD & 3.3 & 80 & 30 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+A energia consumida por cada componente foi calculada utilizando a fórmula:
+\begin{equation}
+E = V \cdot I \cdot t
+\end{equation}
+onde:
+
+Os resultados do cálculo da energia consumida por componente são apresentados na Tabela~\ref{tab:energia_consumida}.
+
+\begin{table}[ht]
+    \centering
+    \caption{Energia consumida por componente}
+    \label{tab:energia_consumida}
+    \begin{tabular}{l c}
+        \toprule
+        Componente & Energia consumida (J) \\
+        \midrule
+        ESP-32 & 15.84 \\
+        BME-280 & 0.099 \\
+        MPU-6500 & 0,396 \\
+        SD & 7,92 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+O consumo total de energia consiste na soma da energia de todos os componentes. Com isso, obteve-se um total de 24,255 J.
+
+Para converter o consumo energético total de Joules para Watt-hora (Wh), a relação
+
+\begin{equation}
+1 \text{ Wh} = 3600 \text{ J}
+\end{equation}
+será utilizada. Assim, o consumo total em Watt-hora é:
+\begin{equation}
+24,255 \text{ J} / 3600 \text{ J/Wh} = 0,0067375 \text{ Wh}
+\end{equation}
+O ONS (Operador Nacional do Sistema Elétrico Brasileiro) estabelece que o sistema elétrico deve operar com uma margem de segurança de estabilidade de tensão de pelo menos 6\%. Nesse sentido, para garantir uma maior segurança, usaremos 25\% de margem para a escolha da fonte. Portanto, a energia mínima que a fonte deve fornecer é:
+
+\begin{equation}
+0.0067375 \text{ Wh} \times 1.25 = 0.0084219 \text{ Wh}
+\end{equation}
+A fonte de alimentação deve fornecer minimamente 0.00842 Wh de energia a uma tensão de 3.3 V. Assim, a Capacidade (Ah) será:
+
+
+\begin{equation}
+\text{Capacidade (Ah)} = \frac{0.00842 \text{ Wh}}{3.3 \text{ V}} = 0.00255 \text{ Ah} = 2.55 \text{ mAh}
+\end{equation}
+
+Dessa forma, uma bateria comum de 100 mAh é mais do que o suficiente para suprir a demanda energética do sistema, com ampla margem de segurança.
+
+Com base no consumo estimado de corrente ($\sim$245 mA no total), a escolha de uma fonte com tensão de 3,3 V e corrente mínima de 300 mA garante estabilidade no fornecimento de energia e elimina a necessidade de reguladores de tensão adicionais. Essa escolha também contribui para reduzir perdas por conversão e aquecimento.
+
+Para garantir a rastreabilidade e a segurança do sistema embarcado, foram implementadas rotinas de monitoramento via software. O microcontrolador ESP32 possui um conversor analógico-digital interno que permite medir a tensão da bateria em tempo real. Além disso, a contagem de tempo desde a inicialização do sistema pode ser obtida via funções nativas da ESP-IDF. Os dados são armazenados no cartão SD para posterior análise, com a possibilidade de um script Python para processar e visualizar os dados em gráficos, facilitando a interpretação dos resultados durante os testes e validações.
+
+Embora o foguete ainda não esteja finalizado para a realização dos testes de campo, é esperado que o consumo de energia real apresente variações pequenas em relação aos valores teoricamente estimados. Isso ocorre devido a diversos fatores amplamente documentados na literatura sobre sistemas embarcados, como a variação de consumo dinâmico dos componentes, oscilações na tensão de alimentação dos equipamentos, imprecisão na especificação dos fabricantes, dentre outros problemas.
 
 \newpage
 
