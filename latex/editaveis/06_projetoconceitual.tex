@@ -958,32 +958,38 @@ Armazenamento condicional dos dados: Os dados são armazenados no cartão SD ape
 Essa abordagem de firmware em tempo real permite uma resposta rápida e eficiente aos eventos do voo, garantindo a coleta confiável dos dados e o controle preciso do sistema.
 
 
-%\begin{figure}[h!]
-%    \centering
-%    \begin{tikzpicture}[node distance=2cm,
-%        block/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, align=center},
-%        cloud/.style={ellipse, draw, minimum width=2cm, minimum height=1cm, align=center},
-%        %arrow/.style={-Stealth}
-%        ]
-%
-%        \node (start)      [block] {Início do Loop};
-%        \node (read)       [block, below of=start] {Leitura dos Sensores\\(MPU-6500, etc.)};
-%        \node (preprocess) [block, below of=read]  {Pré-processamento\\dos Dados\\(Filtragem, etc.)};
-%        \node (detect)     [block, below of=preprocess] {Detecção de\\Eventos\\(Início, etc.)};
-%        \node (store)      [block, below of=detect]  {Armazenamento Cond.\\no Cartão SD\\(Se Evento ou Tempo)};
-%        \node (end)        [block, below of=store]   {Fim do Loop\\(Retorna ao Início)};
-%
-%        \draw[arrow] (start)  -- (read);
-%        \draw[arrow] (read)       -- (preprocess);
-%        \draw[arrow] (preprocess) -- (detect);
-%        \draw[arrow] (detect)     -- (store);
-%        \draw[arrow] (store)      -- (end);
-%        %\draw[arrow] (end)        -- (start);
-%
-%    \end{tikzpicture}
-%    \caption{Diagrama de Blocos do Firmware}
-%    \label{fig:firmware_diagram}
-%\end{figure}
+\usetikzlibrary{arrows.meta}   % Required for Stealth arrow
+\usetikzlibrary{positioning}   % For improved node positioning
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[
+        node distance=2cm,
+        block/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, align=center},
+        cloud/.style={ellipse, draw, minimum width=2cm, minimum height=1cm, align=center},
+        arrow/.style={-Stealth}  % UNCOMMENTED style definition
+        ]
+
+        % Nodes with modern positioning syntax
+        \node (start)      [block] {Início do Loop};
+        \node (read)       [block, below=of start] {Leitura dos Sensores-MPU-6500, etc.)};
+        \node (preprocess) [block, below=of read]  {Pré-processamento\\dos Dados-Filtragem, etc.)};
+        \node (detect)     [block, below=of preprocess] {Detecção de\\Eventos-Início, etc.)};
+        \node (store)      [block, below=of detect]  {Armazenamento Cond.\\no Cartão SD-Se Evento ou Tempo)};
+        \node (end)        [block, below=of store]   {Fim do Loop-Retorna ao Início)};
+
+        % Arrows using the defined style
+        \draw[arrow] (start)  -- (read);
+        \draw[arrow] (read)       -- (preprocess);
+        \draw[arrow] (preprocess) -- (detect);
+        \draw[arrow] (detect)     -- (store);
+        \draw[arrow] (store)      -- (end);
+        %\draw[arrow] (end)        -- (start);
+
+    \end{tikzpicture}
+    \caption{Diagrama de Blocos do Firmware}
+    \label{fig:firmware_diagram}
+\end{figure}
 
 
 \textbf{Seleção dos Componentes de Hardware}
@@ -1019,14 +1025,14 @@ Esta seção detalha as conexões elétricas entre os componentes do sistema. É
 
 A Figura \ref{fig:esquematico_basico} apresenta um diagrama esquemático simplificado das conexões entre os principais componentes do sistema.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}
         \node[rectangle, draw] (bateria) at (0, 3) {Bateria (LiPo 4.2V)};
         \node[rectangle, draw] (esp32) at (0, 1) {ESP32};
         \node[rectangle, draw] (mpu6500) at (-2, -1) {MPU6500};
         \node[rectangle, draw] (sdcard) at (2, -1) {SD Card};
-        \node[rectangle, draw] (regulador) at (2.5, 1) {Regulador (Interno)};
+        \node[rectangle, draw] (regulador) at (3, 1) {Regulador (Interno)};
 
         \draw[->] (bateria.south) -- (esp32.north) node[midway, left] {};
         \draw[->] (esp32.east) -- (regulador.west) node[midway, above] {};
@@ -1038,6 +1044,14 @@ A Figura \ref{fig:esquematico_basico} apresenta um diagrama esquemático simplif
 \end{figure}
 
 \paragraph{Detalhes das Conexões e Pinos}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/eletronica-pinagem-esquematico.png}
+
+    \caption{Esquemático de Conexões}
+    \label{fig_esq_conexoes}
+\end{figure}
 
  \textbf{Bateria LiPo (4.2V) para ESP32:}
 
