@@ -933,7 +933,7 @@ O objetivo principal do hardware é fornecer os meios eletrônicos e físicos pa
 
 O hardware é projetado para trabalhar em conjunto com o software, onde os dados coletados pelos sensores são processados e utilizados para analisar trajetória do foguete. A escolha dos componentes de hardware é feita para garantir que eles atendam aos requisitos de desempenho do software, como a precisão das medições e a armazenar os dados.
 
-\textbf{Implementação do Hardware}
+%\textbf{Implementação do Hardware}
 
 Para cumprir o objetivo de coletar dados de voo e controlar o sistema de lançamento, o hardware é implementado utilizando o microcontrolador ESP32 como o componente central de processamento. O desenvolvimento do código para o ESP32 será realizado na Arduino IDE (Integrated Development Environment), uma plataforma de desenvolvimento integrada que simplifica significativamente o processo de escrita, compilação, upload e depuração do código para microcontroladores. A escolha da Arduino IDE se deve à sua facilidade de uso, vasta comunidade de suporte e disponibilidade de bibliotecas, o que acelera o desenvolvimento e reduz a complexidade do projeto. A linguagem de programação utilizada será o "C", devido à sua eficiência, controle de baixo nível e adequação para sistemas embarcados onde o desempenho e o uso eficiente de recursos são críticos.
 
@@ -957,32 +957,33 @@ Armazenamento condicional dos dados: Os dados são armazenados no cartão SD ape
 
 Essa abordagem de firmware em tempo real permite uma resposta rápida e eficiente aos eventos do voo, garantindo a coleta confiável dos dados e o controle preciso do sistema.
 
-\begin{figure}[h!]
-    \centering
-    \begin{tikzpicture}[node distance=2cm,
-        block/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, align=center},
-        cloud/.style={ellipse, draw, minimum width=2cm, minimum height=1cm, align=center},
-        arrow/.style={-Stealth}
-        ]
 
-        \node (start)      [block] {Início do Loop};
-        \node (read)       [block, below of=start] {Leitura dos Sensores\\(MPU-6500, etc.)};
-        \node (preprocess) [block, below of=read]  {Pré-processamento\\dos Dados\\(Filtragem, etc.)};
-        \node (detect)     [block, below of=preprocess] {Detecção de\\Eventos\\(Início, etc.)};
-        \node (store)      [block, below of=detect]  {Armazenamento Cond.\\no Cartão SD\\(Se Evento ou Tempo)};
-        \node (end)        [block, below of=store]   {Fim do Loop\\(Retorna ao Início)};
-
-        \draw[arrow] (start)  -- (read);
-        \draw[arrow] (read)       -- (preprocess);
-        \draw[arrow] (preprocess) -- (detect);
-        \draw[arrow] (detect)     -- (store);
-        \draw[arrow] (store)      -- (end);
-        %\draw[arrow] (end)        -- (start);
-
-    \end{tikzpicture}
-    \caption{Diagrama de Blocos do Firmware}
-    \label{fig:firmware_diagram}
-\end{figure}
+%\begin{figure}[h!]
+%    \centering
+%    \begin{tikzpicture}[node distance=2cm,
+%        block/.style={rectangle, draw, minimum width=2cm, minimum height=1cm, align=center},
+%        cloud/.style={ellipse, draw, minimum width=2cm, minimum height=1cm, align=center},
+%        %arrow/.style={-Stealth}
+%        ]
+%
+%        \node (start)      [block] {Início do Loop};
+%        \node (read)       [block, below of=start] {Leitura dos Sensores\\(MPU-6500, etc.)};
+%        \node (preprocess) [block, below of=read]  {Pré-processamento\\dos Dados\\(Filtragem, etc.)};
+%        \node (detect)     [block, below of=preprocess] {Detecção de\\Eventos\\(Início, etc.)};
+%        \node (store)      [block, below of=detect]  {Armazenamento Cond.\\no Cartão SD\\(Se Evento ou Tempo)};
+%        \node (end)        [block, below of=store]   {Fim do Loop\\(Retorna ao Início)};
+%
+%        \draw[arrow] (start)  -- (read);
+%        \draw[arrow] (read)       -- (preprocess);
+%        \draw[arrow] (preprocess) -- (detect);
+%        \draw[arrow] (detect)     -- (store);
+%        \draw[arrow] (store)      -- (end);
+%        %\draw[arrow] (end)        -- (start);
+%
+%    \end{tikzpicture}
+%    \caption{Diagrama de Blocos do Firmware}
+%    \label{fig:firmware_diagram}
+%\end{figure}
 
 
 \textbf{Seleção dos Componentes de Hardware}
@@ -1001,15 +1002,16 @@ Nesta etapa de seleção de componentes de hardware, estamos realizando uma abst
 
 A combinação desses componentes permite a criação de um sistema de hardware robusto e eficiente, capaz de atender aos requisitos do projeto.
 
+
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\textwidth]{figuaras/diagramaDeBlocosHardware.png}
+    \includegraphics[width=0.8\textwidth]{figuras/diagramaDeBlocosHardware.png}
 
     \caption{Diagrama de Blocos do Hardware}
     \label{fig_diagrama_blocos_hardware}
 \end{figure}
 
-\textbf{Esquemático de Conexões}
+%\textbf{Esquemático de Conexões}
 
 Esta seção detalha as conexões elétricas entre os componentes do sistema. É crucial observar que as informações fornecidas aqui são genéricas e podem variar dependendo dos modelos exatos dos componentes utilizados. Sempre consulte os datasheets dos componentes para obter informações precisas sobre os pinos e as especificações elétricas.
 
@@ -1095,12 +1097,12 @@ Foca na análise do consumo energético do sistema, na seleção e validação d
 	\label{fig_eap_energia} 
 \end{figure}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figuras/Esquematico-energia.png}
-    \caption{Esquemático do Sistema de Energia}
-    \label{fig_esquematico_energia}
-\end{figure}
+%\begin{figure}[h!]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{figuras/Esquematico-energia.png}
+%    \caption{Esquemático do Sistema de Energia}
+%    \label{fig_esquematico_energia}
+%\end{figure}
 
 \newpage
 
