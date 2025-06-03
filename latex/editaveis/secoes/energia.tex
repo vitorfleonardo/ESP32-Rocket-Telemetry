@@ -1,0 +1,78 @@
+
+
+\section{Análise de Consumo Energético}
+
+Para que o dimensionamento energético possa ser feito, todos os componentes do sistema que consumirão energia, como sensores, microcontroladores, atuadores e módulos de armazenamento de dados devem ser listados. A Tabela~\ref{tab:componentes} consolida as principais informações elétricas dos dispositivos utilizados para a realização dos cálculos.
+
+\begin{table}[ht]
+    \centering
+    \caption{Informações elétricas dos componentes}
+    \label{tab:componentes}
+    \begin{tabular}{l c c c}
+        \toprule
+        Nome & Tensão (V) & Corrente (mA) & Tempo estimado (s) \\
+        \midrule
+        ESP-32 & 3.3 & 160 & 30 \\
+        % BME-280 & 3.3 & 1 & 30 \\
+        MPU-6500 & 3.3 & 4 & 30 \\
+        SD & 3.3 & 80 & 30 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+A energia consumida por cada componente foi calculada utilizando a fórmula:
+\begin{equation}
+E = V \cdot I \cdot t
+\end{equation}
+onde:
+
+Os resultados do cálculo da energia consumida por componente são apresentados na Tabela~\ref{tab:energia_consumida}.
+
+\begin{table}[ht]
+    \centering
+    \caption{Energia consumida por componente}
+    \label{tab:energia_consumida}
+    \begin{tabular}{l c}
+        \toprule
+        Componente & Energia consumida (J) \\
+        \midrule
+        ESP-32 & 15.84 \\
+        % BME-280 & 0.099 \\
+        MPU-6500 & 0,396 \\
+        SD & 7,92 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+O consumo total de energia consiste na soma da energia de todos os componentes. Com isso, obteve-se um total de 24,156 J.
+
+Para converter o consumo energético total de Joules para Watt-hora (Wh), a relação
+
+\begin{equation}
+1 \text{ Wh} = 3600 \text{ J}
+\end{equation}
+será utilizada. Assim, o consumo total em Watt-hora é:
+\begin{equation}
+24,156 \text{ J} / 3600 \text{ J/Wh} = 0,00671 \text{ Wh}
+\end{equation}
+O ONS (Operador Nacional do Sistema Elétrico Brasileiro) estabelece que o sistema elétrico deve operar com uma margem de segurança de estabilidade de tensão de pelo menos 6\%. Nesse sentido, para garantir uma maior segurança, usaremos 25\% de margem para a escolha da fonte. Portanto, a energia mínima que a fonte deve fornecer é:
+
+\begin{equation}
+0,00671 \text{ Wh} \times 1.25 = 0,0083875 \text{ Wh}
+\end{equation}
+A fonte de alimentação deve fornecer minimamente 0,0083875 Wh de energia a uma tensão de 3,3 V. Assim, a Capacidade (Ah) será:
+
+
+\begin{equation}
+\text{Capacidade (Ah)} = \frac{0,0083875 \text{ Wh}}{3,3 \text{ V}} = 0,00254 \text{ Ah} = 2,54 \text{ mAh}
+\end{equation}
+
+Dessa forma, uma bateria comum de 100 mAh é mais do que o suficiente para suprir a demanda energética do sistema, com ampla margem de segurança.
+
+Com base no consumo estimado de corrente ($\sim$245 mA no total), a escolha de uma fonte com tensão de 3,3 V e corrente mínima de 300 mA garante estabilidade no fornecimento de energia e elimina a necessidade de reguladores de tensão adicionais. Essa escolha também contribui para reduzir perdas por conversão e aquecimento.
+
+Para garantir a rastreabilidade e a segurança do sistema embarcado, foram implementadas rotinas de monitoramento via software. O microcontrolador ESP32 possui um conversor analógico-digital interno que permite medir a tensão da bateria em tempo real. Além disso, a contagem de tempo desde a inicialização do sistema pode ser obtida via funções nativas da ESP-IDF. Os dados são armazenados no cartão SD para posterior análise, com a possibilidade de um script Python para processar e visualizar os dados em gráficos, facilitando a interpretação dos resultados durante os testes e validações.
+
+Embora o foguete ainda não esteja finalizado para a realização dos testes de campo, é esperado que o consumo de energia real apresente variações pequenas em relação aos valores teoricamente estimados. Isso ocorre devido a diversos fatores amplamente documentados na literatura sobre sistemas embarcados, como a variação de consumo dinâmico dos componentes, oscilações na tensão de alimentação dos equipamentos, imprecisão na especificação dos fabricantes, dentre outros problemas.

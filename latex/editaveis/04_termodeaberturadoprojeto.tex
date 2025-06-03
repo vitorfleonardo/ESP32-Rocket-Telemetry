@@ -40,17 +40,13 @@ De forma indireta, o sistema pode ainda inspirar iniciativas voltadas à popular
 \hline
 \textbf{Código} & \textbf{Descrição} \\
 \hline
-RF1 & O sistema deve executar, de forma totalmente automática, três lançamentos reutilizáveis de um mesmo foguete d'água, programados para alcançarem precisamente 10\,m, 20\,m e 30\,m, com tolerância de ±0,5\,m. \\
-%\hline
-%RF2 & A plataforma de lançamento deve ajustar o ângulo de disparo entre 0° e 90° com resolução de 0,1°, usando atuador eletromecânico controlado por malha fechada. \\
-%\hline
-% RF3 & O dispositivo de segurança deve travar o disparo se qualquer pessoa ou objeto for detectado a menos de 5\,m do cano de lançamento, via sensor ultrassônico ou LiDAR. \\
+RF1 & O sistema deve executar três lançamentos reutilizáveis de um mesmo foguete d'água, programados para alcançarem 10\,m, 20\,m e 30\,m, com tolerância de ±0,5\,m. \\
 \hline
 RF2 & O software embarcado deve coletar, em tempo real, sinais de volume de água, pressão interna, ângulo de lançamento, posição e altitude, velocidade e aceleração (conforme especificações de precisão). \\
 \hline
-RF3 & O firmware deve timestampar cada amostra com resolução e transmitir via Wi-Fi ou MicroSD para a unidade de processamento principal. \\
+RF3 & O firmware deve armazenar os dados em um MicroSD e permitir a recuperação posterior para análise. \\
 \hline
-RF4 & O módulo de processamento principal deve armazenar os dados em banco JSON, garantindo integridade transacional e histórico completo de cada voo. \\
+RF4 & O módulo de processamento principal deve armazenar em arquivo JSON, garantindo integridade no histórico de cada voo. \\
 \hline
 \end{tabular}
 \label{tab:requisitos-funcionais}
@@ -69,25 +65,21 @@ RF4 & O módulo de processamento principal deve armazenar os dados em banco JSON
 \hline
 \textbf{Código} & \textbf{Descrição} \\
 \hline
-RQ01 & Importar dados de voo em JSON de dispositivo externo \\
+RQ01 & Exibir gráfico de velocidade vertical vs. tempo. \\
 \hline
-RQ02 & Exibir gráfico de velocidade vertical vs. tempo. \\
+RQ02 & Exibir gráfico de aceleração vertical vs. tempo. \\
 \hline
-RQ03 & Exibir gráfico de aceleração vertical vs. tempo. \\
+RQ03 & Exibir gráfico de dispersão da trajetória no plano X e Y. \\
 \hline
-RQ04 & Exibir gráfico de dispersão da trajetória no plano X e Y. \\
+RQ04 & Exibir gráfico de altitude vs. tempo. \\
 \hline
-RQ05 & Exibir gráfico de altitude vs. tempo. \\
+RQ05 & Exibir valores máximos e mínimos de aceleração, velocidade e ângulo. \\
 \hline
-RQ06 & Exibir valores máximos e mínimos de aceleração, velocidade e ângulo. \\
+RQ06 & Exibir tempo de execução e intervalos de amostragem. \\
 \hline
-RQ07 & Exibir tempo de execução e intervalos de amostragem. \\
+RQ07 & Exportar dados do voo em JSON. \\
 \hline
-RQ08 & Exportar dados do voo em CSV. \\
-\hline
-RQ09 & Importar arquivos CSV para comparação e simulação. \\
-\hline
-RQ10 & Aplicar filtro de média móvel nos dados dos sensores. \\
+RQ08 & Aplicar filtro de média móvel nos dados de voo. \\
 \hline
 \end{tabular}
 \label{tab:requisitos_detalhados} % A label for referencing the table
@@ -104,13 +96,9 @@ RQ10 & Aplicar filtro de média móvel nos dados dos sensores. \\
 \hline
 \textbf{Código} & \textbf{Descrição} \\
 \hline
-RH1 & Base de lançamento em alumínio ou aço inox, peso máximo de 2 kg, dimensões não superiores a 30 × 30 × 40 cm. \\
+RH1 & Microcontrolador com ADC de 12 bits ou superior, memória RAM maior que 64 kB e Flash maior que 256 kB. \\
 \hline
-RH2 & Atuador de torque maior que 5 Nm para ajuste de ângulo, suportando 12 V DC. \\
-\hline
-RH3 & Microcontrolador de 32 bits com ADC de 12 bits ou superior, memória RAM maior que 64 kB e Flash maior que 256 kB. \\
-\hline
-RH4 & Bateria capaz de alimentar todo o sistema. \\
+RH2 & Bateria capaz de alimentar todo o sistema. \\
 \hline
 \end{tabular}
 \label{tab:requisitos-hardware}
@@ -128,10 +116,6 @@ RH4 & Bateria capaz de alimentar todo o sistema. \\
 \textbf{Código} & \textbf{Descrição} \\
 \hline
 RC1 & Custo total de componentes eletrônicos, mecânicos e estruturais não deve exceder R\$ 1.000,00. \\
-%\hline
-%RC2 & Todos os sensores e atuadores devem ser de fornecedores com garantia mínima de 1 ano. \\
-\hline
-RC2 & Materiais de construção (tubos, fixadores, conexões) devem ser reutilizáveis e modulares, facilitando montagem/desmontagem em menos de 1 h. \\
 \hline
 \end{tabular}
 \label{tab:requisitos-custos}

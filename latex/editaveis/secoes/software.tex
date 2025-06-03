@@ -1,0 +1,162 @@
+\section{Descrição de Software}
+
+O pacote de trabalho de Planejamento e Gerenciamento foi modelado utilizando a notação BPMN, conforme ilustrado na Figura~\ref{fig_bpmn}. A utilização do BPMN permite representar de forma clara e padronizada os processos do projeto, facilitando a compreensão, a análise e a comunicação entre os envolvidos. Por meio desse modelo, é possível visualizar as atividades, os responsáveis, os fluxos de informações e as dependências, contribuindo para uma gestão mais eficiente e alinhada aos objetivos do projeto.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm]{figuras/bpmn.png}
+\caption{1.1 – BPMN}
+\label{fig_bpmn}
+\end{figure}
+
+% -------------------------------------------------------------
+% MOSCOW
+% -------------------------------------------------------------
+
+\begin{samepage}
+O pacote MOSCOW é uma técnica de priorização de requisitos que classifica as funcionalidades em quatro categorias: Must have (deve ter), Should have (deveria ter), Could have (poderia ter) e Won't have this time (não terá desta vez). Essa abordagem ajuda a focar no que é essencial para o sucesso do projeto, garantindo que os recursos sejam alocados de forma eficiente. A Figura \ref{tab:requisitos_projeto} ilustra a aplicação dessa técnica no contexto do projeto.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\caption{Tabela de Requisitos do Projeto}
+\begin{tabular}{|l|p{8cm}|l|}
+\hline
+\textbf{ID} & \textbf{DESCRIÇÃO} & \textbf{PRIORIDADE} \\
+\hline
+RQ01 & Importar dados de voo em JSON de dispositivo externo & Must have \\
+\hline
+RQ02 & Exibir gráfico de velocidade vertical vs. tempo. & Must have \\
+\hline
+RQ03 & Exibir gráfico de aceleração vertical vs. tempo. & Must have \\
+\hline
+RQ04 & Exibir gráfico de dispersão da trajetória no plano X e Y. & Must have \\
+\hline
+RQ05 & Exibir gráfico de altitude vs. tempo. & Must have \\
+\hline
+RQ06 & Exibir valores máximos e mínimos de aceleração, velocidade e ângulo. & Should have \\
+\hline
+RQ07 & Exibir tempo de execução e intervalos de amostragem. & Should have \\
+\hline
+RQ08 & Exportar dados do voo em JSON. & Must have \\
+\hline
+RQ09 & Importar arquivos JSON para comparação e simulação. & Must have \\
+\hline
+RQ10 & Aplicar filtro de média móvel nos dados dos sensores. & Should have \\
+\hline
+\end{tabular}
+\label{tab:requisitos_projeto}
+\end{table}
+
+\end{samepage}
+
+
+% -------------------------------------------------------------
+% REQUISITOS NÃO-FUNCIONAIS
+% -------------------------------------------------------------
+
+\begin{samepage}
+Os requisitos não-funcionais são critérios que definem a qualidade e as restrições do sistema, como desempenho, segurança, usabilidade e portabilidade. Eles são essenciais para garantir que o sistema atenda às expectativas dos usuários e funcione de maneira eficiente em diferentes ambientes. A Tabela \ref{tab:requisitos_nao_funcionais} apresenta os requisitos não-funcionais identificados para o projeto.
+
+\begin{table}[H]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\caption{Requisitos Não-Funcionais}
+\begin{tabular}{|l|p{11cm}|}
+\hline
+\textbf{ID} & \textbf{DESCRIÇÃO} \\
+\hline
+RNF01 & Os dados dos lançamentos devem ser armazenados localmente de forma que não possam ser corrompidos em caso de desligamento inesperado. \\
+\hline
+RNF02 & O software deve validar a integridade dos arquivos JSON antes de processar os dados. \\
+\hline
+RNF03 & O software deve ser multiplataforma, funcionando em pelo menos Windows, Linux e MacOS. \\
+\hline
+RNF04 & Não deve depender de conexão com internet para funcionar. \\
+\hline
+RNF05 & A geração de relatórios e gráficos não deve exceder 3 segundos para arquivos de até 100 lançamentos. \\
+\hline
+RNF06 & A interface gráfica (GUI) deve ser intuitiva, com botões claros para importar dados, gerar gráficos e acessar os lançamentos anteriores. \\
+\hline
+RNF07 & O CLI deve ter comandos simples. \\
+\hline
+\end{tabular}
+\label{tab:requisitos_nao_funcionais}
+\end{table}
+\end{samepage}
+
+% -------------------------------------------------------------
+% CASOS DE USO
+% -------------------------------------------------------------
+
+\begin{samepage}
+
+O pacote de Casos de Uso é uma técnica de modelagem que descreve as interações entre os usuários (atores) e o sistema, detalhando como os requisitos funcionais serão atendidos. Os casos de uso ajudam a identificar as funcionalidades essenciais do sistema e a garantir que todas as partes interessadas tenham uma compreensão clara dos objetivos do projeto. A Figura \ref{fig_casos_de_uso} apresenta um exemplo de diagrama de casos de uso utilizado no projeto.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{figuras/caso_de_uso.png}
+	\caption{1.3 – Casos de Uso}
+	\label{fig_casos_de_uso}
+\end{figure}
+\end{samepage}
+
+% -------------------------------------------------------------
+% DIAGRAMA DE ENTIDADE-RELACIONAMENTO
+% -------------------------------------------------------------
+
+\begin{samepage}
+
+O Diagrama de Entidade-Relacionamento (DER) é uma técnica de modelagem de dados que representa as entidades do sistema e os relacionamentos entre elas. É fundamental para a construção do banco de dados e para garantir que os dados sejam organizados de forma eficiente. A Figura \ref{fig_der} ilustra um exemplo de DER utilizado no projeto.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{figuras/der.png}
+	\caption{1.3 – Diagrama de Entidade-Relacionamento}
+	\label{fig_der}
+\end{figure}
+
+Após isso, podemos modelar os atributos de cada entidade, conforme os dados que receberemos da ERP32, que calculará movimentos de unidade de medição inercial pelo sensor de 6 eixos, como o acelerômetro e o giroscópio. A Figura \ref{fig_atributos} apresenta um exemplo de atributos modelados para as entidades do sistema.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{figuras/atributos.png}
+	\caption{1.3 – Atributos das Entidades}
+	\label{fig_atributos}
+\end{figure}
+
+\end{samepage}
+
+% -------------------------------------------------------------
+% ARQUITETURA DO SOFTWARE
+% -------------------------------------------------------------
+
+% \section{Estilo Arquitetural}
+
+% \subsection{Padrão Adotado: Monolítico}
+
+\begin{samepage}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth,height=0.5\textheight,keepaspectratio]{figuras/arquitetura.png}
+	\caption{Arquitetura do Software}
+	\label{fig_arquitetura}
+\end{figure}
+
+O padrão arquitetural escolhido é o Monolítico, por se tratar de um sistema simples, com poucos módulos e baixa complexidade. A adoção de uma arquitetura mais robusta, como microsserviços, não se justifica neste contexto, uma vez que todo o processamento ocorre localmente e o software não possui dependências distribuídas. 
+
+A arquitetura monolítica permite concentrar todas as funcionalidades como leitura de dados, processamento, geração de relatórios e apresentação dos resultados em um único sistema, facilitando o desenvolvimento, testes e manutenção dentro dos requisitos do projeto, como visto na Figura \ref{fig_arquitetura}.
+
+As linguagens de programação escolhidas para o desenvolvimento do software são Python e JavaScript, cada uma com suas responsabilidades específicas dentro do sistema.
+
+Python é responsável pelo desenvolvimento do backend e da interface de linha de comando (CLI). Utilizado para processamento dos dados, geração de relatórios, análises estatísticas e manipulação dos arquivos JSON. Utilizamos as bibliotecas Pandas para manipulação e análise de dados. NumPy para cálculos matemáticos e operações com arrays. E Matplotlib para criação de gráficos e visualizações dos dados.
+
+JavaScript é utilizado no desenvolvimento do frontend (GUI), através da biblioteca React, para apresentar visualmente os dados dos lançamentos de forma interativa e amigável.
+
+Neste projeto, não será utilizado um banco de dados tradicional. Os dados dos lançamentos serão armazenados localmente em arquivos JSON, por se tratar de uma solução leve, simples e suficiente para o volume de dados do projeto. Cada arquivo JSON conterá os dados de um lançamento específico, organizados de forma que possam ser facilmente acessados tanto pela CLI quanto pela interface gráfica.
+
+\end{samepage}
+
+\include{editaveis/secoes/testes}
