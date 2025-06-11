@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 1200px;
+    margin: auto;
+    /* background-color: #0E1117; */
+    color: #eee;
+    background-color: blue;
+}
+
+h1{
+    margin: 20px 0 20px 0;    
+}
+
+.container {
+    background-color: red;
+    height: 85dvh;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+}
+
+section {
+    background-color: green;
+    height: 100%;
+}
+
+.sec1-grafico {
+    height: 80%;
+    background-color: yellow;
+}
+
+.sec1-selects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 20%;
+    background-color: aqua;
+}
+
+.sec1-selects-buttons {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    justify-content: space-around;
+    background-color: blueviolet;
+}
+
+.iniciar {
+    padding: 10px 25px;
+    background-color: #70f37d;
+}
+
+.excluir {
+    padding: 5px 25px;
+    background-color: #d74c4c;
+}
+
+.sec-2 {
+    display: grid;
+    gap: 6px;
+}
+
+.sec-2 > div {
+    background-color: coral;
+}
+
+.sec-3 h2{
+    margin: 0 0 20px 0;
+}
+
+.sec-3 p {
+    padding: 0 0 0 10px;
+}
+
+.sec-3 {
+    background-color: darkred;
+    position: relative;
+}
+.sec-3 button {
+    position: absolute;
+    bottom: 5%;
+    right: 10%;
+    padding: 5px 12px;
+}
+
