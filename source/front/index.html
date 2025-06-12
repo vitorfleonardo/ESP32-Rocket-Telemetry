@@ -2,82 +2,80 @@
 <html lang="pt-br">
 
 <head>
-
-	<title>Análise de Vôo</title>
-	<meta name="description" content="Criador e archipélagos.">
-
-	<link rel="icon" href="./assets/logo.svg" type="image/svg+xml">
-
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<base href=".">
-
-	<link rel="stylesheet" href="css/main.css">
-
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
-
+    <title>Análise de Vôo</title>
+    <meta name="description" content="Criador e archipélagos.">
+    <link rel="icon" href="./assets/logo.svg" type="image/svg+xml">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href=".">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 </head>
 
 <body>
-	<h1>GRUPO 2 AJAX</h1>
+    <h1>GRUPO 2 AJAX</h1>
     <div class="container">
         <section class="sec-1">
-            <div class="sec1-grafico">
-            </div>
+            <div class="sec1-grafico"></div>
             <div class="sec1-selects">
                 <div class="sec1-selects-buttons">
-                    <button class="iniciar">Iniciar</button>
-                    <button class="excluir">Excluir</button>
+                    <button class="iniciar" onclick="iniciar()">Iniciar</button>
+                    <button class="excluir" onclick="excluir()">Excluir</button>
                 </div>
-                <div>
-                    <p>X voos selecionados</p>
-                    <div>
-                        <input type="checkbox">
-                        <label>voo1</label>
-                        <input type="checkbox">
-                        <label>voo2</label>
-                    </div>
+                <div class="sec1-selects-voos">
+                    <label for="voos-selecionados" class="numero-voos" onclick="selecionar_voos()">
+                        0 voos selecionados
+                    </label>
                 </div>
             </div>
         </section>
         <section class="sec-2">
             <div class="sec2-grafico1">
-                <h2>G1</h2>
+                <h3>Velocidade</h3>
                 <div></div>
             </div>
             <div class="sec2-grafico2">
-                <h2>G2</h2>
+                <h3>Aceleração</h3>
                 <div></div>
             </div>
             <div class="sec2-grafico3">
-                <h2>G3</h2>
+                <h3>Angulo X</h3>
                 <div></div>
             </div>
             <div class="sec2-grafico4">
-                <h2>G4</h2>
+                <h3>Angulo Y</h3>
                 <div></div>
             </div>
         </section>
         <section class="sec-3">
             <h2>TELEMETRIA</h2>
-            <p>dkaw</p>
-            <p>dkaw</p>
-            <p>dkaw</p>
-            <p>dkaw</p>
-            <p>dkaw</p>
-            <p>dkaw</p>
-            <p>dkaw</p>
-            <p>dkaw</p>
-            <button>
-                Exportar
-            </button>
+            <p>Nivel de Bateria</p>
+            <p>Temperatura</p>
+            <p>Altitude</p>
+            <p>Aceleração máxima</p>
+            <p>Velocidade máxima</p>
+            <p>Alcance máximo em X</p>
+            <p>Alcance máximo em Y</p>
+            <p>Angulo inicial</p>
+            <button onclick="exportar()">Exportar</button>
         </section>
     </div>
-</body>
 
-<script defer type="module" src="./main.js"></script>
+    <div id="popup-voos" class="popup oculto">
+        <div class="popup-conteudo">
+            <h3>Selecionar Voos</h3>
+            <select class="voos-selecionados" multiple></select>
+            <button onclick="confirmarVoos()">Confirmar</button>
+        </div>
+    </div>
+
+    <!-- <footer>
+        <p>Desenvolvido com ❤️ por Grupo 2</p>
+    </footer> -->
+
+    <script src="./main.js"></script>
+</body>
 
 </html>
