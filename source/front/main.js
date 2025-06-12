@@ -68,14 +68,158 @@ function criarGraficoVazio() {
                 }
             },
             plugins: {
-                title: {
-                    display: true,
-                    text: 'Altitude vs Tempo (Selecione os Voos)'
-                },
                 tooltip: {
                     mode: 'index',
                     intersect: false
                 }
+            }
+        }
+    });
+
+    const ctx_v = document.querySelector('.grafico-velocidade').getContext('2d');
+    graficoVelocidade = new Chart(ctx_v, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: []
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        text: 'Tempo (s)'
+                    }
+                },
+                y: {
+                    title: {
+                        text: 'velocidade'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                },
+                legend: {
+                    display: false, 
+                    position: 'top'
+                },
+            }
+        }
+    });
+
+    const ctx_a = document.querySelector('.grafico-aceleracao').getContext('2d');
+    graficoAceleracao = new Chart(ctx_a, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: []
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        text: 'Tempo (s)'
+                    }
+                },
+                y: {
+                    title: {
+                        text: 'aceleração'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                },
+                legend: {
+                    display: false, 
+                    position: 'top'
+                },
+            }
+        }
+    });
+
+    const ctx_ax = document.querySelector('.grafico-angulox').getContext('2d');
+    graficoAnguloX = new Chart(ctx_ax, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: []
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        text: 'Tempo (s)'
+                    }
+                },
+                y: {
+                    title: {
+                        text: 'angulo X'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                },
+                legend: {
+                    display: false, 
+                    position: 'top'
+                },
+            }
+        }
+    });
+
+    const ctx_ay = document.querySelector('.grafico-anguloy').getContext('2d');
+    graficoAnguloY = new Chart(ctx_ay, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: []
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    title: {
+                        text: 'Tempo (s)'
+                    }
+                },
+                y: {
+                    title: {
+                        text: 'angulo Y'
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                },
+                legend: {
+                    display: false, 
+                    position: 'top'
+                },
             }
         }
     });
@@ -87,6 +231,26 @@ async function atualizarGraficoGeral() {
         const todosVoos = await response.json();
 
         const dadosGrafico = {
+            labels: [],
+            datasets: []
+        };
+
+        const dadosGraficoVelocidade = {
+            labels: [],
+            datasets: []
+        };
+
+        const dadosGraficoAceleracao = {
+            labels: [],
+            datasets: []
+        };
+
+        const dadosGraficoAnguloX = {
+            labels: [],
+            datasets: []
+        };
+
+        const dadosGraficoAnguloY = {
             labels: [],
             datasets: []
         };
@@ -119,11 +283,47 @@ async function atualizarGraficoGeral() {
                 fill: false,
                 tension: 0.1
             });
+
+            dadosGraficoVelocidade.datasets.push({
+                data: tempo.map((t, i) => ({ x: t, y: altitude ? altitude [i] : null })),
+                borderColor: cores [index % cores.length],
+                fill: false,
+                tension: 0.1
+            });
+
+            dadosGraficoAceleracao.datasets.push({
+                data: tempo.map((t, i) => ({ x: t, y: altitude ? altitude [i] : null })),
+                borderColor: cores [index % cores.length],
+                fill: false,
+                tension: 0.1
+            });
+
+            dadosGraficoAnguloX.datasets.push({
+                data: tempo.map((t, i) => ({ x: t, y: altitude ? altitude [i] : null })),
+                borderColor: cores [index % cores.length],
+                fill: false,
+                tension: 0.1
+            });
+
+            dadosGraficoAnguloY.datasets.push({
+                data: tempo.map((t, i) => ({ x: t, y: altitude ? altitude [i] : null })),
+                borderColor: cores [index % cores.length],
+                fill: false,
+                tension: 0.1
+            });
         });
 
         graficoGeral.data = dadosGrafico;
-        graficoGeral.options.plugins.title.text = 'Altitude vs Tempo (Voos Selecionados)';
+        graficoVelocidade.data = dadosGraficoVelocidade;
+        graficoAceleracao.data = dadosGraficoAceleracao;
+        graficoAnguloX.data = dadosGraficoAnguloX;
+        graficoAnguloY.data = dadosGraficoAnguloY;
+
         graficoGeral.update();
+        graficoVelocidade.update();
+        graficoAceleracao.update();
+        graficoAnguloX.update();
+        graficoAnguloY.update();
 
     } catch (error) {
         console.error("Erro ao carregar dados para o gráfico:", error);
