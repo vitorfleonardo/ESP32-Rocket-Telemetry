@@ -18,18 +18,21 @@
     <h1>GRUPO 2 AJAX</h1>
     <div class="container">
         <section class="sec-1">
+            <h2>ALTITUDE</h2>
             <div class="sec1-grafico">
                 <canvas class="grafico-geral"></canvas>
             </div>
             <div class="sec1-selects">
-                <div class="sec1-selects-buttons">
-                    <button class="iniciar" onclick="iniciar()">Iniciar</button>
-                    <button class="excluir" onclick="excluir()">Excluir</button>
-                </div>
                 <div class="sec1-selects-voos">
+                    <input type="file" class="csv-voo" accept=".csv" style="display: none;" />
+                    <button class="abrir-popup-novo-voo">ADICIONAR ✈️</button>
                     <label for="voos-selecionados" class="numero-voos" onclick="selecionar_voos()">
                         0 voos selecionados
                     </label>
+                </div>
+                <div class="sec1-selects-buttons">
+                    <button class="iniciar" onclick="iniciar()">Iniciar</button>
+                    <button class="excluir" onclick="excluir()">Excluir</button>
                 </div>
             </div>
         </section>
@@ -61,9 +64,9 @@
         </section>
         <section class="sec-3">
             <h2>TELEMETRIA</h2>
-            <p>Nivel de Bateria</p>
-            <p>Temperatura</p>
-            <p>Altitude</p>
+            <!--<p>Nivel de Bateria</p>
+            <p>Temperatura</p>-->
+            <p>Maior altitude</p>
             <p>Aceleração máxima</p>
             <p>Velocidade máxima</p>
             <p>Alcance máximo em X</p>
@@ -74,6 +77,7 @@
     </div>
 
     <div id="popup-voos" class="popup oculto">
+        <div onclick="fechar_popup()" id="fundo"></div>
         <div class="popup-conteudo">
             <h3>Selecionar Voos</h3>
             <select class="voos-selecionados" multiple></select>
@@ -81,9 +85,27 @@
         </div>
     </div>
 
-    <!-- <footer>
+    <div id="popup-novo-voo" class="popup oculto">
+        <div class="popup-fundo-novo-voo" onclick="fecharPopupNovoVoo()"></div>
+        <div class="popup-conteudo">
+            <h3>Adicionar Novo Voo</h3>
+            <input type="text" name="nome" class="input-nome-voo" placeholder="Nome do Voo (Ex: Voo Teste 1)">
+            <input type="text" name="angulo" class="input-angulo-voo" placeholder="Ângulo de Lançamento">
+            <input type="text" name="distancia" class="input-distancia-voo" placeholder="Distância Alvo">
+            
+            <button class="btn-adicionar-csv">ADICIONAR CSV</button>
+            <span class="nome-arquivo-csv">Nenhum arquivo selecionado</span>
+
+            <div class="popup-botoes">
+                <button class="btn-concluir-voo">CONCLUIR</button>
+                <button class="btn-cancelar-voo" onclick="fecharPopupNovoVoo()">CANCELAR</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
         <p>Desenvolvido com ❤️ por Grupo 2</p>
-    </footer> -->
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./main.js"></script>
 </body>

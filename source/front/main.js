@@ -1,6 +1,72 @@
 let voosSelecionadosIds = [];
 let graficoGeral;
 
+document.querySelector(".abrir-popup-novo-voo").addEventListener("click", () => {
+    document.getElementById('popup-novo-voo').classList.remove('oculto');
+});
+
+document.querySelector(".btn-adicionar-csv").addEventListener("click", () => {
+    document.querySelector(".csv-voo").click();
+});
+
+document.querySelector(".btn-concluir-voo").addEventListener("click", salvarNovoVoo);
+
+function fecharPopupNovoVoo() {
+    const popup = document.getElementById('popup-novo-voo');
+    popup.classList.add('oculto');
+    popup.querySelector(".input-nome-voo").value = '';
+    popup.querySelector(".input-angulo-voo").value = '';
+    popup.querySelector(".input-distancia-voo").value = '';
+    popup.querySelector(".nome-arquivo-csv").textContent = 'Nenhum arquivo selecionado';
+    arquivoCsvSelecionado = null;
+}
+
+document.querySelector(".csv-voo").addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        arquivoCsvSelecionado = file;
+        document.querySelector(".nome-arquivo-csv").textContent = file.name;
+    }
+});
+
+function salvarNovoVoo() {
+    const nome = document.querySelector(".input-nome-voo").value;
+    const angulo = document.querySelector(".input-angulo-voo").value;
+    const distancia = document.querySelector(".input-distancia-voo").value;
+
+    if (!nome || !angulo || !distancia || !arquivoCsvSelecionado) {
+        alert("Por favor, preencha todos os campos e selecione um arquivo CSV.");
+        return;
+    }
+
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        const csvData = e.target.result;
+
+        const novoVoo = {
+            id: Date.now(),
+            nome: nome,
+            angulo: angulo,
+            distancia: distancia,
+            csv: csvData
+        };
+
+        const voosSalvos = JSON.parse(localStorage.getItem('dados_voos_salvos')) || [];
+        
+        voosSalvos.push(novoVoo);
+
+		console.log(voosSalvos);
+        // localStorage.setItem('dados_voos_salvos', JSON.stringify(voosSalvos));
+
+        alert(`Voo "${nome}" salvo com sucesso!`);
+        fecharPopupNovoVoo(); 
+    };
+
+    reader.readAsText(arquivoCsvSelecionado, 'ASCII');
+}
+
+
 async function carregarVoos() {
 	try {
 		const response = await fetch('../database.json');
@@ -20,6 +86,10 @@ async function carregarVoos() {
 	} catch (error) {
 		console.error("Erro ao carregar voos:", error);
 	}
+}
+
+function fechar_popup() {
+	document.getElementById('popup-voos').classList.add('oculto');
 }
 
 function selecionar_voos() {
