@@ -7,8 +7,8 @@
 body {
     max-width: 1100px;
     margin: auto;
-    background-color: #0E1117;
-    color: #eee;
+    background-color: #fdfdfd;
+    color: #101010;
 }
 
 h1 {
@@ -16,7 +16,7 @@ h1 {
 }
 
 .container {
-    background-color: #2A2A2A;
+    background-color: #fdfdfd;
     height: 85dvh;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
@@ -46,19 +46,19 @@ section {
 }
 
 .iniciar {
-    padding: 10px 25px;
-    background-color: #0AE966;
+	height: 2rem;
+    background-color: #5acbad;
     border: none;
     cursor: pointer;
     border-radius: 8px;
     color: #eee;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
 }
 
 .excluir {
-    padding: 5px 25px;
-    background-color: #F00000;
+    height: 2rem;
+    background-color: #e12c5c;
     border: none;
     cursor: pointer;
     border-radius: 8px;
@@ -89,12 +89,10 @@ section {
 }
 
 .sec-2 > div {
-    background-color: #232323;
     padding-left: 10px;
 }
 
 .sec-3 {
-    background-color: #232323;
     position: relative;
     border-radius: 0 18px 18px 0;
     padding-left: 10px;
@@ -136,7 +134,6 @@ section {
 }
 
 .popup-conteudo {
-    background-color: #2A2A2A;
     padding: 20px;
     border-radius: 12px;
     width: 300px;
