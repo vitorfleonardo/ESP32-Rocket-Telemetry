@@ -1,3 +1,4 @@
 pandas
-matploblib
+matplotlib
 numpy
+python-dateutil

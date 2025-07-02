@@ -31,6 +31,7 @@ def plot_velocity(flight: FlightData) -> None:
     plt.legend()
     plt.grid(True)
     plt.show()
+    plt.close()  # Fecha a figura para liberar memória
 
 
 # Plota os componentes de aceleração ao longo do tempo
@@ -51,6 +52,7 @@ def plot_acceleration(flight: FlightData) -> None:
     plt.legend()
     plt.grid(True)
     plt.show()
+    plt.close()  # Fecha a figura para liberar memória
 
 
 # Plota os componentes de velocidade angular ao longo do tempo
@@ -71,3 +73,4 @@ def plot_angular_velocity(flight: FlightData) -> None:
     plt.legend()
     plt.grid(True)
     plt.show()
+    plt.close()  # Fecha a figura para liberar memória
