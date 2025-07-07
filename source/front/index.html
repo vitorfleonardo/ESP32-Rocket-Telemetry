@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -19,12 +19,11 @@
     <div class="container">
         <section class="sec-1">
             <h2>ALTITUDE</h2>
-            <div class="sec1-grafico">
+            <div class="sec sec1-grafico">
                 <canvas class="grafico-geral"></canvas>
             </div>
-            <div class="sec1-selects">
+            <div class="sec select sec1-selects">
                 <div class="sec1-selects-voos">
-                    <input type="file" class="csv-voo" accept=".csv" style="display: none;" />
                     <button class="abrir-popup-novo-voo">ADICIONAR ✈️</button>
                     <label for="voos-selecionados" class="numero-voos" onclick="selecionar_voos()">
                         0 voos selecionados
@@ -36,33 +35,33 @@
                 </div>
             </div>
         </section>
-        <section class="sec-2">
-            <div class="sec2-grafico1">
+        <section class="sec sec-2">
+            <div class="sec sec2-grafico1">
                 <h3>Velocidade</h3>
                 <div>
                     <canvas class="grafico-velocidade"></canvas>
                 </div>
             </div>
-            <div class="sec2-grafico2">
+            <div class="sec sec2-grafico2">
                 <h3>Aceleração</h3>
                 <div>
                     <canvas class="grafico-aceleracao"></canvas>
                 </div>
             </div>
-            <div class="sec2-grafico3">
+            <div class="sec sec2-grafico3">
                 <h3>Angulo X</h3>
                 <div>
                     <canvas class="grafico-angulox"></canvas>
                 </div>
             </div>
-            <div class="sec2-grafico4">
+            <div class="sec sec2-grafico4">
                 <h3>Angulo Y</h3>
                 <div>
                     <canvas class="grafico-anguloy"></canvas>
                 </div>
             </div>
         </section>
-        <section class="sec-3">
+        <section class="sec sec-3">
             <h2>TELEMETRIA</h2>
             <!--<p>Nivel de Bateria</p>
             <p>Temperatura</p>-->
@@ -93,6 +92,7 @@
             <input type="text" name="angulo" class="input-angulo-voo" placeholder="Ângulo de Lançamento">
             <input type="text" name="distancia" class="input-distancia-voo" placeholder="Distância Alvo">
             
+            <input type="file" class="csv-voo" accept=".csv" style="display: none;" />
             <button class="btn-adicionar-csv">ADICIONAR CSV</button>
             <span class="nome-arquivo-csv">Nenhum arquivo selecionado</span>
 

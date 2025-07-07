@@ -1,3 +1,5 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
+
 * {
     margin: 0;
     padding: 0;
@@ -8,6 +10,147 @@
     --background-popup: rgba(0, 0, 0, 0.5);
 }
 
+body {
+    font-family: "Inter", sans-serif;
+    background-color: rgb(230, 227, 227);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    height: 100vh;
+
+    >h1 {
+        align-self: flex-end;
+        font-size: 1.25rem;
+
+        padding-top: 1rem;
+        padding-right: 1rem;
+    }
+
+    /* Popups */
+    #popup-voos {
+        display: none;
+    }
+
+    #popup-novo-voo {
+        display: none;
+    }
+
+    /* Geral */
+    >.container {
+        flex: 25;
+
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        column-gap: 1rem;
+        flex-wrap: wrap;
+
+        >section {
+
+            background-color: rgba(255, 255, 255, 0.25);
+            padding: 0.5rem;
+            border-radius: 0.75rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;;
+
+            --canvas-size: 25vh;
+            --canvas-size-small: calc(var(--canvas-size) * 1.25);
+            --canvas-size-big: calc(var(--canvas-size) * 3);
+
+
+            h3, h2 {
+
+                text-align: center;
+                text-transform: uppercase;
+
+            }
+            >.sec {
+
+                >canvas {
+                    /*min-width: var(--canvas-size-small);
+                    min-height: var(--canvas-size-small);*/
+                    aspect-ratio: 1 / 1;
+                }
+
+                &.select {
+                    background-color: rgba(255, 255, 255, 0.25);
+                    padding: 0.5rem 0;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                }
+            }
+
+            /* Altitude */
+            &:first-child {
+
+                >.sec {
+                    >canvas {
+                        /*width: var(--canvas-size-big);
+                        height: var(--canvas-size-big);
+
+                        max-height: 35vw;
+                        max-width: 35vw;*/
+                    }
+                }
+            }
+
+            /* Other graphs */
+            &:nth-child(2) {
+
+                >.sec {
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    flex-basis: 50%;
+                }
+            }
+
+            /* Telemetria */
+            &:last-child {
+
+                background-color: red;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                >button {
+                    color: blue;
+                }
+            }
+
+        }
+        
+    }
+
+    /* Nota */
+    >footer {
+        background-color: rgb(182, 182, 182);
+        width: 100%;
+        flex: 1;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        p {
+            font-weight: bold;
+        }
+    }
+}
+
+/*
 body {
     margin: auto;
     background-color: #fdfdfd;
@@ -228,4 +371,4 @@ section {
 
 .oculto {
     display: none;
-}
+}*/
