@@ -2,14 +2,6 @@
 #include <Wire.h>
 #include "config.h"
 #include <stdio.h>
-#include <freertos/FreeRTOS.h>
-#include <freertos/semphr.h>
-#include <MPU6050.h>
-
-extern MPU6050 mpu;
-extern uint8_t buffer_dados[];
-extern size_t buffer_index;
-extern SemaphoreHandle_t mutex_buffer;
 
 int inicializar_mpu(void) {
   Serial.println("[MPU] Inicializando...");
@@ -23,18 +15,10 @@ int inicializar_mpu(void) {
     return 0;
   }
 
-  // WHO_AM_I extra
-  // uint8_t whoami = mpu.getDeviceID();  // WHO_AM_I = 0x68 esperado
-  // if (whoami != 0x68) {
-  //   Serial.print("[ERRO] MPU WHO_AM_I inválido: 0x");
-  //   Serial.println(whoami, HEX);
-  //   return 0;
-  // }
-
   // Configurações básicas (registradores de forma direta via I2Cdevlib)
   mpu.setSleepEnabled(false);                           // Desliga modo de sono
   mpu.setClockSource(MPU6050_CLOCK_PLL_XGYRO);          // Usa clock do giroscópio X
-  mpu.setRate(4);                                       // 1 kHz / (1 + 4) = 200 Hz
+  mpu.setRate(19);                                       // 1 kHz / (1 + 4) = 200 Hz
   mpu.setDLPFMode(3);                                   // 44 Hz bandwidth
   mpu.setFullScaleGyroRange(MPU6050_GYRO_FS_250);       // ±250 °/s
   mpu.setFullScaleAccelRange(MPU6050_ACCEL_FS_2);       // ±2g
@@ -62,17 +46,26 @@ void ler_fifo_e_salvar(void) {
         * Cada leitura contém: timestamp, ax, ay, az, gx, gy, gz.
     */
 
+    // número de bytes disponíveis na FIFO
     uint16_t fifo_count = mpu.getFIFOCount();
+
+    if (fifo_count >= 1008) {
+        Serial.println("[ALERTA] FIFO quase cheia! Possível risco de overflow.");
+    }
+
+    // Se menos que 12 bytes (1 amostra completa), retorna
     if (fifo_count < 12) return;
 
+    // Garante que vamos ler múltiplos de 12 (1 leitura = 6 eixos * 2 bytes)
     fifo_count = (fifo_count / 12) * 12;
+
     uint8_t fifo_buffer[fifo_count];
-    mpu.getFIFOBytes(fifo_buffer, fifo_count);
+    mpu.getFIFOBytes(fifo_buffer, fifo_count); // lê todos os dados disponíveis
 
     // Timestamp atual
     unsigned long timestamp = micros();
 
-    // evita acesso simultâneo ao buffer_dados
+    // Acessa buffer de forma segura com mutex
     xSemaphoreTake(mutex_buffer, portMAX_DELAY);
 
     // Loop para processar todos os blocos de 12 bytes (amostras) lidos do FIFO
@@ -86,10 +79,13 @@ void ler_fifo_e_salvar(void) {
 
     //Serial.printf("%lu,%d,%d,%d,%d,%d,%d\n", timestamp, ax, ay, az, gx, gy, gz);
 
-    buffer_index += snprintf((char*)&buffer_dados[buffer_index],
-                         BUFFER_SIZE_BYTES - buffer_index,
-                         "%lu,%d,%d,%d,%d,%d,%d\n",
-                         timestamp, ax, ay, az, gx, gy, gz);
-  }
+    buffer_index += snprintf(
+                        (char*)&buffer_dados[buffer_index],
+                        BUFFER_SIZE_BYTES - buffer_index,
+                        "%lu,%d,%d,%d,%d,%d,%d\n",
+                        timestamp, ax, ay, az, gx, gy, gz
+                        );
+    } 
+
     xSemaphoreGive(mutex_buffer);
 }

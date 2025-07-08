@@ -23,7 +23,8 @@ estado_t estado_atual = ESTADO_IDLE;
 uint8_t buffer_dados[BUFFER_SIZE_BYTES];
 size_t buffer_index = 0;
 SemaphoreHandle_t mutex_buffer = NULL;
-volatile bool botao_pressionado = false;
+TaskHandle_t handleColeta = NULL;
+TaskHandle_t handleGravacao = NULL;
 MPU6050 mpu;
 
 void tarefa_coleta(void *arg) {
@@ -33,7 +34,6 @@ void tarefa_coleta(void *arg) {
     * A tarefa roda continuamente com um delay de 100 ms.
     * Se o estado atual for ESTADO_FINALIZADO, a tarefa não faz nada.
   */
-  Serial.println("entrou t_coleta");
   while (true) {
     if (estado_atual == ESTADO_COLETANDO) {
       ler_fifo_e_salvar();
@@ -57,21 +57,11 @@ void tarefa_gravacao(void *arg) {
   }
 }
 
-void IRAM_ATTR isr_botao() {
-  static int64_t ultimo_press = 0;
-  int64_t agora = micros();
-
-  if ((agora - ultimo_press) > DEBOUNCE_TIME_MS * 1000) {
-    ultimo_press = agora;
-    botao_pressionado = true; // apenas sinaliza o evento
-  }
-}
-
 void setup() {
   Serial.begin(115200);
   while (!Serial) {}
   
-  // Inicializa i2c e frequencia 100 khz
+  // Inicializa i2c e frequencia
   Wire.begin(I2C_SDA_IO, I2C_SCL_IO);
   Wire.setClock(I2C_FREQ_HZ);
 
@@ -79,50 +69,66 @@ void setup() {
   inicializar_sd();
   
   // Configura botão
-  pinMode(BUTTON_GPIO, INPUT); //define o pino como entrada
-  attachInterrupt(digitalPinToInterrupt(BUTTON_GPIO), isr_botao, FALLING); //espera a interrupçao, e chama a funçao isr_botao quando o sinal sair de High para low
+  pinMode(BUTTON_GPIO, INPUT_PULLUP);
 
-  // // Cria mutex
+  // Cria mutex
   mutex_buffer = xSemaphoreCreateMutex();
-
-  if (mutex_buffer == NULL) {
-    Serial.println("[ERRO] Falha ao criar mutex");
-    while (true); // para tudo
-  }
-  Serial.println("[SETUP] Mutex criado.");
 }
 
 void loop() {
-  if (botao_pressionado) {
-    botao_pressionado = false;
+  int leitura = digitalRead(BUTTON_GPIO);
+   
+  // Se a chave for ligada e ainda estamos em repouso
+  if (leitura == HIGH && estado_atual == ESTADO_IDLE) { 
+    Serial.println("[BOTAO] Iniciando coleta e gravacao");
+    estado_atual = ESTADO_COLETANDO;
 
-    if (estado_atual == ESTADO_IDLE) {
-      Serial.println("[BOTAO] Iniciaando coleta e gravacao");
-      estado_atual = ESTADO_COLETANDO;
+    mpu.setSleepEnabled(true);
+    vTaskDelay(pdMS_TO_TICKS(100));
 
-      if (inicializar_mpu()) {
-        xTaskCreate(tarefa_coleta, "coleta", 4096, NULL, 2, NULL);
-        xTaskCreate(tarefa_gravacao, "gravacao", 4096, NULL, 1, NULL);
-      } else {
-        Serial.println("Falha ao conectar com MPU6050.");
-        estado_atual = ESTADO_IDLE;
-      }
-
-    } else if (estado_atual == ESTADO_COLETANDO) {
-      Serial.println("[BOTÃO] Finalizar coleta");
-      estado_atual = ESTADO_FINALIZADO;
-
-      // Desativa FIFO
-      mpu.setFIFOEnabled(false);
-      mpu.resetFIFO();
-      Serial.println("[MPU] FIFO desativada e limpa.");
-
-      // Salva o que restar no buffer
-      if (mutex_buffer != NULL) {
-        salvar_sd_card();
-        Serial.println("[SD] Dados finais salvos.");
-      }
+    if (inicializar_mpu()) {
+      xTaskCreate(tarefa_coleta, "coleta", 4096, NULL, 3,  &handleColeta);
+      xTaskCreate(tarefa_gravacao, "gravacao", 4096, NULL, 2, &handleGravacao);
+    } else {
+      Serial.println("Falha ao conectar com MPU6050.");
+      estado_atual = ESTADO_IDLE;
     }
+  
+  // Se a chave for desligada e estávamos coletando
+  } else if (leitura == LOW && estado_atual == ESTADO_COLETANDO) {
+    Serial.println("[BOTAO] Finalizar coleta");
+    estado_atual = ESTADO_FINALIZADO;
+
+    mpu.setFIFOEnabled(false);
+    mpu.resetFIFO();
+    mpu.setSleepEnabled(true);
+    vTaskDelay(pdMS_TO_TICKS(100));
+    Serial.println("[MPU] FIFO desativada e limpa.");
+
+    if (mutex_buffer != NULL) {
+      salvar_sd_card();
+      Serial.println("[SD] Dados finais salvos.");
+    }
+    if (handleColeta != NULL) {
+      vTaskDelete(handleColeta);
+      handleColeta = NULL;
+    }
+    if (handleGravacao != NULL) {
+      vTaskDelete(handleGravacao);
+      handleGravacao = NULL;
+    }
+
+    // Volta ao estado inicial aguardando novo acionamento
+    estado_atual = ESTADO_IDLE;
   }
+
+  vTaskDelay(pdMS_TO_TICKS(200));
 }
+  
+
+  
+
+
+
+
 
