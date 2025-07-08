@@ -155,7 +155,7 @@ function criarGraficoVazio() {
 		},
 		options: {
 			responsive: true,
-			maintainAspectRatio: false,
+			maintainAspectRatio: true,
 			scales: {
 				x: {
 					type: 'linear',
@@ -192,7 +192,7 @@ function criarGraficoVazio() {
 		},
 		options: {
 			responsive: true,
-			maintainAspectRatio: false,
+			maintainAspectRatio: true,
 			scales: {
 				x: {
 					type: 'linear',
@@ -229,7 +229,7 @@ function criarGraficoVazio() {
 		},
 		options: {
 			responsive: true,
-			maintainAspectRatio: false,
+			maintainAspectRatio: true,
 			scales: {
 				x: {
 					type: 'linear',
@@ -266,7 +266,7 @@ function criarGraficoVazio() {
 		},
 		options: {
 			responsive: true,
-			maintainAspectRatio: false,
+			maintainAspectRatio: true,
 			scales: {
 				x: {
 					type: 'linear',
@@ -415,6 +415,12 @@ async function exportar() {
 		const voosFiltrados = data.filter(voo =>
 			voosSelecionadosIds.includes(voo.id_voo)
 		);
+
+		if (!voosFiltrados.length) {
+			window.alert("Nenhum voo selecionado para exportar.");
+			return;
+		}
+
 		const blob = new Blob(
 			[JSON.stringify(voosFiltrados, null, 2)],
 			{ type: 'application/json' }
