@@ -21,51 +21,51 @@
 	</div>
     <div class="container">
         <section class="sec-1">
-            <h2>altitude</h2>
+            <h2>Altitude (m)</h2>
             <div class="sec graph sec1-grafico">
                 <canvas class="grafico-geral"></canvas>
             </div>
             <div class="sec select sec1-selects">
                 <div class="flights sec1-selects-voos">
-                    <button class="abrir-popup-novo-voo">Adicionar voo</button>
+                    <button class="add-flight">Adicionar voo</button>
                     <label for="voos-selecionados" class="numero-voos" onclick="selecionar_voos()">
                         0 voos selecionados
                     </label>
                 </div>
-                <div class="buttons sec1-selects-buttons">
+                <!-- <div class="buttons sec1-selects-buttons">
                     <button class="start iniciar" onclick="iniciar()">Iniciar</button>
                     <button class="delete excluir" onclick="excluir()">Excluir</button>
-                </div>
+                </div> -->
             </div>
         </section>
 		<section class="sec sec-2">
 			<div class="sec sec2-grafico1">
-				<h3>velocidade</h3>
+				<h3>Velocidade (m/s)</h3>
 				<div>
 					<canvas class="grafico-velocidade"></canvas>
 				</div>
 			</div>
 			<div class="sec sec2-grafico2">
-				<h3>aceleração</h3>
+				<h3>Aceleração (m/s²)</h3>
 				<div>
 					<canvas class="grafico-aceleracao"></canvas>
 				</div>
 			</div>
 			<div class="sec sec2-grafico3">
-				<h3>ângulo X</h3>
+				<h3>Ângulo X (°)</h3>
 				<div>
 					<canvas class="grafico-angulox"></canvas>
 				</div>
 			</div>
 			<div class="sec sec2-grafico4">
-				<h3>ângulo Y</h3>
+				<h3>Ângulo Y (°)</h3>
 				<div>
 					<canvas class="grafico-anguloy"></canvas>
 				</div>
 			</div>
         </section>
         <section class="sec sec-3">
-            <h2>telemetria</h2>
+            <h2>Telemetria</h2>
             <!--<p>Nivel de Bateria</p>
             <p>Temperatura</p>-->
             <p>
@@ -96,17 +96,20 @@
         </section>
     </div>
 
-    <div id="popup-voos" class="popup oculto">
+    <div id="popup-voos" class="popup select-flights oculto">
         <div class="background" onclick="fechar_popup()" id="fundo"></div>
         <div class="popup-conteudo">
             <h3>Selecionar Voos</h3>
             <select class="voos-selecionados" multiple></select>
-            <button class="contrast" onclick="confirmarVoos()">Confirmar</button>
+			<section class="buttons">
+				<button class="cancel excluir" onclick="excluir()">Excluir</button>
+				<button class="contrast" onclick="confirmarVoos()">Confirmar</button>
+			</section>
         </div>
     </div>
 
-    <div id="popup-novo-voo" class="popup oculto">
-        <div class="background popup-fundo-novo-voo" onclick="fecharPopupNovoVoo()"></div>
+    <div id="popup-novo-voo" class="popup new-flight oculto">
+        <div class="background popup-fundo-novo-voo" onclick="close_popup_new_flight()"></div>
         <div class="popup-conteudo">
             <h3>Novo Voo</h3>
             <input type="text" name="nome" class="input-nome-voo" placeholder="Nome">
@@ -119,7 +122,7 @@
 
             <div class="popup-botoes">
                 <button class="contrast btn-concluir-voo">adicionar</button>
-                <button class="cancel btn-cancelar-voo" onclick="fecharPopupNovoVoo()">cancelar</button>
+                <button class="cancel btn-cancelar-voo" onclick="close_popup_new_flight()">cancelar</button>
             </div>
         </div>
     </div>

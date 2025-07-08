@@ -8,7 +8,7 @@
 
 :root {
 	--background-page: rgb(0 0 0 / 5%);
-	--graph-section: rgb(255 255 255 / 33.33%);
+	--graph-section: #F6F6F6;
     --background-popup: rgba(0, 0, 0, 0.5);
 
 	--button-color: rgb(0 0 0 / 10%);
@@ -72,6 +72,8 @@ body {
 		left: 0;
 		bottom: 0;
 		pointer-events: none;
+
+		z-index: -1;
 	}
 
 	/* Theme switcher */
@@ -154,7 +156,7 @@ body {
 		}
 	}
 
-    #popup-voos {
+    .select-flights {
 		>.popup-conteudo {
 
 			display: flex;
@@ -164,14 +166,25 @@ body {
 			row-gap: 1.25rem;
 
 			>select {
+				padding: 0.5rem;
+
 				--size: 12.5rem;
 				min-width: var(--size);
 				height: var(--size);
+
+				border: 1px solid rgba(0, 0, 0, 0.2);
+			}
+
+			>.buttons {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
 			}
 		}
     }
 
-    #popup-novo-voo {
+    .new-flight {
 		>.popup-conteudo {
 			display: flex;
 			justify-content: center;
@@ -293,6 +306,8 @@ body {
 
 					width: 33.33%;
 
+					
+
 					>.flights {
 
 						display: flex;
@@ -341,11 +356,6 @@ body {
 								}
 							}
 
-							&.delete {
-								background-color: var(--button-cancel);
-								
-								color: white;
-							}
 						}
 					}
 				}

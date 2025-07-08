@@ -1,79 +1,85 @@
 [
   {
-    "id_voo": 1,
-    "data_lancamento": "2025-05-21",
-    "descricao": "Teste estático prolongado do motor principal com vibração controlada",
-    "leituras_imu": [
-      {"id_leitura": 1, "tempo": 0.0, "ax": 0.02, "ay": -0.01, "az": 9.81, "gx": 0.00, "gy": 0.08, "gz": 0.01},
-      {"id_leitura": 2, "tempo": 0.05, "ax": 0.03, "ay": 0.01, "az": 9.79, "gx": 0.01, "gy": 0.09, "gz": 0.02},
-      {"id_leitura": 3, "tempo": 0.10, "ax": -0.01, "ay": 0.02, "az": 28.45, "gx": 0.12, "gy": -0.15, "gz": 0.18},
-      {"id_leitura": 4, "tempo": 0.15, "ax": 0.15, "ay": -0.12, "az": 32.10, "gx": -0.08, "gy": 0.22, "gz": -0.05},
-      {"id_leitura": 5, "tempo": 0.20, "ax": 0.18, "ay": 0.10, "az": 35.25, "gx": 0.15, "gy": -0.18, "gz": 0.12},
-      {"id_leitura": 6, "tempo": 0.25, "ax": -0.10, "ay": -0.08, "az": 29.80, "gx": -0.10, "gy": 0.25, "gz": -0.08},
-      {"id_leitura": 7, "ax": 0.05, "ay": 0.03, "az": 12.15, "gx": 0.05, "gy": -0.12, "gz": 0.03}
+    "id": "2025-05-21",
+    "name": "Teste estático prolongado do motor principal com vibração controlada",
+	"angle": 50,
+	"distance": 1000,
+    "data": [
+      {"timestamp": 0.0, "ax": 0.02, "ay": -0.01, "az": 9.81, "gx": 0.00, "gy": 0.08, "gz": 0.01},
+      {"timestamp": 0.05, "ax": 0.03, "ay": 0.01, "az": 9.79, "gx": 0.01, "gy": 0.09, "gz": 0.02},
+      {"timestamp": 0.10, "ax": -0.01, "ay": 0.02, "az": 28.45, "gx": 0.12, "gy": -0.15, "gz": 0.18},
+      {"timestamp": 0.15, "ax": 0.15, "ay": -0.12, "az": 32.10, "gx": -0.08, "gy": 0.22, "gz": -0.05},
+      {"timestamp": 0.20, "ax": 0.18, "ay": 0.10, "az": 35.25, "gx": 0.15, "gy": -0.18, "gz": 0.12},
+      {"timestamp": 0.25, "ax": -0.10, "ay": -0.08, "az": 29.80, "gx": -0.10, "gy": 0.25, "gz": -0.08},
+      {"timestamp": 0.30, "ax": 0.05, "ay": 0.03, "az": 12.15, "gx": 0.05, "gy": -0.12, "gz": 0.03}
     ]
   },
   {
-    "id_voo": 2,
-    "data_lancamento": "2025-05-22",
-    "descricao": "Lançamento suborbital com manobras programadas",
-    "leituras_imu": [
-      {"id_leitura": 1, "tempo": 0.0, "ax": 0.01, "ay": -0.02, "az": 9.82, "gx": 0.00, "gy": 0.05, "gz": 0.01},
-      {"id_leitura": 2, "tempo": 0.05, "ax": 0.12, "ay": 0.08, "az": 18.35, "gx": 0.02, "gy": 0.12, "gz": 0.03},
-      {"id_leitura": 3, "tempo": 0.10, "ax": 0.18, "ay": -0.15, "az": 27.40, "gx": 0.15, "gy": -0.08, "gz": 0.10},
-      {"id_leitura": 4, "tempo": 0.15, "ax": 0.22, "ay": 0.20, "az": 42.75, "gx": -0.10, "gy": 0.25, "gz": -0.05},
-      {"id_leitura": 5, "tempo": 0.20, "ax": 0.15, "ay": -0.10, "az": 55.60, "gx": 0.18, "gy": -0.15, "gz": 0.12},
-      {"id_leitura": 6, "tempo": 0.25, "ax": -0.05, "ay": 0.03, "az": 62.30, "gx": -0.05, "gy": 0.08, "gz": -0.03},
-      {"id_leitura": 7, "tempo": 0.30, "ax": 0.08, "ay": -0.12, "az": 70.15, "gx": 0.12, "gy": -0.20, "gz": 0.15}
+    "id": "2025-05-22",
+    "name": "Lançamento suborbital com manobras programadas",
+	"angle": 30,
+	"distance": 500,
+    "data": [
+      {"timestamp": 0.0, "ax": 0.01, "ay": -0.02, "az": 9.82, "gx": 0.00, "gy": 0.05, "gz": 0.01},
+      {"timestamp": 0.05, "ax": 0.12, "ay": 0.08, "az": 18.35, "gx": 0.02, "gy": 0.12, "gz": 0.03},
+      {"timestamp": 0.10, "ax": 0.18, "ay": -0.15, "az": 27.40, "gx": 0.15, "gy": -0.08, "gz": 0.10},
+      {"timestamp": 0.15, "ax": 0.22, "ay": 0.20, "az": 42.75, "gx": -0.10, "gy": 0.25, "gz": -0.05},
+      {"timestamp": 0.20, "ax": 0.15, "ay": -0.10, "az": 55.60, "gx": 0.18, "gy": -0.15, "gz": 0.12},
+      {"timestamp": 0.25, "ax": -0.05, "ay": 0.03, "az": 62.30, "gx": -0.05, "gy": 0.08, "gz": -0.03},
+      {"timestamp": 0.30, "ax": 0.08, "ay": -0.12, "az": 70.15, "gx": 0.12, "gy": -0.20, "gz": 0.15}
     ]
   },
   {
-    "id_voo": 3,
-    "data_lancamento": "2025-05-23",
-    "descricao": "Simulação de falha estrutural com recuperação",
-    "leituras_imu": [
-      {"id_leitura": 1, "tempo": 0.0, "ax": 0.00, "ay": -0.01, "az": 9.80, "gx": 0.00, "gy": 0.10, "gz": 0.02},
-      {"id_leitura": 2, "tempo": 0.05, "ax": 0.05, "ay": 0.03, "az": 15.20, "gx": 0.02, "gy": 0.15, "gz": 0.03},
-      {"id_leitura": 3, "tempo": 0.10, "ax": -0.25, "ay": 0.18, "az": 8.75, "gx": 1.20, "gy": -0.85, "gz": 0.45},
-      {"id_leitura": 4, "tempo": 0.15, "ax": 0.35, "ay": -0.30, "az": 5.10, "gx": -1.50, "gy": 1.20, "gz": -0.60},
-      {"id_leitura": 5, "tempo": 0.20, "ax": -0.15, "ay": 0.22, "az": 12.30, "gx": 0.80, "gy": -0.50, "gz": 0.30},
-      {"id_leitura": 6, "tempo": 0.25, "ax": 0.10, "ay": -0.12, "az": 18.75, "gx": -0.40, "gy": 0.35, "gz": -0.15}
+    "id": "2025-05-23",
+    "name": "Simulação de falha estrutural com recuperação",
+	"angle": 45,
+	"distance": 800,
+    "data": [
+      {"timestamp": 0.0, "ax": 0.00, "ay": -0.01, "az": 9.80, "gx": 0.00, "gy": 0.10, "gz": 0.02},
+      {"timestamp": 0.05, "ax": 0.05, "ay": 0.03, "az": 15.20, "gx": 0.02, "gy": 0.15, "gz": 0.03},
+      {"timestamp": 0.10, "ax": -0.25, "ay": 0.18, "az": 8.75, "gx": 1.20, "gy": -0.85, "gz": 0.45},
+      {"timestamp": 0.15, "ax": 0.35, "ay": -0.30, "az": 5.10, "gx": -1.50, "gy": 1.20, "gz": -0.60},
+      {"timestamp": 0.20, "ax": -0.15, "ay": 0.22, "az": 12.30, "gx": 0.80, "gy": -0.50, "gz": 0.30},
+      {"timestamp": 0.25, "ax": 0.10, "ay": -0.12, "az": 18.75, "gx": -0.40, "gy": 0.35, "gz": -0.15}
     ]
   },
   {
-    "id_voo": 4,
-    "data_lancamento": "2025-05-24",
-    "descricao": "Teste de estabilização em alta altitude",
-    "leituras_imu": [
-      {"id_leitura": 1, "tempo": 0.0, "ax": -0.02, "ay": 0.01, "az": -1.25, "gx": 0.00, "gy": 0.05, "gz": 0.01},
-      {"id_leitura": 2, "tempo": 0.05, "ax": 0.03, "ay": -0.03, "az": -1.30, "gx": 0.02, "gy": -0.08, "gz": 0.02},
-      {"id_leitura": 3, "tempo": 0.10, "ax": 0.12, "ay": 0.15, "az": 12.75, "gx": 0.15, "gy": -0.12, "gz": 0.10},
-      {"id_leitura": 4, "tempo": 0.15, "ax": -0.08, "ay": -0.10, "az": 8.45, "gx": -0.10, "gy": 0.18, "gz": -0.05},
-      {"id_leitura": 5, "tempo": 0.20, "ax": 0.05, "ay": 0.03, "az": 6.80, "gx": 0.08, "gy": -0.10, "gz": 0.03}
+    "id": "2025-05-24",
+    "name": "Teste de estabilização em alta altitude",
+	"angle": 60,
+	"distance": 1200,
+    "data": [
+      {"timestamp": 0.0, "ax": -0.02, "ay": 0.01, "az": -1.25, "gx": 0.00, "gy": 0.05, "gz": 0.01},
+      {"timestamp": 0.05, "ax": 0.03, "ay": -0.03, "az": -1.30, "gx": 0.02, "gy": -0.08, "gz": 0.02},
+      {"timestamp": 0.10, "ax": 0.12, "ay": 0.15, "az": 12.75, "gx": 0.15, "gy": -0.12, "gz": 0.10},
+      {"timestamp": 0.15, "ax": -0.08, "ay": -0.10, "az": 8.45, "gx": -0.10, "gy": 0.18, "gz": -0.05},
+      {"timestamp": 0.20, "ax": 0.05, "ay": 0.03, "az": 6.80, "gx": 0.08, "gy": -0.10, "gz": 0.03}
     ]
   },
   {
-    "id_voo": 5,
-    "data_lancamento": "2025-05-25",
-    "descricao": "Teste de reentrada atmosférica simulada",
-    "leituras_imu": [
-      {"id_leitura": 1, "tempo": 0.0, "ax": -3.25, "ay": 2.80, "az": -15.75, "gx": 1.20, "gy": -0.85, "gz": 0.45},
-      {"id_leitura": 2, "tempo": 0.05, "ax": 4.10, "ay": -3.15, "az": -18.20, "gx": -1.50, "gy": 1.10, "gz": -0.60},
-      {"id_leitura": 3, "tempo": 0.10, "ax": -2.75, "ay": 1.95, "az": -22.45, "gx": 0.80, "gy": -0.75, "gz": 0.30},
-      {"id_leitura": 4, "tempo": 0.15, "ax": 3.45, "ay": -2.40, "az": -25.10, "gx": -0.40, "gy": 0.50, "gz": -0.15},
-      {"id_leitura": 5, "tempo": 0.20, "ax": -1.80, "ay": 1.25, "az": -19.75, "gx": 0.25, "gy": -0.30, "gz": 0.10}
+    "id": "2025-05-25",
+    "name": "Teste de reentrada atmosférica simulada",
+	"angle": 75,
+	"distance": 1500,
+    "data": [
+      {"timestamp": 0.0, "ax": -3.25, "ay": 2.80, "az": -15.75, "gx": 1.20, "gy": -0.85, "gz": 0.45},
+      {"timestamp": 0.05, "ax": 4.10, "ay": -3.15, "az": -18.20, "gx": -1.50, "gy": 1.10, "gz": -0.60},
+      {"timestamp": 0.10, "ax": -2.75, "ay": 1.95, "az": -22.45, "gx": 0.80, "gy": -0.75, "gz": 0.30},
+      {"timestamp": 0.15, "ax": 3.45, "ay": -2.40, "az": -25.10, "gx": -0.40, "gy": 0.50, "gz": -0.15},
+      {"timestamp": 0.20, "ax": -1.80, "ay": 1.25, "az": -19.75, "gx": 0.25, "gy": -0.30, "gz": 0.10}
     ]
   },
   {
-    "id_voo": 6,
-    "data_lancamento": "2025-05-26",
-    "descricao": "Teste de sistema de recuperação com paraquedas",
-    "leituras_imu": [
-      {"id_leitura": 1, "tempo": 0.0, "ax": 0.02, "ay": -0.01, "az": -5.80, "gx": 0.00, "gy": 0.05, "gz": 0.01},
-      {"id_leitura": 2, "tempo": 0.05, "ax": 0.12, "ay": 0.08, "az": -8.35, "gx": 0.02, "gy": 0.12, "gz": 0.03},
-      {"id_leitura": 3, "tempo": 0.10, "ax": -0.15, "ay": 0.10, "az": -12.40, "gx": 0.15, "gy": -0.08, "gz": 0.10},
-      {"id_leitura": 4, "tempo": 0.15, "ax": 0.22, "ay": -0.20, "az": -15.75, "gx": -0.10, "gy": 0.25, "gz": -0.05},
-      {"id_leitura": 5, "tempo": 0.20, "ax": -0.10, "ay": 0.05, "az": -9.60, "gx": 0.18, "gy": -0.15, "gz": 0.12}
+    "id": "2025-05-26",
+    "name": "Teste de sistema de recuperação com paraquedas",
+	"angle": 90,
+	"distance": 2000,
+    "data": [
+      {"timestamp": 0.0, "ax": 0.02, "ay": -0.01, "az": -5.80, "gx": 0.00, "gy": 0.05, "gz": 0.01},
+      {"timestamp": 0.05, "ax": 0.12, "ay": 0.08, "az": -8.35, "gx": 0.02, "gy": 0.12, "gz": 0.03},
+      {"timestamp": 0.10, "ax": -0.15, "ay": 0.10, "az": -12.40, "gx": 0.15, "gy": -0.08, "gz": 0.10},
+      {"timestamp": 0.15, "ax": 0.22, "ay": -0.20, "az": -15.75, "gx": -0.10, "gy": 0.25, "gz": -0.05},
+      {"timestamp": 0.20, "ax": -0.10, "ay": 0.05, "az": -9.60, "gx": 0.18, "gy": -0.15, "gz": 0.12}
     ]
   }
 ]
