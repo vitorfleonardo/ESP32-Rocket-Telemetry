@@ -135,7 +135,7 @@ const buttons = {
 
 const inputs = {
 	flight_name: query(".input-nome-voo", HTMLInputElement),
-	flight_angle: query(".input-angulo-voo", HTMLInputElement),
+	// flight_angle: query(".input-angulo-voo", HTMLInputElement),
 	flight_distance: query(".input-distancia-voo", HTMLInputElement),
 	flight_csv: query(".csv-voo", HTMLInputElement),
 	selected_flights: query(".voos-selecionados", HTMLSelectElement),
@@ -157,7 +157,7 @@ function close_popup_new_flight ()
     const popup = query('#popup-novo-voo');
     popup.classList.add('oculto');
     inputs.flight_name.value = '';
-    inputs.flight_angle.value = '';
+    // inputs.flight_angle.value = '';
     inputs.flight_distance.value = '';
     labels.flight_csv_name.textContent = 'Nenhum arquivo selecionado';
     arquivoCsvSelecionado = null;
@@ -178,7 +178,9 @@ inputs.flight_csv.addEventListener("change", () => {
 function salvarNovoVoo ()
 {
 	const name = inputs.flight_name.value;
-    const angle = parseInt(inputs.flight_angle.value);
+    // const angle = parseInt(inputs.flight_angle.value);
+	// Fixed angle to 45 degrees as per the original code.
+	const angle = 45;
     const distance = parseInt(inputs.flight_distance.value);
 
     if (!name || !angle || !distance || !arquivoCsvSelecionado)
