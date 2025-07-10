@@ -146,10 +146,6 @@ const labels = {
 	flights_number: query(".numero-voos", HTMLLabelElement),
 }
 
-if (!buttons.add_flight ) {
-	throw new Error("Button 'add-flight' or popup 'new-flight' not found in the document.");
-}
-
 buttons.add_flight.addEventListener("click", () => popups.new_flight.classList.remove('oculto'));
 
 buttons.add_flight_csv.addEventListener("click", () => query(".csv-voo").click());
@@ -492,10 +488,16 @@ function criarGraficoVazio() {
 	});
 }
 
+
+/**
+ * @typedef {Array<{x: number, y: number}>} PointArray
+ * @typedef {{altitude: PointArray, acceleration: PointArray, speed: PointArray, range: number}} TelemetryData
+ */
+
 /**
  * @description Calculates the acceleration from the IMU data.
  * @param {Array<IMUData>} data
- * @returns {Array<{x: number, y: number}>}
+ * @returns {PointArray}
  * The acceleration is calculated as the square root of the sum of the squares of the acceleration
  * in the x, y, and z axes (ax, ay, az).
  * This is a simplified model and may not represent the actual acceleration in a real-world scenario
@@ -516,7 +518,7 @@ function calculate_acceleration (data)
 /**
  * @description Calculates the angle in the x-axis from the gyroscope data.
  * @param {Array<IMUData>} data
- * @returns {Array<{x: number, y: number}>}
+ * @returns {PointArray}
  * The angle in the x-axis is calculated using the arctangent of the ratio of the
  * gyroscope readings in the y-axis (gy) and the square root of the sum of
  * the squares of the gyroscope readings in the x-axis (gx) and z-axis (gz).
@@ -538,7 +540,7 @@ function calculate_angle_x (data)
 /**
  * @description Calculates the angle in the y-axis from the gyroscope data.
  * @param {Array<IMUData>} data
- * @returns {Array<{x: number, y: number}>}
+ * @returns {PointArray}
  * The angle in the y-axis is calculated using the arctangent of the ratio of the
  * gyroscope readings in the x-axis (gx) and the square root of the sum of
  * the gyroscope readings in the y-axis (gy) and z-axis (gz).
@@ -568,7 +570,7 @@ function calculate_angle_y (data)
  * 3.  An RTS smoother is NOT implemented as it's a separate offline process.
  *
  * @param {Array<IMUData>} data
- * @returns {Array<{x: number, y: number}>}
+ * @returns {PointArray}
  */
 function calculate_velocity(data) {
     // --- Math Helpers for Quaternions, Vectors, and Matrices ---
@@ -725,7 +727,7 @@ function calculate_velocity(data) {
 /**
  * Calculates the altitude by double‐integrating the z‐axis acceleration.
  * @param {Array<IMUData>} data - The IMU data (timestamps should be in ms).
- * @returns {Array<{x: number, y: number}>} - Altitude at each timestamp.
+ * @returns {PointArray} - Altitude at each timestamp.
  */
 function calculate_altitude(data) {
 	const GRAVITY = 9.80665;
@@ -832,29 +834,49 @@ async function atualizarGraficoGeral() {
 			'rgba(139, 69, 19, 1)'
 		];
 
+		let telemetry_max = {
+			altitude: 0,
+			acceleration: 0,
+			speed: 0,
+		}
+
 		flights.forEach((flight, index) => {
 			const timestamp = flight.data.map(leitura => leitura.timestamp);
 			const altitude = flight.data.map(leitura => leitura.az);
 
-			// será o grafico de altitude, mas vou fazer por enquanto usando o "az", aceleracao no eixo z
+			/**
+			 * @type {TelemetryData}
+			 */
+			const telemetry = {
+				altitude: calculate_altitude(flight.data),
+				acceleration: calculate_acceleration(flight.data),
+				speed: calculate_velocity(flight.data),
+				range: flight.distance,
+			};
+
+			telemetry_max = {
+				altitude: Math.max(telemetry_max.altitude, Math.max(...telemetry.altitude.map(p => p.y))),
+				acceleration: Math.max(telemetry_max.acceleration, Math.max(...telemetry.acceleration.map(p => p.y))),
+				speed: Math.max(telemetry_max.speed, Math.max(...telemetry.speed.map(p => p.y))),
+			};
 
 			dadosGrafico.datasets.push({
 				label: `Voo ${flight.id} (${flight.name})`,
-				data: calculate_altitude(flight.data),
+				data: telemetry.altitude,
 				borderColor: cores[index % cores.length],
 				fill: false,
 				tension: 0.1
 			});
 
 			dadosGraficoVelocidade.datasets.push({
-				data: calculate_velocity(flight.data),
+				data: telemetry.speed,
 				borderColor: cores[index % cores.length],
 				fill: false,
 				tension: 0.1
 			});
 
 			dadosGraficoAceleracao.datasets.push({
-				data: calculate_acceleration(flight.data),
+				data: telemetry.acceleration,
 				borderColor: cores[index % cores.length],
 				fill: false,
 				tension: 0.1
@@ -887,13 +909,32 @@ async function atualizarGraficoGeral() {
 		graficoAnguloX.update();
 		graficoAnguloY.update();
 
+		telemetry(telemetry_max);
+
 	} catch (error) {
 		console.error("Erro ao carregar dados para o gráfico:", error);
 	}
 }
 
-function iniciar() {
+function iniciar ()
+{
 	window.alert("Iniciar voos");
+}
+
+/**
+ * @param {{altitude: number, acceleration: number, speed: number}} data
+ * @returns {void}
+ * @description This function is a placeholder for telemetry data processing.
+ */
+function telemetry (data)
+{
+	const maximum_altitude = query(".maximum.altitude", HTMLElement);
+	const maximum_acceleration = query(".maximum.acceleration", HTMLElement);
+	const maximum_speed = query(".maximum.speed", HTMLElement);
+
+	maximum_altitude.textContent = `${data.altitude.toFixed(2)}m`;
+	maximum_acceleration.textContent = `${data.acceleration.toFixed(2)}m/s²`;
+	maximum_speed.textContent = `${data.speed.toFixed(2)}m/s`;
 }
 
 function excluir()
