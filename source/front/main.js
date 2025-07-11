@@ -10,7 +10,8 @@
 
 /**
  * @typedef {Object} Flight
- * @property {string} id - Unique identifier for the flight.
+ * @property {string} id - Unique identifier for the flight (UUID).
+ * @property {string} date - Date of the flight in "pt-BR" format.
  * @property {string} name - Name of the flight.
  * @property {number} angle - Angle of the flight.
  * @property {number} distance - Distance of the flight.
@@ -120,6 +121,18 @@ function local_storage_get (key)
 let selected_flights_ids = [];
 let graficoGeral;
 let graficoVelocidade, graficoAceleracao, graficoAnguloX, graficoAnguloY;
+const cores = [
+	'rgba(54, 162, 235, 1)',
+	'rgba(255, 99, 132, 1)',
+	'rgba(255, 206, 86, 1)',
+	'rgba(75, 192, 192, 1)',
+	'rgba(153, 102, 255, 1)',
+	'rgba(255, 159, 64, 1)',
+	'rgba(128, 0, 128, 1)',
+	'rgba(0, 128, 0, 1)',
+	'rgba(0, 0, 128, 1)',
+	'rgba(139, 69, 19, 1)'
+];
 let arquivoCsvSelecionado;
 
 const popups = {
@@ -207,7 +220,8 @@ function salvarNovoVoo ()
 		 * @type {Flight}
 		 */
         const new_flight = {
-            id: date.toLocaleDateString("pt-BR"),
+            id: crypto.randomUUID(),
+			date: date.toLocaleDateString("pt-BR"),
             name,
             angle,
             distance,
@@ -262,7 +276,7 @@ async function carregarVoos()
 
 			const option = document.createElement('option');
 			option.value = flight.id;
-			option.textContent = flight.id + ' - ' + flight.name;
+			option.textContent = flight.date + ' - ' + flight.name;
 			
 			inputs.selected_flights.appendChild(option);
 		}
@@ -303,6 +317,13 @@ function update_selected_flights()
 
 function criarGraficoVazio() {
 	const ctx = document.querySelector('.grafico-geral').getContext('2d');
+
+	if (graficoGeral) graficoGeral.destroy();
+	if (graficoVelocidade) graficoVelocidade.destroy();
+	if (graficoAceleracao) graficoAceleracao.destroy();
+	if (graficoAnguloX) graficoAnguloX.destroy();
+	if (graficoAnguloY) graficoAnguloY.destroy();
+	
 	graficoGeral = new Chart(ctx, {
 		type: 'line',
 		data: {
@@ -823,23 +844,11 @@ async function atualizarGraficoGeral() {
 
 		const flights = data.filter(flight => selected_flights_ids.includes(flight.id));
 
-		const cores = [
-			'rgba(54, 162, 235, 1)',
-			'rgba(255, 99, 132, 1)',
-			'rgba(255, 206, 86, 1)',
-			'rgba(75, 192, 192, 1)',
-			'rgba(153, 102, 255, 1)',
-			'rgba(255, 159, 64, 1)',
-			'rgba(128, 0, 128, 1)',
-			'rgba(0, 128, 0, 1)',
-			'rgba(0, 0, 128, 1)',
-			'rgba(139, 69, 19, 1)'
-		];
-
 		let telemetry_max = {
-			altitude: 0,
-			acceleration: 0,
-			speed: 0,
+			altitude: { value: 0, color: '' },
+			acceleration: { value: 0, color: '' },
+			speed: { value: 0, color: '' },
+			range: { value: 0, color: '' },
 		}
 
 		flights.forEach((flight, index) => {
@@ -856,14 +865,40 @@ async function atualizarGraficoGeral() {
 				range: flight.distance,
 			};
 
-			telemetry_max = {
-				altitude: Math.max(telemetry_max.altitude, Math.max(...telemetry.altitude.map(p => p.y))),
-				acceleration: Math.max(telemetry_max.acceleration, Math.max(...telemetry.acceleration.map(p => p.y))),
-				speed: Math.max(telemetry_max.speed, Math.max(...telemetry.speed.map(p => p.y))),
-			};
+			const max_altitude_flight = Math.max(...telemetry.altitude.map(p => p.y));
+			if (max_altitude_flight > telemetry_max.altitude.value) {
+				telemetry_max.altitude = {
+					value: max_altitude_flight,
+					color: cores[index % cores.length]
+				};
+			}
+
+			const max_acceleration_flight = Math.max(...telemetry.acceleration.map(p => p.y));
+			if (max_acceleration_flight > telemetry_max.acceleration.value) {
+				telemetry_max.acceleration = {
+					value: max_acceleration_flight,
+					color: cores[index % cores.length]
+				};
+			}
+
+			const max_speed_flight = Math.max(...telemetry.speed.map(p => p.y));
+			if (max_speed_flight > telemetry_max.speed.value) {
+				telemetry_max.speed = {
+					value: max_speed_flight,
+					color: cores[index % cores.length]
+				};
+			}
+
+			if (flight.distance > telemetry_max.range.value)
+			{
+				telemetry_max.range = {
+					value: flight.distance,
+					color: cores[index % cores.length]
+				};
+			}
 
 			dadosGrafico.datasets.push({
-				label: `Voo ${flight.id} (${flight.name})`,
+				label: `Voo ${flight.date} (${flight.name})`,
 				data: telemetry.altitude,
 				borderColor: cores[index % cores.length],
 				fill: false,
@@ -911,7 +946,7 @@ async function atualizarGraficoGeral() {
 		graficoAnguloX.update();
 		graficoAnguloY.update();
 
-		telemetry(telemetry_max);
+		telemetry(telemetry_max, flights);
 
 	} catch (error) {
 		console.error("Erro ao carregar dados para o gráfico:", error);
@@ -924,19 +959,40 @@ function iniciar ()
 }
 
 /**
- * @param {{altitude: number, acceleration: number, speed: number}} data
+ * @param {{
+ *  altitude: {value: number, color: string},
+ *  acceleration: {value: number, color:string},
+ *  speed: {value: number, color: string},
+ *  range: {value: number, color: string}
+ * }} data
+ * @param {Array<Flight>} flights
  * @returns {void}
  * @description This function is a placeholder for telemetry data processing.
  */
-function telemetry (data)
+function telemetry (data, flights)
 {
 	const maximum_altitude = query(".maximum.altitude", HTMLElement);
 	const maximum_acceleration = query(".maximum.acceleration", HTMLElement);
 	const maximum_speed = query(".maximum.speed", HTMLElement);
+	const given_range_x = query(".given.range.x", HTMLElement);
 
-	maximum_altitude.textContent = `${data.altitude.toFixed(2)}m`;
-	maximum_acceleration.textContent = `${data.acceleration.toFixed(2)}m/s²`;
-	maximum_speed.textContent = `${data.speed.toFixed(2)}m/s`;
+	maximum_altitude.textContent = `${data.altitude.value.toFixed(2)}m`;
+	maximum_altitude.style.color = data.altitude.color;
+	maximum_acceleration.textContent = `${data.acceleration.value.toFixed(2)}m/s²`;
+	maximum_acceleration.style.color = data.acceleration.color;
+	maximum_speed.textContent = `${data.speed.value.toFixed(2)}m/s`;
+	maximum_speed.style.color = data.speed.color;
+
+	if (flights.length > 0)
+	{
+		given_range_x.textContent = `${data.range.value}m`;
+		given_range_x.style.color = data.range.color;
+	}
+	else
+	{
+		given_range_x.textContent = 'XXm';
+		given_range_x.style.color = '';
+	}
 }
 
 function excluir()
