@@ -93,7 +93,7 @@ function parse_csv (csv)
 	/// const timestamp = full_timestamp.map(t => (t - minTimestamp) / 1000000);
 
 	if (result.length === 0) {
-		throw new Error("CSV format is invalid or all lines were corrupted.");
+		throw new Error("O formato é inválido ou todas as linhas foram corrompidas.");
 	}
 
 	return result;
@@ -213,7 +213,19 @@ function salvarNovoVoo ()
 			throw new Error("O arquivo CSV está vazio ou não foi carregado corretamente.");
 		}
 
-		const data = parse_csv(csvData);
+		/**
+		 * @type {Array<IMUData>}
+		 */
+		let data = [];
+
+		try {
+			data = parse_csv(csvData);
+		} catch (e) {
+			window.alert(`Erro ao processar o arquivo CSV: ${e.message}`);
+			return;
+		}
+		
+
 		const date = new Date();
 
 		/**
@@ -530,9 +542,9 @@ function criarGraficoVazio() {
 function calculate_acceleration (data)
 {
 	return data.map(leitura => {
-		const ax = leitura.ax || 0;
-		const ay = leitura.ay || 0;
-		const az = leitura.az || 0;
+		const ax = leitura.ax / 2048.0 * 9.81 || 0; // m/s²
+		const ay = leitura.ay / 2048.0 * 9.81 || 0; // m/s²
+		const az = leitura.az / 2048.0 * 9.81 || 0; // m/s²
 		const magnitude = Math.sqrt(ax * ax + ay * ay + az * az);
 		return { x: leitura.timestamp, y: magnitude };
 	});
@@ -552,9 +564,9 @@ function calculate_acceleration (data)
 function calculate_angle_x (data)
 {
 	return data.map(leitura => {
-		const gx = leitura.gx || 0;
-		const gy = leitura.gy || 0;
-		const gz = leitura.gz || 0;
+		const gx = leitura.gx / 65.5 || 0;
+		const gy = leitura.gy / 65.5 || 0;
+		const gz = leitura.gz / 65.5 || 0;
 		const angle_x = Math.atan2(gy, Math.sqrt(gx * gx + gz * gz)) * (180 / Math.PI);
 		return { x: leitura.timestamp, y: angle_x };
 	});
@@ -574,9 +586,9 @@ function calculate_angle_x (data)
 function calculate_angle_y (data)
 {
 	return data.map(leitura => {
-		const gx = leitura.gx || 0;
-		const gy = leitura.gy || 0;
-		const gz = leitura.gz || 0;
+		const gx = leitura.gx / 65.5 || 0;
+		const gy = leitura.gy / 65.5 || 0;
+		const gz = leitura.gz / 65.5 || 0;
 		const angle_y = Math.atan2(gx, Math.sqrt(gy * gy + gz * gz)) * (180 / Math.PI);
 		return { x: leitura.timestamp, y: angle_y };
 	});
@@ -852,8 +864,21 @@ async function atualizarGraficoGeral() {
 		}
 
 		flights.forEach((flight, index) => {
-			const timestamp = flight.data.map(leitura => leitura.timestamp);
-			const altitude = flight.data.map(leitura => leitura.az);
+			// Normalize timestamps to handle overflow
+			let lastTimestamp = 0;
+			let timestampOffset = 0;
+			
+			flight.data = flight.data.map(leitura => {
+				if (leitura.timestamp < lastTimestamp) {
+					// Timestamp overflow detected
+					timestampOffset += lastTimestamp;
+				}
+				lastTimestamp = leitura.timestamp;
+				return {
+					...leitura,
+					timestamp: leitura.timestamp + timestampOffset
+				};
+			});
 
 			/**
 			 * @type {TelemetryData}
