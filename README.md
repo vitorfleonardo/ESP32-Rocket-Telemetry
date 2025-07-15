@@ -28,7 +28,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <br />
         <b>Vitor Feijó</b>
         <br />
-        <small>Gerente do Projeto</small>
+        <sub>Gerente do Projeto</sub>
       </a>
     </td>
     <td align="center">
@@ -37,7 +37,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <br />
         <b>Luis Lima</b>
         <br />
-        <small>Gerente de Hardware</small>
+        <sub>Gerente de Hardware</sub>
       </a>
     </td>
     <td align="center">
@@ -46,7 +46,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <br />
         <b>Lucas Bottino</b>
         <br />
-        <small>Engenheiro de Hardware</small>
+        <sub>Engenheiro de Hardware</sub>
       </a>
     </td>
     <td align="center">
@@ -55,7 +55,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <br />
         <b>Renan Vieira</b>
         <br />
-        <small>Engenheiro de Hardware</small>
+        <sub>Engenheiro de Hardware</sub>
       </a>
     </td>
     </tr>
@@ -70,7 +70,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
           <br />
           <b>Hugo Melo</b>
           <br />
-          <small>Gerente de Software</small>
+          <sub>Gerente de Software</sub>
         </a>
       </td> 
       <td align="center">
@@ -79,7 +79,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
           <br />
           <b>João V. Farias</b>
           <br />
-          <small>Engenheiro de Software</small>
+          <sub>Engenheiro de Software</sub>
         </a>
       </td> 
       <td align="center">
@@ -88,7 +88,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
           <br />
           <b>Luiza Maluf</b>
           <br />
-          <small>Engenheira de Software</small>
+          <sub>Engenheira de Software</sub>
         </a>
       </td>
       <td align="center">
@@ -97,7 +97,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
           <br />
           <b>Paulo H. Lamounier</b>
           <br />
-          <small>Engenheiro de Software</small>
+          <sub>Engenheiro de Software</sub>
         </a>
       </td>
       <td align="center">
@@ -106,7 +106,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
           <br />
           <b>Millena Queiroz</b>
           <br />
-          <small>Engenheira de Software</small>
+          <sub>Engenheira de Software</sub>
         </a>
       </td>
     </tr>
@@ -120,35 +120,35 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <br />
         <b>Ives Monteiro</b>
         <br />
-        <small>Gerente do Estruturas</small>
+        <sub>Gerente do Estruturas</sub>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
           <b>Sophia Cordeiro</b>
           <br />
-          <small>Engenheira do Estruturas</small>
+          <sub>Engenheira do Estruturas</sub>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
           <b>Guilherme Carmona</b>
           <br />
-          <small>Engenheiro do Estruturas</small>
+          <sub>Engenheiro do Estruturas</sub>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
           <b>Erik Moreira</b>
           <br />
-          <small>Engenheiro do Estruturas</small>
+          <sub>Engenheiro do Estruturas</sub>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
           <b>Kaed Canizo</b>
           <br />
-          <small>Engenheiro do Estruturas</small>
+          <sub>Engenheiro do Estruturas</sub>
       </td>
     </tr>
   </table>
