@@ -161,7 +161,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
 
 <div align="center">
     <h3>ESTRUTURAS DA BASE DE LANÇAMENTO E DO FOGUETE</h3>
-    <img src="media/compare_estruturas.png" alt="Diagrama de Hardware" width="500"/>
+    <img src="media/compare_estruturas.png" alt="Diagrama de Hardware" width="100%"/>
     <p> Imagem 1 - Construção, design e resultado final da Base de Lançamentos e do Foguete.</p>
 </div>
 
