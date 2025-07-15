@@ -1,11 +1,3 @@
-<p align="center">
-  <a href="https://www.youtube.com/shorts/Mo0wMRmowhE" target="_blank">
-    <!-- use a custom image if você tiver -->
-    <img src="media/foto.jpg"
-         alt="Watch the Short on YouTube" width="300"/>
-  </a>
-</p>
-
 <h1 align="center">🚀 Foguete d'Água com Base Automatizada 🚀</h1>
 
 <p align="center">
@@ -40,8 +32,8 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/vitorfleonardo">
-        <img src="https://github.com/vitorfleonardo.png" width="100px;"/>
+      <a href="https://github.com/luidooo">
+        <img src="https://github.com/luidooo.png" width="100px;"/>
         <br />
         <sub><b>Luis Lima</b></sub>
         <br />
@@ -170,7 +162,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
 <div align="center">
     <h3>ESTRUTURAS DA BASE DE LANÇAMENTO E DO FOGUETE</h3>
     <img src="media/compare_estruturas.png" alt="Diagrama de Hardware" width="500"/>
-    <p> Imagem 1 - (a) Construção da base; (b) Deisgn em CAD; (c) Estrutura final da base e foguete.</p>
+    <p> Imagem 1 - Construção, design e resultado final da Base de Lançamentos e do Foguete.</p>
 </div>
 
 <div>
@@ -181,8 +173,8 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
 
 <div align="center">
     <h3>HARDWARE DO FOGUETE</h3>
-    <img src="media/compare_hardware.png" alt="Diagrama de Hardware" width="500"/>
-    <p> Imagem 2 - Protótipos feitos para hardware interno do foguete.</p>
+    <img src="media/compare_hardware_foguete.png" alt="Diagrama de Hardware" width="500"/>
+    <p> Imagem 2 - Evolução do protótipo do hardware interno do foguete.</p>
 </div>
 
 <div>
@@ -193,23 +185,27 @@ Iniciamos a construção do hardware com o prototipo (a), testando o MPU-6050 co
 
 <div align="center">
     <h3>HARDWARE DO BASE DE LANÇAMENTO</h3>
-    <img src="media/compare_hardware.png" alt="Diagrama de Hardware" width="500"/>
-    <p> Imagem 3 - Dispositivo da Base.</p>
+    <img src="media/compare_hardware_base.png" alt="Hardware da base" width="500"/>
+    <p> Imagem 3 - Dispositivo hardware da Base.</p>
 </div>
 
 <div>
-Escrever
+Assim que a quantidade de pressão é ideial, com base na leitura do manômetro, ativa-se então o hardware da base que faz uma contagem regressiva de 10 segundos e atuomaticamente faz uma acionamento eletromecânico na base lançando o foguete. 
 </div>
 
 ---
 
 <div align="center">
     <h3>SOFTWARE TELEMETRIA</h3>
-    <img src="media/compare_hardware.png" alt="Diagrama de Hardware" width="500"/>
+    <img src="media/telemetria.jpeg" alt="Telemetria do Software" width="500"/>
     <p> Imagem 4 - Dispositivo da Base.</p>
+</div>
+
+<div>
+Com o SD card do Harwade do Foguete conseguimos obter os dados de timestamp, acelerações linerares (ax, ay e az), giro (gx, gy e gz) e por um processamento em python que consiste em conversão e aplicação de formulas físicas podemos construir gráficos e análises utilizando a biblioteca pandas da liguaguem Python.
 </div>
 
 ---
 
 📜 Licença
-MIT License © 2025 [Seu Nome ou Time]
+MIT License © 2025 Foguete d'Água com Base Automatizada
