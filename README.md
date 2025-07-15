@@ -1,5 +1,6 @@
-<h1 align="center">🚀 Foguete d'Água com Base Automatizada 🚀</h1>
+ <img src="media/banner.png" width="100%"/>
 
+<h1 align="center">🚀 Foguete d'Água com Base Automatizada 🚀</h1>
 <p align="center">
   Projeto Interdisciplinar - Faculdade UnB Gama<br>
   <strong>Engenharias Aeroespacial, Eletrônica, Software, Automotiva e Energia</strong> – 2025<br>
