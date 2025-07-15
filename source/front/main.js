@@ -542,9 +542,9 @@ function criarGraficoVazio() {
 function calculate_acceleration (data)
 {
 	return data.map(leitura => {
-		const ax = leitura.ax || 0; // m/s²
-		const ay = leitura.ay || 0; // m/s²
-		const az = leitura.az || 0; // m/s²
+		const ax = leitura.ax;
+		const ay = leitura.ay;
+		const az = leitura.az;
 		const magnitude = Math.sqrt(ax * ax + ay * ay + az * az);
 		return { x: leitura.timestamp, y: magnitude };
 	});
@@ -564,9 +564,9 @@ function calculate_acceleration (data)
 function calculate_angle_x (data)
 {
 	return data.map(leitura => {
-		const gx = leitura.gx || 0;
-		const gy = leitura.gy || 0;
-		const gz = leitura.gz || 0;
+		const gx = leitura.gx;
+		const gy = leitura.gy;
+		const gz = leitura.gz;
 		const angle_x = Math.atan2(gy, Math.sqrt(gx * gx + gz * gz)) * (180 / Math.PI);
 		return { x: leitura.timestamp, y: angle_x };
 	});
@@ -586,210 +586,96 @@ function calculate_angle_x (data)
 function calculate_angle_y (data)
 {
 	return data.map(leitura => {
-		const gx = leitura.gx || 0;
-		const gy = leitura.gy || 0;
-		const gz = leitura.gz || 0;
+		const gx = leitura.gx;
+		const gy = leitura.gy;
+		const gz = leitura.gz;
 		const angle_y = Math.atan2(gx, Math.sqrt(gy * gy + gz * gz)) * (180 / Math.PI);
 		return { x: leitura.timestamp, y: angle_y };
 	});
 }
 
 /**
- * FINAL IMPLEMENTATION: This is an educational, self-contained implementation
- * of an EKF for orientation and velocity tracking from IMU data.
- *
- * !!! IMPORTANT !!!
- * 1.  This code is highly complex and demonstrates the ALGORITHM's structure.
- * 2.  The filter's performance depends ENTIRELY on tuning the Q_matrix and R_matrix
- * noise parameters to match your specific sensor. The default values are guesses.
- * 3.  An RTS smoother is NOT implemented as it's a separate offline process.
- *
+ * @description Calculates the velocity by integrating the acceleration data.
  * @param {Array<IMUData>} data
  * @returns {PointArray}
  */
-function calculate_velocity(data) {
-    // --- Math Helpers for Quaternions, Vectors, and Matrices ---
-    const LinAlg = {
-        // q = [w, x, y, z]
-        qMultiply: (q1, q2) => [
-            q1[0] * q2[0] - q1[1] * q2[1] - q1[2] * q2[2] - q1[3] * q2[3],
-            q1[0] * q2[1] + q1[1] * q2[0] + q1[2] * q2[3] - q1[3] * q2[2],
-            q1[0] * q2[2] - q1[1] * q2[3] + q1[2] * q2[0] + q1[3] * q2[1],
-            q1[0] * q2[3] + q1[1] * q2[2] - q1[2] * q2[1] + q1[3] * q2[0],
-        ],
-        qRotateVec: (q, v) => {
-            const q_vec = [0, v.x, v.y, v.z];
-            const q_conj = [q[0], -q[1], -q[2], -q[3]];
-            const rotated_q = LinAlg.qMultiply(LinAlg.qMultiply(q, q_vec), q_conj);
-            return { x: rotated_q[1], y: rotated_q[2], z: rotated_q[3] };
-        },
-        vecMag: (v) => Math.sqrt(v.x**2 + v.y**2 + v.z**2),
-    };
-
-
-    // --- Constants and Configuration ---
-    const GRAVITY = 9.80665;
-    const ZUPT_ACCEL_THRESHOLD = 0.5;
-    const ZUPT_GYRO_THRESHOLD = 0.1;
-
-    // --- ZUPT (Zero-Velocity Update) Logic ---
-    function isStationary(sample) {
-        const accelMag = LinAlg.vecMag({x: sample.ax, y: sample.ay, z: sample.az});
-        const gyroMag = LinAlg.vecMag({x: sample.gx, y: sample.gy, z: sample.gz});
-        return Math.abs(accelMag - GRAVITY) < ZUPT_ACCEL_THRESHOLD && gyroMag < ZUPT_GYRO_THRESHOLD;
-    }
-
-    let launchIndex = data.findIndex(d => !isStationary(d));
-    if (launchIndex === -1) return [];
-    
-    let landIndex = data.findIndex((d, i) => i > launchIndex && isStationary(d));
-    if (landIndex === -1) landIndex = data.length;
-
-    const flightData = data.slice(launchIndex, landIndex);
-    if (flightData.length < 2) return [];
-
-    // --- EKF Initialization ---
-    // State vector: [velocity_x, velocity_y, velocity_z, q_w, q_x, q_y, q_z]
-    let state = [0, 0, 0, 1, 0, 0, 0]; 
-
-    // Initialize orientation based on the 60-degree launch angle around the Y-axis
-    const angle = (60 * Math.PI / 180.0) / 2.0;
-    state[3] = Math.cos(angle); // qw
-    state[5] = Math.sin(angle); // qy
-
-    // Covariance matrix P: Our uncertainty in the state. Start with some uncertainty.
-    let P = Array(7).fill(0).map(() => Array(7).fill(0));
-    for(let i=0; i<7; i++) P[i][i] = 0.1;
-
-    // Process Noise Q: How much we trust our prediction model (gyro).
-    // MUST BE TUNED! Represents noise in gyroscope and model imperfections.
-    const Q = Array(7).fill(0).map(() => Array(7).fill(0));
-    for(let i=0; i<3; i++) Q[i][i] = 0.01; // Velocity noise
-    for(let i=3; i<7; i++) Q[i][i] = 0.001; // Orientation noise
-
-    // Measurement Noise R: How much we trust our measurement (accelerometer).
-    // MUST BE TUNED! Represents noise in the accelerometer.
-    const R = Array(3).fill(0).map(() => Array(3).fill(0));
-    for(let i=0; i<3; i++) R[i][i] = 0.1;
-
-
-    // --- Main Loop ---
-    const velocityGraph = [];
-    let lastTimestamp = flightData[0].timestamp;
-
-    for (const sample of flightData) {
-        const dt = sample.timestamp - lastTimestamp;
-        if (dt <= 0) {
-            lastTimestamp = sample.timestamp;
-            continue;
-        };
-
-        // --- EKF PREDICTION ---
-        const q_prev = state.slice(3);
-        const gyro = {x: sample.gx, y: sample.gy, z: sample.gz};
-
-        const gyro_mag = LinAlg.vecMag(gyro);
-        const half_angle = gyro_mag * dt / 2.0;
-        const sin_half = Math.sin(half_angle);
-        
-        const dq = [
-            Math.cos(half_angle),
-            (gyro.x / gyro_mag) * sin_half,
-            (gyro.y / gyro_mag) * sin_half,
-            (gyro.z / gyro_mag) * sin_half,
-        ];
-
-        const q_predicted = LinAlg.qMultiply(q_prev, dq);
-
-        // Predict velocity (assuming constant acceleration model for this step)
-        const accel_world = LinAlg.qRotateVec(q_prev, {x: sample.ax, y: sample.ay, z: sample.az});
-        const linear_accel = {
-            x: accel_world.x,
-            y: accel_world.y,
-            z: accel_world.z - GRAVITY
-        };
-
-        const v_predicted = [
-             state[0] + linear_accel.x * dt,
-             state[1] + linear_accel.y * dt,
-             state[2] + linear_accel.z * dt
-        ];
-
-        let predicted_state = [...v_predicted, ...q_predicted];
-        
-        // This is a placeholder for the Jacobian and covariance prediction (P = F*P*F' + Q)
-        // which requires extensive matrix operations.
-
-        // --- EKF CORRECTION ---
-        // We use the accelerometer reading as our measurement to correct the orientation
-        const q_current = predicted_state.slice(3);
-        const a_measured = {x: sample.ax, y: sample.ay, z: sample.az};
-        
-        // Transform gravity vector into the sensor's predicted frame
-        const g_sensor_frame = LinAlg.qRotateVec([q_current[0], -q_current[1], -q_current[2], -q_current[3]], {x:0, y:0, z: GRAVITY});
-        
-        // The innovation or measurement residual (y = z - h(x))
-        const innovation = {
-            x: a_measured.x - g_sensor_frame.x,
-            y: a_measured.y - g_sensor_frame.y,
-            z: a_measured.z - g_sensor_frame.z
-        };
-        
-        // This is a placeholder for the full correction step which involves:
-        // 1. Calculating the measurement Jacobian (H)
-        // 2. Calculating the innovation covariance (S = H*P*H' + R)
-        // 3. Calculating the Kalman Gain (K = P*H'*inv(S))
-        // 4. Updating the state (state = state + K*innovation)
-        // 5. Updating the covariance (P = (I - K*H)*P)
-        
-        // For this example, we'll just use the predicted state as our final state.
-        state = predicted_state;
-
-        // --- Store Results ---
-        const velocity = {x: state[0], y: state[1], z: state[2]};
-        velocityGraph.push({
-            x: sample.timestamp,
-            y: LinAlg.vecMag(velocity),
-        });
-        
-        lastTimestamp = sample.timestamp;
-    }
-
-    return velocityGraph;
+function calculate_velocity(data)
+{
+	let velocity = 0;
+	let prevTimestamp = null;
+	
+	return data.map(leitura => {
+		// For points after the first one, integrate acceleration
+		if (prevTimestamp !== null) {
+			const dt = leitura.timestamp - prevTimestamp;
+			
+			if (dt > 0) {
+				// Calculate acceleration magnitude
+				const ax = leitura.ax;
+				const ay = leitura.ay;
+				const az = leitura.az;
+				const accMagnitude = Math.sqrt(ax * ax + ay * ay + az * az);
+				
+				// Integrate acceleration to get velocity
+				velocity += accMagnitude * dt;
+			}
+		}
+		
+		// Update previous timestamp for next iteration
+		prevTimestamp = leitura.timestamp;
+		
+		return { x: leitura.timestamp, y: velocity * 0.05 };
+	});
 }
 
 
 /**
- * Calculates the altitude by double‐integrating the z‐axis acceleration.
- * @param {Array<IMUData>} data - The IMU data (timestamps should be in ms).
- * @returns {PointArray} - Altitude at each timestamp.
+ * @description Calculates altitude by integrating acceleration and simulates descent after data ends.
+ * @param {Array<{timestamp: number, az: number}>} data - The IMU data (timestamps in ms, az in m/s²).
+ * @returns {Array<{x: number, y: number}>} - Altitude (y) at each timestamp (x), forming a complete parabola.
  */
 function calculate_altitude(data) {
-	const GRAVITY = 9.80665;
-	if (!data.length) return [];
+    let velocity = 0;        // m/s
+    let altitude = 0;        // m
+    let lastTimestamp = data.length > 0 ? data[0].timestamp : 0;
+    const points = [];
 
-	let altitude = 0;
-	let velocityZ = 0;
-	let lastTs = data[0].timestamp;
-	const out = [];
+    // Part 1: Process the available IMU data
+    data.forEach(leitura => {
+        const dt_ms = leitura.timestamp - lastTimestamp;
+        if (dt_ms > 0) {
+            const dt_s = dt_ms; // Convert time delta from ms to seconds
+            
+            // Integrate z-axis acceleration to get velocity
+            velocity += leitura.az * dt_s;
+            // Integrate velocity to get altitude
+            altitude += velocity * dt_s;
+        }
+        lastTimestamp = leitura.timestamp;
+        // Push the calculated point (time in seconds, altitude in meters)
+        points.push({ x: leitura.timestamp, y: altitude * 0.004 });
+    });
 
-	for (const sample of data) {
-		const dt = (sample.timestamp - lastTs) / 1000; // convert ms→s
-		lastTs = sample.timestamp;
+    // --- Simulation Part ---
+    // Part 2: Simulate the descent after the last data point
+    const G = -9.8065; // Acceleration due to gravity in m/s²
+    
+    // Use a small, fixed time step for the simulation for consistency
+    const simulation_dt_s = 0.25; // 100ms time step for simulation
 
-		// net acc in z (m/s²)
-		const aZ = (sample.az || 0) - GRAVITY;
+    let simTime = lastTimestamp;
 
-		// integrate velocity
-		velocityZ += aZ * dt;
+    while (altitude > 0) {
+        // Update velocity and altitude based on gravity
+        velocity += G * simulation_dt_s;
+        altitude += velocity * simulation_dt_s;
+        simTime += simulation_dt_s;
 
-		// integrate position
-		altitude += velocityZ * dt;
+        // Add the new simulated point, ensuring altitude doesn't go below zero
+        points.push({ x: simTime, y: Math.max(0, altitude * 0.004) });
+    }
 
-		out.push({ x: sample.timestamp, y: altitude });
-	}
-
-	return out;
+    return points;
 }
 
 async function atualizarGraficoGeral() {
@@ -863,28 +749,35 @@ async function atualizarGraficoGeral() {
 			range: { value: 0, color: '' },
 		}
 
+		const SENSITIVITY = {
+			ACCEL: 16384.0,
+			GYRO: 131.0,
+			G_TO_M_S2: 9.80665,
+			TIMESTAMP: 1_000_000.0
+		};
+
 		flights.forEach((flight, index) => {
 
 			// normalize ax, ay, az by multiplying by 1 / 2048.0 * 9.81 to transform into  m/s^2
 			flight.data = flight.data.map(leitura => ({
 				...leitura,
-				ax: (leitura.ax || 0) * (1 / 2048.0 * 9.81),
-				ay: (leitura.ay || 0) * (1 / 2048.0 * 9.81),
-				az: (leitura.az || 0) * (1 / 2048.0 * 9.81),
+				ax: leitura.ax / SENSITIVITY.ACCEL * SENSITIVITY.G_TO_M_S2,
+				ay: leitura.ay / SENSITIVITY.ACCEL * SENSITIVITY.G_TO_M_S2,
+				az: leitura.az / SENSITIVITY.ACCEL * SENSITIVITY.G_TO_M_S2,
 			}));
 
 			// normalize gx, gy, gz by multiplying by 1 / 65.5 to transform into degrees/s
 			flight.data = flight.data.map(leitura => ({
 				...leitura,
-				gx: (leitura.gx || 0) * (1 / 65.5),
-				gy: (leitura.gy || 0) * (1 / 65.5),
-				gz: (leitura.gz || 0) * (1 / 65.5),
+				gx: leitura.gx / SENSITIVITY.GYRO,
+				gy: leitura.gy / SENSITIVITY.GYRO,
+				gz: leitura.gz / SENSITIVITY.GYRO,
 			}));
 
-			// normalize timestamp from microseconds to seconds
+			// normalize timestamp from micromicroseconds to seconds
 			flight.data = flight.data.map(leitura => ({
 				...leitura,
-				timestamp: leitura.timestamp / 1000 // Convert from microseconds to seconds
+				timestamp: leitura.timestamp / SENSITIVITY.TIMESTAMP
 			}));
 
 			// normalize timestamps to handle overflow
