@@ -173,7 +173,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
 
 <div align="center">
     <h3>HARDWARE DO FOGUETE</h3>
-    <img src="media/compare_hardware_foguete.png" alt="Diagrama de Hardware" width="500"/>
+    <img src="media/compare_hardware_foguete.png" alt="Diagrama de Hardware" width="100%"/>
     <p> Imagem 2 - Evolução do protótipo do hardware interno do foguete.</p>
 </div>
 
@@ -185,7 +185,7 @@ Iniciamos a construção do hardware com o prototipo (a), testando o MPU-6050 co
 
 <div align="center">
     <h3>HARDWARE DA BASE DE LANÇAMENTOS</h3>
-    <img src="media/compare_hardware_base.png" alt="Hardware da base" width="500"/>
+    <img src="media/compare_hardware_base.png" alt="Hardware da base" width="100%"/>
     <p> Imagem 3 - Dispositivo hardware da Base.</p>
 </div>
 
@@ -197,7 +197,7 @@ Assim que a quantidade de pressão é ideial, com base na leitura do manômetro,
 
 <div align="center">
     <h3>SOFTWARE DE TELEMETRIA</h3>
-    <img src="media/telemetria.jpeg" alt="Telemetria do Software" width="500"/>
+    <img src="media/telemetria.jpeg" alt="Telemetria do Software" width="100%"/>
     <p> Imagem 4 - Software para análise do lançamento.</p>
 </div>
 
