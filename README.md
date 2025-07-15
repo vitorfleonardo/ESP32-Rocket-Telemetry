@@ -1,6 +1,9 @@
-<!-- BANNER VISUAL -->
 <p align="center">
-  <img src="caminho/para/logo-ou-foto-do-foguete.jpg" alt="Foguete d'Água" width="600"/>
+  <a href="https://www.youtube.com/shorts/Mo0wMRmowhE" target="_blank">
+    <!-- use a custom image if você tiver -->
+    <img src="media/foto.jpg"
+         alt="Watch the Short on YouTube" width="300"/>
+  </a>
 </p>
 
 <h1 align="center">🚀 Foguete d'Água com Base Automatizada</h1>
@@ -21,53 +24,56 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
 
 ---
 
-## 🧠 Tecnologias e Ferramentas
-
-| Área      | Tecnologias Utilizadas                                 |
-| --------- | ------------------------------------------------------ |
-| Hardware  | ESP32, MPU-6050, Módulo SD Card, LiPo Battery, Ponte H |
-| Software  | Python, Pandas,                                        |
-| Estrutura | CAD 3D com CATIA, Tubos de PVC, PSAI                   |
-| Energia   | Power Bank 3300 mAh, Bateria LiPo 100–150 mAh          |
-| Gerência  | EAP (PMBOK), BPMN, Cronogramas, Orçamento, Gantt       |
-
----
-
-## 🧩 Estrutura do Projeto
-
-```bash
-📁 rocket_with_esp32
-├── /docs # Documentações e Relatórios
-├── /hardware # Esquemas elétricos, diagramas e fotos
-├── /software # Códigos Arduino/C para ESP32
-├── /data # Dados coletados (JSON)
-├── /images # Imagens do projeto
-└── README.md # Apresentação do repositório
-```
-
----
-
 ## 🛠️ Módulos do Projeto
 
-### 🔩 Estruturas
+<center>
 
-- Modelagem 3D em CATIA
-- Aletas em PSAI para estabilidade
-- Base de lançamento em PVC com suporte angular fixo a 45°
+### ESTRUTURAS DA BASE DE LANÇAMENTO E DO FOGUETE
 
-> 💡 _[Inserir imagem da estrutura aqui]_  
-> `<img src="images/estrutura.jpg" alt="Estrutura do Foguete" width="500"/>`
+</center>
+
+<div align="center">
+    <img src="media/compare_estruturas.png" alt="Diagrama de Hardware" width="500"/>
+    <p> Imagem 1 - Protótipos feitos para hardware interno do foguete.</p>
+</div>
+
+<div>
+Na parte de estruturas, realizamos o design da Base de Lançamentos e do Foguete com o CAD, como exemplificado em (b). Logo em seguida iniciamos a montagem do foguete como em (a) e ao final obtivemos o resultado mostrado em (c).
+</div>
 
 ---
 
-### ⚡ Hardware
+<center>
 
-- ESP32 com coleta via sensores inerciais (MPU-6050)
-- Armazenamento em SD Card
-- Arquitetura robusta com isolamento de ruídos e alimentação dedicada
+### HARDWARE DO FOGUETE
 
-> 💡 _[Inserir diagrama de blocos aqui]_  
-> `<img src="images/diagrama-hardware.png" alt="Diagrama de Hardware" width="500"/>`
+</center>
+
+<div align="center">
+    <img src="media/compare_hardware.png" alt="Diagrama de Hardware" width="500"/>
+    <p> Imagem 1 - Protótipos feitos para hardware interno do foguete.</p>
+</div>
+
+<div>
+Iniciamos a construção do hardware com o prototipo (a), testando o MPU-6050 com o protocolo I2C com a ESP32. Logo após aumentamos a complexidade e testamos o sistema completo com ESP32, MPU-6050 e armazenamento no Micro SD, exeplificado no protitipo (b). Em seguida realizamos uma soldagem com barras de pino em uma placa perfurada, representado pelo prototipo (c). E por fim, soldando as baterias ao dispositivo obtivemos o protitipo final (d).
+</div>
+
+---
+
+<center>
+
+### HARDWARE DO BASE DE LANÇAMENTO
+
+</center>
+
+<div align="center">
+    <img src="media/compare_hardware.png" alt="Diagrama de Hardware" width="500"/>
+    <p> Imagem 2 - Dispositivo da Base.</p>
+</div>
+
+<div>
+Escrever
+</div>
 
 ---
 
@@ -79,41 +85,6 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
 
 > 💡 _[Inserir GIF de execução ou plot]_  
 > `<img src="images/interface-software.png" alt="Interface de Gráficos" width="500"/>`
-
----
-
-## 📈 Resultados e Métricas
-
-| Indicador                         | Valor Alcançado      |
-| --------------------------------- | -------------------- |
-| Precisão média do lançamento      | ± 0.38 m             |
-| Reutilizações bem-sucedidas       | 3/3                  |
-| Dados coletados por voo           | > 250 amostras       |
-| Consumo energético total (3 voos) | 0.35 Wh              |
-| Funcionalidades implementadas     | 100% (9/9 entregues) |
-
----
-
-## 👥 Equipe
-
-| Nome          | Função             | Curso             |
-| ------------- | ------------------ | ----------------- |
-| Vitor Feijó   | Gerente do Projeto | Eng. de Software  |
-| Erick Tavares | Estruturas         | Eng. Aeroespacial |
-| Lucas Gama    | Hardware           | Eng. de Software  |
-| ...           | ...                | ...               |
-
-> 🔗 Lista completa no relatório [`doc_pi1.pdf`](docs/doc_pi1.pdf)
-
----
-
-## 📷 Galeria de Imagens
-
-<div align="center">
-  <img src="media/output.gif" width="300"/>
-  <img src="images/base-teste.jpg" width="300"/>
-  <img src="images/pcb.jpg" width="300"/>
-</div>
 
 ---
 
