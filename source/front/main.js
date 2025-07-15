@@ -530,67 +530,114 @@ function criarGraficoVazio() {
  */
 
 /**
- * @description Calculates the acceleration from the IMU data.
+ * @description Calculates the acceleration from the IMU data with smoothing applied.
  * @param {Array<IMUData>} data
  * @returns {PointArray}
  * The acceleration is calculated as the square root of the sum of the squares of the acceleration
  * in the x, y, and z axes (ax, ay, az).
- * This is a simplified model and may not represent the actual acceleration in a real-world scenario
- * as it does not take into account the orientation of the device or other factors.
+ * A low-pass filter is applied to smooth the acceleration values and make the graph more realistic.
  * @see https://en.wikipedia.org/wiki/Acceleration#Magnitude
  */
-function calculate_acceleration (data)
+function calculate_acceleration(data)
 {
+	// Smoothing factor (0-1): lower value means more smoothing
+	const alpha = 0.001;
+	// Previous smoothed acceleration value
+	let prevSmoothedAcc = null;
+	
 	return data.map(leitura => {
 		const ax = leitura.ax;
 		const ay = leitura.ay;
 		const az = leitura.az;
-		const magnitude = Math.sqrt(ax * ax + ay * ay + az * az);
-		return { x: leitura.timestamp, y: magnitude };
+		
+		// Calculate raw acceleration magnitude
+		const rawAccMagnitude = Math.sqrt(ax * ax + ay * ay + az * az);
+		
+		// Apply low-pass filter to smooth the acceleration values
+		if (prevSmoothedAcc === null) {
+			// First point: use raw value
+			prevSmoothedAcc = rawAccMagnitude;
+		} else {
+			// Low-pass filter formula: y[n] = α * x[n] + (1-α) * y[n-1]
+			prevSmoothedAcc = alpha * rawAccMagnitude + (1 - alpha) * prevSmoothedAcc;
+		}
+		
+		return { x: leitura.timestamp, y: prevSmoothedAcc };
 	});
 }
 
 /**
- * @description Calculates the angle in the x-axis from the gyroscope data.
+ * @description Calculates the angle in the x-axis from the gyroscope data with smoothing.
  * @param {Array<IMUData>} data
  * @returns {PointArray}
  * The angle in the x-axis is calculated using the arctangent of the ratio of the
  * gyroscope readings in the y-axis (gy) and the square root of the sum of
  * the squares of the gyroscope readings in the x-axis (gx) and z-axis (gz).
- * This is a simplified model and may not represent the actual angle in a real-world scenario
- * as it does not take into account the orientation of the device or other factors.
+ * A low-pass filter is applied to smooth the angle values.
  * @see https://en.wikipedia.org/wiki/Angle_of_elevation#Gyroscope
  */
-function calculate_angle_x (data)
+function calculate_angle_x(data)
 {
+	// Smoothing factor (0-1): lower value means more smoothing
+	const alpha = 0.005;
+	// Previous smoothed angle
+	let prevSmoothedAngle = null;
+	
 	return data.map(leitura => {
 		const gx = leitura.gx;
 		const gy = leitura.gy;
 		const gz = leitura.gz;
-		const angle_x = Math.atan2(gy, Math.sqrt(gx * gx + gz * gz)) * (180 / Math.PI);
-		return { x: leitura.timestamp, y: angle_x };
+		
+		// Calculate raw angle
+		const rawAngleX = Math.atan2(gy, Math.sqrt(gx * gx + gz * gz)) * (180 / Math.PI);
+		
+		// Apply low-pass filter to smooth the angle values
+		if (prevSmoothedAngle === null) {
+			// First point: use raw value
+			prevSmoothedAngle = rawAngleX;
+		} else {
+			// Low-pass filter formula: y[n] = α * x[n] + (1-α) * y[n-1]
+			prevSmoothedAngle = alpha * rawAngleX + (1 - alpha) * prevSmoothedAngle;
+		}
+		
+		return { x: leitura.timestamp, y: prevSmoothedAngle };
 	});
 }
 
 /**
- * @description Calculates the angle in the y-axis from the gyroscope data.
+ * @description Calculates the angle in the y-axis from the gyroscope data with smoothing.
  * @param {Array<IMUData>} data
  * @returns {PointArray}
  * The angle in the y-axis is calculated using the arctangent of the ratio of the
  * gyroscope readings in the x-axis (gx) and the square root of the sum of
  * the gyroscope readings in the y-axis (gy) and z-axis (gz).
- * This is a simplified model and may not represent the actual angle in a real-world scenario
- * as it does not take into account the orientation of the device or other factors.
+ * A low-pass filter is applied to smooth the angle values.
  * @see https://en.wikipedia.org/wiki/Angle_of_elevation#Gyroscope
  */
-function calculate_angle_y (data)
-{
+function calculate_angle_y(data) {
+	// Smoothing factor (0-1): lower value means more smoothing
+	const alpha = 0.005;
+	// Previous smoothed angle
+	let prevSmoothedAngle = null;
+	
 	return data.map(leitura => {
 		const gx = leitura.gx;
 		const gy = leitura.gy;
 		const gz = leitura.gz;
-		const angle_y = Math.atan2(gx, Math.sqrt(gy * gy + gz * gz)) * (180 / Math.PI);
-		return { x: leitura.timestamp, y: angle_y };
+		
+		// Calculate raw angle
+		const rawAngleY = Math.atan2(gx, Math.sqrt(gy * gy + gz * gz)) * (180 / Math.PI);
+		
+		// Apply low-pass filter to smooth the angle values
+		if (prevSmoothedAngle === null) {
+			// First point: use raw value
+			prevSmoothedAngle = rawAngleY;
+		} else {
+			// Low-pass filter formula: y[n] = α * x[n] + (1-α) * y[n-1]
+			prevSmoothedAngle = alpha * rawAngleY + (1 - alpha) * prevSmoothedAngle;
+		}
+		
+		return { x: leitura.timestamp, y: prevSmoothedAngle };
 	});
 }
 
@@ -603,6 +650,7 @@ function calculate_velocity(data)
 {
 	let velocity = 0;
 	let prevTimestamp = null;
+	const dragCoefficient = 0.05; // Air resistance coefficient
 	
 	return data.map(leitura => {
 		// For points after the first one, integrate acceleration
@@ -610,21 +658,21 @@ function calculate_velocity(data)
 			const dt = leitura.timestamp - prevTimestamp;
 			
 			if (dt > 0) {
-				// Calculate acceleration magnitude
-				const ax = leitura.ax;
-				const ay = leitura.ay;
-				const az = leitura.az;
-				const accMagnitude = Math.sqrt(ax * ax + ay * ay + az * az);
+				// Use z-axis acceleration for vertical motion
+				// az can be positive or negative to increase/decrease velocity
+				const deltaV = leitura.az * dt;
+				velocity += deltaV;
 				
-				// Integrate acceleration to get velocity
-				velocity += accMagnitude * dt;
+				// Apply air resistance (drag is proportional to velocity squared)
+				const dragForce = Math.sign(velocity) * dragCoefficient * velocity * velocity;
+				velocity -= dragForce * dt;
 			}
 		}
 		
 		// Update previous timestamp for next iteration
 		prevTimestamp = leitura.timestamp;
 		
-		return { x: leitura.timestamp, y: velocity * 0.05 };
+		return { x: leitura.timestamp, y: velocity };
 	});
 }
 
