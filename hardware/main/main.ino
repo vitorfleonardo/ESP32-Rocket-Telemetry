@@ -38,7 +38,7 @@ void tarefa_coleta(void *arg) {
     if (estado_atual == ESTADO_COLETANDO) {
       ler_fifo_e_salvar();
     }
-    vTaskDelay(pdMS_TO_TICKS(100));
+    vTaskDelay(pdMS_TO_TICKS(50));
   }
 }
 
@@ -46,14 +46,14 @@ void tarefa_gravacao(void *arg) {
   /*
     * Tarefa responsável por salvar os dados do buffer de memória RAM no cartão SD.
     * Se o estado atual for ESTADO_COLETANDO, chama a função salvar_sd_card().
-    * A tarefa roda continuamente com um delay de 1000 ms (1 segundo).
+    * A tarefa roda continuamente com um delay de 100 ms.
     * Se o estado atual for ESTADO_FINALIZADO, a tarefa não faz nada.
   */
   while (true) {
     if (estado_atual == ESTADO_COLETANDO) {
       salvar_sd_card();
     }
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    vTaskDelay(pdMS_TO_TICKS(100));
   }
 }
 
@@ -82,10 +82,8 @@ void loop() {
   if (leitura == HIGH && estado_atual == ESTADO_IDLE) { 
     Serial.println("[BOTAO] Iniciando coleta e gravacao");
     estado_atual = ESTADO_COLETANDO;
-
-    mpu.setSleepEnabled(true);
-    vTaskDelay(pdMS_TO_TICKS(100));
-
+    buffer_index = 0;
+  
     if (inicializar_mpu()) {
       xTaskCreate(tarefa_coleta, "coleta", 4096, NULL, 3,  &handleColeta);
       xTaskCreate(tarefa_gravacao, "gravacao", 4096, NULL, 2, &handleGravacao);
@@ -122,7 +120,7 @@ void loop() {
     estado_atual = ESTADO_IDLE;
   }
 
-  vTaskDelay(pdMS_TO_TICKS(200));
+  vTaskDelay(pdMS_TO_TICKS(100));
 }
   
 

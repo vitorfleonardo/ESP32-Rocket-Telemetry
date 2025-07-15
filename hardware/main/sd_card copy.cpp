@@ -17,18 +17,28 @@ void inicializar_sd() {
 }
 
 void salvar_sd_card() {
-  Serial.println("[SD] Tentando salvar...");
+  // Se nao tiver dados no buffer return
   if (buffer_index == 0) return;
+
+  // Abre ou cria o arquivo para escrever
   File f = SD.open("/dados.csv", FILE_APPEND);
+
+  // Se foi aberto com sucesso
   if (f) {
+    // bytes gravados do buffer
     Serial.print("[SD] Gravando ");
     Serial.print(buffer_index);
     Serial.println(" bytes...");
+
     xSemaphoreTake(mutex_buffer, portMAX_DELAY);
+
+    // grava buffer_index bytes 
     f.write(buffer_dados, buffer_index);
     buffer_index = 0;
+
     xSemaphoreGive(mutex_buffer);
     f.close();
+
     Serial.println("[SD] Dados gravados.");
   } else {
     Serial.println("[ERRO] Falha ao abrir dados.csv");
