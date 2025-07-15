@@ -26,30 +26,20 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
 
 ## 🛠️ Módulos do Projeto
 
-<center>
-
-### ESTRUTURAS DA BASE DE LANÇAMENTO E DO FOGUETE
-
-</center>
-
 <div align="center">
+    <h3>ESTRUTURAS DA BASE DE LANÇAMENTO E DO FOGUETE</h3>
     <img src="media/compare_estruturas.png" alt="Diagrama de Hardware" width="500"/>
     <p> Imagem 1 - Protótipos feitos para hardware interno do foguete.</p>
 </div>
 
 <div>
-Na parte de estruturas, realizamos o design da Base de Lançamentos e do Foguete com o CAD, como exemplificado em (b). Logo em seguida iniciamos a montagem do foguete como em (a) e ao final obtivemos o resultado mostrado em (c).
+    Na parte de estruturas, realizamos o design da Base de Lançamentos e do Foguete com o CAD, como exemplificado em (b). Logo em seguida iniciamos a montagem do foguete como em (a) e ao final obtivemos o resultado mostrado em (c).
 </div>
 
 ---
 
-<center>
-
-### HARDWARE DO FOGUETE
-
-</center>
-
 <div align="center">
+    <h3>HARDWARE DO FOGUETE</h3>
     <img src="media/compare_hardware.png" alt="Diagrama de Hardware" width="500"/>
     <p> Imagem 1 - Protótipos feitos para hardware interno do foguete.</p>
 </div>
@@ -60,13 +50,8 @@ Iniciamos a construção do hardware com o prototipo (a), testando o MPU-6050 co
 
 ---
 
-<center>
-
-### HARDWARE DO BASE DE LANÇAMENTO
-
-</center>
-
 <div align="center">
+    <h3>HARDWARE DO BASE DE LANÇAMENTO</h3>
     <img src="media/compare_hardware.png" alt="Diagrama de Hardware" width="500"/>
     <p> Imagem 2 - Dispositivo da Base.</p>
 </div>
