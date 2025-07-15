@@ -26,7 +26,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
       <a href="https://github.com/vitorfleonardo">
         <img src="https://github.com/vitorfleonardo.png" width="100px;"/>
         <br />
-        <sub><b>Vitor Feijó</b></sub>
+        <b>Vitor Feijó</b>
         <br />
         <small>Gerente do Projeto</small>
       </a>
@@ -35,7 +35,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
       <a href="https://github.com/luidooo">
         <img src="https://github.com/luidooo.png" width="100px;"/>
         <br />
-        <sub><b>Luis Lima</b></sub>
+        <b>Luis Lima</b>
         <br />
         <small>Gerente de Hardware</small>
       </a>
@@ -44,7 +44,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
       <a href="https://github.com/bottinolucas">
         <img src="https://github.com/bottinolucas.png" width="100px;"/>
         <br />
-        <sub><b>Lucas Bottino</b></sub>
+        <b>Lucas Bottino</b>
         <br />
         <small>Engenheiro de Hardware</small>
       </a>
@@ -53,7 +53,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
       <a href="https://github.com/R-enanVieira">
         <img src="https://github.com/R-enanVieira.png" width="100px;"/>
         <br />
-        <sub><b>Renan Vieira</b></sub>
+        <b>Renan Vieira</b>
         <br />
         <small>Engenheiro de Hardware</small>
       </a>
@@ -68,7 +68,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <a href="https://github.com/melohugo">
           <img src="https://github.com/melohugo.png" width="100px;"/>
           <br />
-          <sub><b>Hugo Melo</b></sub>
+          <b>Hugo Melo</b>
           <br />
           <small>Gerente de Software</small>
         </a>
@@ -77,7 +77,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <a href="https://github.com/BeyondMagic">
           <img src="https://github.com/BeyondMagic.png" width="100px;"/>
           <br />
-          <sub><b>João V. Farias</b></sub>
+          <b>João V. Farias</b>
           <br />
           <small>Engenheiro de Software</small>
         </a>
@@ -86,7 +86,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <a href="https://github.com/LuizaMaluf">
           <img src="https://github.com/LuizaMaluf.png" width="100px;"/>
           <br />
-          <sub><b>Luiza Maluf</b></sub>
+          <b>Luiza Maluf</b>
           <br />
           <small>Engenheira de Software</small>
         </a>
@@ -95,7 +95,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <a href="https://github.com/Nanashii76">
           <img src="https://github.com/Nanashii76.png" width="100px;"/>
           <br />
-          <sub><b>Paulo H. Lamounier</b></sub>
+          <b>Paulo H. Lamounier</b>
           <br />
           <small>Engenheiro de Software</small>
         </a>
@@ -104,7 +104,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <a href="https://github.com/MillenaQueiroz">
           <img src="https://github.com/MillenaQueiroz.png" width="100px;"/>
           <br />
-          <sub><b>Millena Queiroz</b></sub>
+          <b>Millena Queiroz</b>
           <br />
           <small>Engenheira de Software</small>
         </a>
@@ -118,35 +118,35 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
       <td align="center">
         <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
         <br />
-        <sub><b>Ives Monteiro</b></sub>
+        <b>Ives Monteiro</b>
         <br />
         <small>Gerente do Estruturas</small>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
-          <sub><b>Sophia Cordeiro</b></sub>
+          <b>Sophia Cordeiro</b>
           <br />
           <small>Engenheira do Estruturas</small>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
-          <sub><b>Guilherme Carmona</b></sub>
+          <b>Guilherme Carmona</b>
           <br />
           <small>Engenheiro do Estruturas</small>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
-          <sub><b>Erik Moreira</b></sub>
+          <b>Erik Moreira</b>
           <br />
           <small>Engenheiro do Estruturas</small>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
-          <sub><b>Kaed Canizo</b></sub>
+          <b>Kaed Canizo</b>
           <br />
           <small>Engenheiro do Estruturas</small>
       </td>
@@ -184,7 +184,7 @@ Iniciamos a construção do hardware com o prototipo (a), testando o MPU-6050 co
 ---
 
 <div align="center">
-    <h3>HARDWARE DO BASE DE LANÇAMENTO</h3>
+    <h3>HARDWARE DA BASE DE LANÇAMENTOS</h3>
     <img src="media/compare_hardware_base.png" alt="Hardware da base" width="500"/>
     <p> Imagem 3 - Dispositivo hardware da Base.</p>
 </div>
@@ -196,9 +196,9 @@ Assim que a quantidade de pressão é ideial, com base na leitura do manômetro,
 ---
 
 <div align="center">
-    <h3>SOFTWARE TELEMETRIA</h3>
+    <h3>SOFTWARE DE TELEMETRIA</h3>
     <img src="media/telemetria.jpeg" alt="Telemetria do Software" width="500"/>
-    <p> Imagem 4 - Dispositivo da Base.</p>
+    <p> Imagem 4 - Software para análise do lançamento.</p>
 </div>
 
 <div>
