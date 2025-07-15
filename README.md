@@ -110,7 +110,7 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
 ## 📷 Galeria de Imagens
 
 <div align="center">
-  <img src="images/foguete-1.jpg" width="300"/>
+  <img src="media/output.gif" width="300"/>
   <img src="images/base-teste.jpg" width="300"/>
   <img src="images/pcb.jpg" width="300"/>
 </div>
