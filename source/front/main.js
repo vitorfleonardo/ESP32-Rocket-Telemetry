@@ -542,9 +542,9 @@ function criarGraficoVazio() {
 function calculate_acceleration (data)
 {
 	return data.map(leitura => {
-		const ax = leitura.ax / 2048.0 * 9.81 || 0; // m/s²
-		const ay = leitura.ay / 2048.0 * 9.81 || 0; // m/s²
-		const az = leitura.az / 2048.0 * 9.81 || 0; // m/s²
+		const ax = leitura.ax || 0; // m/s²
+		const ay = leitura.ay || 0; // m/s²
+		const az = leitura.az || 0; // m/s²
 		const magnitude = Math.sqrt(ax * ax + ay * ay + az * az);
 		return { x: leitura.timestamp, y: magnitude };
 	});
@@ -564,9 +564,9 @@ function calculate_acceleration (data)
 function calculate_angle_x (data)
 {
 	return data.map(leitura => {
-		const gx = leitura.gx / 65.5 || 0;
-		const gy = leitura.gy / 65.5 || 0;
-		const gz = leitura.gz / 65.5 || 0;
+		const gx = leitura.gx || 0;
+		const gy = leitura.gy || 0;
+		const gz = leitura.gz || 0;
 		const angle_x = Math.atan2(gy, Math.sqrt(gx * gx + gz * gz)) * (180 / Math.PI);
 		return { x: leitura.timestamp, y: angle_x };
 	});
@@ -586,9 +586,9 @@ function calculate_angle_x (data)
 function calculate_angle_y (data)
 {
 	return data.map(leitura => {
-		const gx = leitura.gx / 65.5 || 0;
-		const gy = leitura.gy / 65.5 || 0;
-		const gz = leitura.gz / 65.5 || 0;
+		const gx = leitura.gx || 0;
+		const gy = leitura.gy || 0;
+		const gz = leitura.gz || 0;
 		const angle_y = Math.atan2(gx, Math.sqrt(gy * gy + gz * gz)) * (180 / Math.PI);
 		return { x: leitura.timestamp, y: angle_y };
 	});
@@ -864,7 +864,30 @@ async function atualizarGraficoGeral() {
 		}
 
 		flights.forEach((flight, index) => {
-			// Normalize timestamps to handle overflow
+
+			// normalize ax, ay, az by multiplying by 1 / 2048.0 * 9.81 to transform into  m/s^2
+			flight.data = flight.data.map(leitura => ({
+				...leitura,
+				ax: (leitura.ax || 0) * (1 / 2048.0 * 9.81),
+				ay: (leitura.ay || 0) * (1 / 2048.0 * 9.81),
+				az: (leitura.az || 0) * (1 / 2048.0 * 9.81),
+			}));
+
+			// normalize gx, gy, gz by multiplying by 1 / 65.5 to transform into degrees/s
+			flight.data = flight.data.map(leitura => ({
+				...leitura,
+				gx: (leitura.gx || 0) * (1 / 65.5),
+				gy: (leitura.gy || 0) * (1 / 65.5),
+				gz: (leitura.gz || 0) * (1 / 65.5),
+			}));
+
+			// normalize timestamp from microseconds to seconds
+			flight.data = flight.data.map(leitura => ({
+				...leitura,
+				timestamp: leitura.timestamp / 1000 // Convert from microseconds to seconds
+			}));
+
+			// normalize timestamps to handle overflow
 			let lastTimestamp = 0;
 			let timestampOffset = 0;
 			
