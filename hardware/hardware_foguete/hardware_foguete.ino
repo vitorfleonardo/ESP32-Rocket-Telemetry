@@ -23,8 +23,7 @@ estado_t estado_atual = ESTADO_IDLE;
 uint8_t buffer_dados[BUFFER_SIZE_BYTES];
 size_t buffer_index = 0;
 SemaphoreHandle_t mutex_buffer = NULL;
-TaskHandle_t handleColeta = NULL;
-TaskHandle_t handleGravacao = NULL;
+volatile bool botao_pressionado = false;
 MPU6050 mpu;
 
 void tarefa_coleta(void *arg) {
@@ -38,7 +37,7 @@ void tarefa_coleta(void *arg) {
     if (estado_atual == ESTADO_COLETANDO) {
       ler_fifo_e_salvar();
     }
-    vTaskDelay(pdMS_TO_TICKS(50));
+    vTaskDelay(pdMS_TO_TICKS(100));
   }
 }
 
@@ -46,14 +45,14 @@ void tarefa_gravacao(void *arg) {
   /*
     * Tarefa responsável por salvar os dados do buffer de memória RAM no cartão SD.
     * Se o estado atual for ESTADO_COLETANDO, chama a função salvar_sd_card().
-    * A tarefa roda continuamente com um delay de 100 ms.
+    * A tarefa roda continuamente com um delay de 1000 ms (1 segundo).
     * Se o estado atual for ESTADO_FINALIZADO, a tarefa não faz nada.
   */
   while (true) {
     if (estado_atual == ESTADO_COLETANDO) {
       salvar_sd_card();
     }
-    vTaskDelay(pdMS_TO_TICKS(100));
+    vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
 
@@ -61,19 +60,29 @@ void setup() {
   Serial.begin(115200);
   while (!Serial) {}
   
-  // Inicializa i2c e frequencia
+  // Inicializa i2c e frequencia 100 khz
   Wire.begin(I2C_SDA_IO, I2C_SCL_IO);
   Wire.setClock(I2C_FREQ_HZ);
+
+  // Inicializar Led embutido
+  pinMode(LED_BUILTIN, OUTPUT);
 
   // Inicializa SPI e SD
   inicializar_sd();
   
   // Configura botão
-  pinMode(BUTTON_GPIO, INPUT_PULLUP);
+  pinMode(BUTTON_GPIO, INPUT_PULLUP); //define o pino como entrada
 
-  // Cria mutex
+  // // Cria mutex
   mutex_buffer = xSemaphoreCreateMutex();
+  if (mutex_buffer == NULL) {
+    Serial.println("[ERRO] Falha ao criar mutex");
+    while (true); // para tudo
+  }
 }
+
+TaskHandle_t handleColeta = NULL;
+TaskHandle_t handleGravacao = NULL;
 
 void loop() {
   int leitura = digitalRead(BUTTON_GPIO);
@@ -82,8 +91,10 @@ void loop() {
   if (leitura == HIGH && estado_atual == ESTADO_IDLE) { 
     Serial.println("[BOTAO] Iniciando coleta e gravacao");
     estado_atual = ESTADO_COLETANDO;
-    buffer_index = 0;
-  
+
+    mpu.setSleepEnabled(true);
+    vTaskDelay(pdMS_TO_TICKS(100));
+
     if (inicializar_mpu()) {
       xTaskCreate(tarefa_coleta, "coleta", 4096, NULL, 3,  &handleColeta);
       xTaskCreate(tarefa_gravacao, "gravacao", 4096, NULL, 2, &handleGravacao);
@@ -120,7 +131,7 @@ void loop() {
     estado_atual = ESTADO_IDLE;
   }
 
-  vTaskDelay(pdMS_TO_TICKS(100));
+  vTaskDelay(pdMS_TO_TICKS(200));
 }
   
 
