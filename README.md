@@ -145,11 +145,13 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
           <sub>Engenheiro de Estruturas</sub>
       </td>
       <td align="center">
-          <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
+        <a href="https://github.com/kaedcanizo1">
+          <img src="https://github.com/kaedcanizo1.png" width="100px;"/>
           <br />
-          <b>Kaed Canizo</b>
+          <b>Kaed Caniz</b>
           <br />
           <sub>Engenheiro de Estruturas</sub>
+        </a>
       </td>
     </tr>
   </table>
