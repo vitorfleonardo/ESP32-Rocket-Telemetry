@@ -121,35 +121,35 @@ Este repositório contém o projeto **"Foguete d’Água com Base Automatizada"*
         <br />
         <b>Ives Monteiro</b>
         <br />
-        <sub>Gerente do Estruturas</sub>
+        <sub>Gerente de Estruturas</sub>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
           <b>Sophia Cordeiro</b>
           <br />
-          <sub>Engenheira do Estruturas</sub>
+          <sub>Engenheira de Estruturas</sub>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
           <b>Guilherme Carmona</b>
           <br />
-          <sub>Engenheiro do Estruturas</sub>
+          <sub>Engenheiro de Estruturas</sub>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
           <b>Erik Moreira</b>
           <br />
-          <sub>Engenheiro do Estruturas</sub>
+          <sub>Engenheiro de Estruturas</sub>
       </td>
       <td align="center">
           <img src="https://ui-avatars.com/api/?name=No+Photo&background=CCCCCC&color=555555&size=100" width="100px;"/>
           <br />
           <b>Kaed Canizo</b>
           <br />
-          <sub>Engenheiro do Estruturas</sub>
+          <sub>Engenheiro de Estruturas</sub>
       </td>
     </tr>
   </table>
