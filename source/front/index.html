@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Análise de Vôo</title>
+    <meta name="description" content="Criador e archipélagos.">
+    <link rel="icon" href="./assets/logo.svg" type="image/svg+xml">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href=".">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="theme">
+		<img class="sun" src="./assets/sun.svg" alt="Sun Image">
+		<img class="moon hidden" src="./assets/moon.svg" alt="Moon Image">
+	</div>
+    <div class="container">
+        <section class="sec-1">
+            <h2>Altitude (m)</h2>
+            <div class="sec graph sec1-grafico">
+                <canvas class="grafico-geral"></canvas>
+            </div>
+            <div class="sec select sec1-selects">
+                <div class="flights sec1-selects-voos">
+                    <button class="add-flight">Adicionar voo</button>
+                    <label for="voos-selecionados" class="numero-voos" onclick="selecionar_voos()">
+                        0 voos selecionados
+                    </label>
+                </div>
+                <!-- <div class="buttons sec1-selects-buttons">
+                    <button class="start iniciar" onclick="iniciar()">Iniciar</button>
+                    <button class="delete excluir" onclick="excluir()">Excluir</button>
+                </div> -->
+            </div>
+        </section>
+		<section class="sec sec-2">
+			<div class="sec sec2-grafico1">
+				<h3>Velocidade (m/s)</h3>
+				<div>
+					<canvas class="grafico-velocidade"></canvas>
+				</div>
+			</div>
+			<div class="sec sec2-grafico2">
+				<h3>Aceleração (m/s²)</h3>
+				<div>
+					<canvas class="grafico-aceleracao"></canvas>
+				</div>
+			</div>
+			<div class="sec sec2-grafico3">
+				<h3>Ângulo X (°)</h3>
+				<div>
+					<canvas class="grafico-angulox"></canvas>
+				</div>
+			</div>
+			<div class="sec sec2-grafico4">
+				<h3>Ângulo Y (°)</h3>
+				<div>
+					<canvas class="grafico-anguloy"></canvas>
+				</div>
+			</div>
+        </section>
+        <section class="sec sec-3">
+            <h2>Telemetria</h2>
+            <!--<p>Nivel de Bateria</p>
+            <p>Temperatura</p>-->
+            <p>
+				<b>Maior altitude (pico):</b>
+				<span class="maximum altitude">XXm</span>
+			</p>
+            <p>
+				<b>Aceleração máxima:</b>
+				<span class="maximum acceleration">XXm/s²</span>
+			</p>
+            <p>
+				<b>Velocidade máxima:</b>
+				<span class="maximum speed">XXm/s</span>
+			</p>
+            <p>
+				<b>Maior distância:</b>
+				<span class="given range x">XXm</span>
+			</p>
+            <!-- 
+            <p>
+				<b>Alcance máximo em Y:</b>
+				<span class="given range y">XXm</span>
+			</p> -->
+            <p>
+				<b>Ângulo inicial:</b>
+				<span class="initial angle">45°</span>
+			</p>
+            <button onclick="exportar()">Exportar</button>
+        </section>
+    </div>
+
+    <div id="popup-voos" class="popup select-flights oculto">
+        <div class="background" onclick="fechar_popup()" id="fundo"></div>
+        <div class="popup-conteudo">
+            <h3>Selecionar Voos</h3>
+            <select class="voos-selecionados" multiple></select>
+			<section class="buttons">
+				<button class="cancel excluir" onclick="excluir()">Excluir</button>
+				<button class="contrast" onclick="confirmarVoos()">Confirmar</button>
+			</section>
+        </div>
+    </div>
+
+    <div id="popup-novo-voo" class="popup new-flight oculto">
+        <div class="background popup-fundo-novo-voo" onclick="close_popup_new_flight()"></div>
+        <div class="popup-conteudo">
+            <h3>Novo Voo</h3>
+            <input type="text" name="nome" class="input-nome-voo" placeholder="Nome">
+            <!-- <input type="text" name="angulo" class="input-angulo-voo" placeholder="Ângulo de Lançamento"> -->
+            <input type="text" name="distancia" class="input-distancia-voo" placeholder="Distância Alvo">
+            
+            <input type="file" class="csv-voo" accept=".csv" style="display: none;" />
+            <button class="btn-adicionar-csv">escolher CSV</button>
+            <span class="nome-arquivo-csv">Nenhum arquivo selecionado</span>
+
+            <div class="popup-botoes">
+                <button class="contrast btn-concluir-voo">adicionar</button>
+                <button class="cancel btn-cancelar-voo" onclick="close_popup_new_flight()">cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Desenvolvido com ❤️ por Grupo 2 do Prof. Ajax</p>
+    </footer>
+	<div class="asset rocket">
+		<img src="./assets/cloud.svg" alt="Rocket and Cloud Image">
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./main.js"></script>
+	<script src="./js/theme.js"></script>
+</body>
+
+</html>

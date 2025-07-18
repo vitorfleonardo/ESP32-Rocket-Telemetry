@@ -31,7 +31,7 @@ De forma indireta, o sistema pode ainda inspirar iniciativas voltadas à popular
 \section{Requisitos}
 
 %\subsection{Requisitos Gerais}
-\begin{table}[htpb]
+\begin{table}[H]
 \centering
 \scriptsize
 \setlength{\tabcolsep}{4pt}
@@ -53,7 +53,7 @@ RF4 & O módulo de processamento principal deve armazenar em arquivo JSON, garan
 \end{table}
 
 
-\begin{table}[htpb]
+\begin{table}[H]
 \centering
 \scriptsize % Font size as per your example
 \setlength{\tabcolsep}{4pt} % Column separation as per your example
@@ -65,21 +65,21 @@ RF4 & O módulo de processamento principal deve armazenar em arquivo JSON, garan
 \hline
 \textbf{Código} & \textbf{Descrição} \\
 \hline
-RQ01 & Exibir gráfico de velocidade vertical vs. tempo. \\
+RQ1 & Exibir gráfico de velocidade vertical vs. tempo. \\
 \hline
-RQ02 & Exibir gráfico de aceleração vertical vs. tempo. \\
+RQ2 & Exibir gráfico de aceleração vertical vs. tempo. \\
 \hline
-RQ03 & Exibir gráfico de dispersão da trajetória no plano X e Y. \\
+RQ3 & Exibir gráfico de dispersão da trajetória no plano X e Y. \\
 \hline
-RQ04 & Exibir gráfico de altitude vs. tempo. \\
+RQ4 & Exibir gráfico de altitude vs. tempo. \\
 \hline
-RQ05 & Exibir valores máximos e mínimos de aceleração, velocidade e ângulo. \\
+RQ5 & Exibir valores máximos e mínimos de aceleração, velocidade e ângulo. \\
 \hline
-RQ06 & Exibir tempo de execução e intervalos de amostragem. \\
+RQ6 & Exibir tempo de execução e intervalos de amostragem. \\
 \hline
-RQ07 & Exportar dados do voo em JSON. \\
+RQ7 & Exportar dados do voo em JSON. \\
 \hline
-RQ08 & Aplicar filtro de média móvel nos dados de voo. \\
+RQ8 & Aplicar filtro de média móvel nos dados de voo. \\
 \hline
 \end{tabular}
 \label{tab:requisitos_detalhados} % A label for referencing the table
@@ -87,7 +87,7 @@ RQ08 & Aplicar filtro de média móvel nos dados de voo. \\
 
 
 %\subsection{Requisitos de Hardware}
-\begin{table}[htpb]
+\begin{table}[H]
 \centering
 \scriptsize
 \setlength{\tabcolsep}{4pt}
@@ -96,9 +96,35 @@ RQ08 & Aplicar filtro de média móvel nos dados de voo. \\
 \hline
 \textbf{Código} & \textbf{Descrição} \\
 \hline
-RH1 & Microcontrolador com ADC de 12 bits ou superior, memória RAM maior que 64 kB e Flash maior que 256 kB. \\
+RH1 & Microcontrolador dever ser o ESP32 como componente central de processamento. \\
 \hline
-RH2 & Bateria capaz de alimentar todo o sistema. \\
+RH2 & Microcontrolador deve suportar conexão com sensores e atuadores. \\
+\hline
+RH3 & Microcontrolador deve fornecer saída de 3.3V para alimentar os sensores e o módulo de cartão SD. \\
+\hline
+RH4 & Microcontrolador deve possuir ADC (Conversor Analógico-Digital) de 12 bits ou superior para leituras precisas dos sensores. \\
+\hline 
+RH5 & Microcontrolador deve ter memória RAM maior que 64 KB. \\
+\hline
+RH6 & O Sensor principal para medição de orientação e movimento deve ser o MPU-6050 ou similar. \\
+\hline
+RH7 & Sensor MPU-6050 deve fornecer dados de aceleração linear nos três eixos (x,y,z). \\
+\hline
+RH8 & Sensor MPU-6050 deve fornecer dados de velocidade angular nos três eixos (xi,yi,zi). \\
+\hline
+RH9 & O módulo de armazenamento dever ser um módulo de leitura de cartão SD. \\
+\hline
+RH10 & O módulo de armazenamento deve fornecer armazenamento local e não volátil para os dados de voo. \\
+\hline
+RH11 & O módulo de armazenamento deve atuar como um backup para garantir que dados críticos não se percam, mesmo em caso de falhas. \\
+\hline
+RH12 & O módulo de armazenamento deve suportar o formato FAT32 para leitura e escrita de dados. \\
+\hline
+RH13 & O sistema de acionamento do lançamento deve utilizar um motor DC controlado por um módulo Ponte H L298N. \\
+\hline
+RH14 & O motor DC deve ser capaz de acionar um carretel para puxar e soltar a trava do foguete. \\
+\hline
+RH15 & O módulo Ponte H deve permitir o controle de direção (horário/anti-horário) e a ativação do motor DC. \\
 \hline
 \end{tabular}
 \label{tab:requisitos-hardware}
@@ -106,7 +132,7 @@ RH2 & Bateria capaz de alimentar todo o sistema. \\
 
 \begin{samepage}
 %\subsection{Requisitos de Custos e Materiais}
-\begin{table}[htpb]
+\begin{table}[H]
 \centering
 \scriptsize
 \setlength{\tabcolsep}{4pt}
