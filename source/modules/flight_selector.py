@@ -9,12 +9,12 @@ def select_flight(flights: FlightList) -> Optional[FlightData]:
         return None
     
     while True:
-        print("Voos disponíveis:")
+        print("\nVoos disponíveis:")
         for i, flight in enumerate(flights, 1):
-            print(f"{i}. Voo {flight['id_voo']} ({flight['data_lancamento']})")
+            print(f"\n{i}. Voo {flight['id_voo']} ({flight['data_lancamento']})")
             print(f"   {flight['descricao']}")
         
-        print("S. Sair do programa")
+        print("\nS. Sair do programa")
 
         choice: str = utils.ask("Selecione um voo: ").strip().lower()
 
@@ -25,4 +25,4 @@ def select_flight(flights: FlightList) -> Optional[FlightData]:
             if 0 <= index < len(flights):
                 return flights[index]
 
-        print("Seleção inválida. Por favor, tente novamente.")
+        print("\nSeleção inválida. Por favor, tente novamente.")
