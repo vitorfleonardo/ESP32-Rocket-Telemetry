@@ -35,7 +35,7 @@ O pacote MOSCOW é uma técnica de priorização de requisitos que classifica as
 \caption{Tabela de Requisitos do Projeto}
 \begin{tabular}{|l|p{8cm}|l|}
 \hline
-Id & DESCRIÇÃO & PRIORIDADE \\
+Id. & Descição & Prioridade \\
 \hline
 RQ01 & Importar dados de voo em JSON de dispositivo externo & Must have \\
 \hline
@@ -86,7 +86,7 @@ Os requisitos não-funcionais são critérios que definem a qualidade e as restr
 \caption{Requisitos Não-Funcionais}
 \begin{tabular}{|l|p{11cm}|}
 \hline
-\textbf{ID} & \textbf{DESCRIÇÃO} \\
+Id. & Descrição \\
 \hline
 RNF01 & Os dados dos lançamentos devem ser armazenados localmente de forma que não possam ser corrompidos em caso de desligamento inesperado. \\
 \hline
@@ -117,7 +117,7 @@ O pacote de Casos de Uso é uma técnica de modelagem que descreve as interaçõ
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=15cm]{figuras/caso_de_uso.png}
-	\caption{1.3 – Casos de Uso}
+	\caption{Casos de Uso}
 	\label{fig_casos_de_uso}
 \end{figure}
 \end{samepage}
@@ -133,7 +133,7 @@ O Diagrama de Entidade-Relacionamento (DER) é uma técnica de modelagem de dado
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=15cm]{figuras/der.png}
-	\caption{1.3 – Diagrama de Entidade-Relacionamento}
+	\caption{Diagrama de Entidade-Relacionamento}
 	\label{fig_der}
 \end{figure}
 
@@ -142,7 +142,7 @@ Após isso, podemos modelar os atributos de cada entidade, conforme os dados que
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=15cm]{figuras/atributos.png}
-	\caption{1.3 – Atributos das Entidades}
+	\caption{Atributos das Entidades}
 	\label{fig_atributos}
 \end{figure}
 
@@ -197,12 +197,28 @@ A principal mudança nos testes foi a especificação e detalhamento dos mesmos.
 
 % Para o caso de teste CT01, que envolve a importação de um arquivo JSON válido, foi adicionado um exemplo de arquivo JSON com dados reais do foguete. Esse arquivo contém informações como id do voo, tempo, aceleração e velocidade, permitindo uma validação mais precisa do processo de importação. No mesmo contexto, ao CT02 foi adicionado um arquivo JSON com campos ausentes, como id de leitura e tempo, para testar a robustez do sistema em lidar com dados incompletos. O CT03 foi modificado para incluir um arquivo JSON com formato inválido, como strings onde se esperavam números, para verificar a capacidade do sistema de identificar e reportar erros de formatação.
 
+\subsection{Testes}
+
 Aos testes CT01, CT02, CT03, CT08, CT11, CT13, CT14, CT15, CT16 foram adicionados os dados de arquivo necessário para realização do teste, a estrutura dos dados de entrada, especificação de resultados esperados e, para os que possui mensagens, as de sucesso e erro foram definidas. Para o teste de responsividade (CT05) foram definidos os tamanhos da tela para responsividade. 
 
 Na parte de hardware, houve modificações significativas. Para o CT06, os dados agora são feitos de forma analógica usando um barômetro.  Para CT22, agora o atuador é o manômetro; para CT24, a conectividade agora é feita com cartão SD e ambos os testes foram reelaborados. Os testes CT17, CT19 e CT21 foram eliminados por conta de mudanças realizadas no hardware. 
 
 Sobre estruturas, no CT07, foi definido a quantidade de água a ser utilizada no teste.  Os testes não citados foram mantidos da mesma forma, pois não foi observado uma necessidade de alteração. 
 
+\subsection{Resultados}
+
+Para os voos administrados no dia de apresentação do projeto, foram realizados três lançamentos com o foguete, e seus dados foram coletados e armazenados em arquivos CSV, por conta de ruídos e interferências, os dados foram filtrados e processados para garantir a precisão dos resultados. Esses dados estão disponíveis no repositório do projeto, permitindo a análise e validação dos resultados obtidos durante os testes, que podem ser acessados no \href{https://github.com/melohugo/PI1}{repositório do projeto}. Note que o tempo é acumulado pelos voos anteriores, para que assim possa se ver os três voos em conjunto. Segue então os gráficos gerados a partir desses mesmos dados:
+
+\begin{landscape}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth,keepaspectratio]{figuras/software/graficos.jpeg}
+\caption{Gráficos de desempenho dos voos.}
+\label{fig_graficos}
+\end{figure}
+
+\end{landscape}
 
 \end{samepage}
 % \include{editaveis/secoes/testes}

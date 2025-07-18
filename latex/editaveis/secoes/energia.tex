@@ -18,7 +18,7 @@ Os dispositivos eletroeletrônicos empregados no projeto, juntamente com suas es
 \begin{table}[H]
     \centering
     \caption{Informações elétricas dos componentes}
-    \label{tab:componentes}
+    \label{tab:componentes_todos}
     \begin{tabular}{|l|l|l|l|}
         \hline
         Nome & Unidades & Tensão (V) & Corrente (mA) \\
@@ -46,8 +46,8 @@ Este subsistema engloba os componentes eletrônicos responsáveis pelo controle 
 
 \begin{table}[H]
     \centering
-    \caption{Informações elétricas dos componentes}
-    \label{tab:componentes}
+    \caption{Informações elétricas dos componentes da base de lançamento}
+    \label{tab:componentes_base}
     \begin{tabular}{|l|l|}
         \hline
         Nome & Função \\
@@ -67,8 +67,8 @@ Este subsistema engloba toda a eletrônica embarcada na coifa do foguete, vital 
 
 \begin{table}[H]
     \centering
-    \caption{Informações elétricas dos componentes}
-    \label{tab:componentes}
+    \caption{Informações elétricas dos componentes do foguete}
+    \label{tab:componentes_foguete}
     \begin{tabular}{|l|l|}
         \hline
         Nome & Função \\
@@ -175,10 +175,10 @@ Isso significa que a base de lançamento terá um consumo fixo de 151,14 J por l
 
 \subsection{Dimensionamento e Seleção das Fontes de Alimentação}
 
-Com os valores de energia em Wh definidos, partimos para a escolha das fontes de alimentação. Levamos em conta a eficiência do módulo elevador de tensão e aplicamos a margem de segurança acordada, seguindo especificações técnicas e boas práticas de engenharia para garantir um dimensionamento confiável.
+Com os valores de energia em Wh definidos, partimos para a escolha das fontes de alimentação. Para o dimensionamento adequado, consideramos a eficiência típica de circuitos elevadores de tensão, que leva em conta as inevitáveis perdas na conversão e as variações de tensão durante a operação.
 
-\subsubsection{Fator de Eficiência do Módulo Elevador de Tensão}
-Para o módulo boost MT3608 da base de lançamento, adotamos uma eficiência de 85\%. Esse valor combina dados do fabricante (datasheet) e resultados de testes práticos, alinhando-se ao intervalo típico de operação (85–93\%) com entrada em 3,7 V e saída em 3,3 V. Assim, as perdas do conversor já estão previstas no cálculo da capacidade da bateria do foguete, garantindo cobertura realista das necessidades energéticas.
+% \subsubsection{Fator de Eficiência do Módulo Elevador de Tensão}
+% Para o módulo boost MT3608 da base de lançamento, adotamos uma eficiência de 85\%. Esse valor combina dados do fabricante (datasheet) e resultados de testes práticos, alinhando-se ao intervalo típico de operação (85–93\%) com entrada em 3,7 V e saída em 3,3 V. Assim, as perdas do conversor já estão previstas no cálculo da capacidade da bateria do foguete, garantindo cobertura realista das necessidades energéticas.
 
 \subsubsection{Margem de Segurança}
 
@@ -203,12 +203,12 @@ Em projetos críticos, margens de segurança para recursos como potência são p
 
 \subsection{Cálculo da Capacidade da Bateria}
 
-O cenário de maior consumo para o dimensionamento da bateria é o que contempla todos os três lançamentos. Considerando que a energia total do sistema sem perdas para as três configurações é de aproximadamente 0,350 Wh, a energia requerida devido à eficiência do módulo elevador de tensão MT3608 é calculada pela razão entre a energia total dos três lançamentos pela eficiência do MT3608.
+O cenário de maior consumo para o dimensionamento da bateria é o que contempla todos os três lançamentos. Considerando que a energia total do sistema sem perdas para as três configurações é de aproximadamente 0,350 Wh, precisamos levar em conta a eficiência do circuito de conversão de energia. Devido às possíveis variações de tensão durante a operação e às perdas inerentes ao processo de elevação de tensão, adotamos um fator de eficiência de 0,85 como elevador de tensão. Assim, a energia requerida é calculada pela razão entre a energia total dos três lançamentos e esta eficiência.
 
 \begin{equation}
 E_{\text{requerida}}
 \;=\;
-\frac{E_{\text{total}}}{\eta_{\text{MT3608}}}
+\frac{E_{\text{total}}}{\eta_{\text{elevador}}}
 \;=\;
 \frac{0,350~\mathrm{Wh}}{0,85}
 \;\approx\;
@@ -257,12 +257,12 @@ Mesmo com a margem de segurança de 30\% e a eficiência de conversão interna d
 
 Para o subsistema embarcado no foguete, a leveza e a alta densidade energética são cruciais. Portanto, utilizaremos uma bateria de Polímero de Lítio (LiPo). 
 
-O cálculo da energia requerida da bateria do foguete, considerando a eficiência de 85\% do módulo MT3608 e a margem de segurança de 30\%, é baseado no consumo de 268,54 J por lançamento. Para o cenário de três lançamentos, a energia total do foguete (sem considerar perdas e margem) seria de
+O cálculo da energia requerida da bateria do foguete, considerando a eficiência de 85\% do circuito elevador de tensão e a margem de segurança de 30\%, é baseado no consumo de 268,54 J por lançamento. Para o cenário de três lançamentos, a energia total do foguete (sem considerar perdas e margem) seria de
 \begin{equation}
 E_{\text{total}} = 3 \times 0{,}075~\mathrm{Wh} = 0{,}225~\mathrm{Wh}
 \end{equation}
 
-Aplicando a eficiência do MT3608 e a margem de segurança especificamente para o consumo do foguete. A energia total de 3 lançamentos é 0,225 Wh. A energia requerida devido à eficiência do MT3608 é calculada como:
+Aplicando a eficiência do elevador de tensão e a margem de segurança especificamente para o consumo do foguete. A energia total de 3 lançamentos é 0,225 Wh. A energia requerida devido à eficiência do circuito de elevação de tensão, que considera as possíveis variações de tensão durante a operação, é calculada como:
 
 \begin{equation}
 E_{\mathrm{bateria,foguete}}
@@ -288,9 +288,9 @@ E_{\mathrm{bateria,foguete}}
 0{,}345~\mathrm{Wh}
 \end{equation}
 
-Com a energia requerida de aproximadamente 0,345 Wh, e sabendo que o MT3608 é um elevador de tensão (permitindo o uso de uma LiPo 1S de 3,7 V nominal), calculamos a capacidade necessária para a bateria do foguete.
+Com a energia requerida de aproximadamente 0,345 Wh, e considerando a utilização de um elevador de tensão genérico (que permite o uso de uma LiPo 1S de 3,7 V nominal), calculamos a capacidade necessária para a bateria do foguete.
 
-Para calcular a capacidade em mAh necessária para uma LiPo de 3,7V:
+Para o circuito de elevação de tensão, adotamos um fator de eficiência de 0,85, valor que leva em conta as possíveis variações de tensão durante a operação e as perdas inerentes ao processo de conversão. Assim, para calcular a capacidade em mAh necessária para uma LiPo de 3,7V:
 
 \begin{equation}
 \mathrm{Capacidade\,(mAh)}
@@ -312,4 +312,4 @@ Portanto, para o sistema eletrônico embarcado dentro do foguete, utilizaremos u
 
 A base de lançamento é alimentada por um power bank de 3300 mAh (5V). Já que power banks são dispositivos amplamente disponíveis, recarregáveis e projetados assim para fornecer energia de forma estável. E com uma capacidade energética de 16.5 Wh, o nosso power bank oferece uma reserva de energia que excede significativamente o consumo estimado da base (que dá aproximadamente 0,042 Wh por lançamento). Isso então garante vários lançamentos e longos períodos de teste sem a necessidade de recarga frequente para a plataforma de lançamento. 
 
-Já para o subsistema eletrônico embarcado no foguete de voo, onde o peso e a densidade energética são fatores críticos, a solução adotada foi uma bateria de Polímero de Lítio (LiPo) de 3.7V (1S). Os cálculos detalhados anteriormente indicam uma demanda energética de aproximadamente 0,345 Wh para o cenário de três lançamentos, já considerando a eficiência de 85\% do módulo elevador de tensão DC-DC MT3608 e uma margem de segurança de 30\%. Com base nisto, utilizamos uma bateria LiPo com capacidade mínima de 100 mAh (ou 150 mAh para maior folga).
+% Já para o subsistema eletrônico embarcado no foguete de voo, onde o peso e a densidade energética são fatores críticos, a solução adotada foi uma bateria de Polímero de Lítio (LiPo) de 3.7V (1S). Os cálculos detalhados anteriormente indicam uma demanda energética de aproximadamente 0,345 Wh para o cenário de três lançamentos, já considerando a eficiência de 85\% do módulo elevador de tensão DC-DC MT3608 e uma margem de segurança de 30\%. Com base nisto, utilizamos uma bateria LiPo com capacidade mínima de 100 mAh (ou 150 mAh para maior folga).
