@@ -205,7 +205,7 @@ Assim que a quantidade de pressão é ideial, com base na leitura do manômetro,
 </div>
 
 <div>
-Com o SD card do Harwade do Foguete conseguimos obter os dados de timestamp, acelerações linerares (ax, ay e az), giro (gx, gy e gz) e por um processamento em python que consiste em conversão e aplicação de formulas físicas podemos construir gráficos e análises utilizando a biblioteca pandas da liguaguem Python.
+Com o SD card do Harwade do Foguete conseguimos obter os dados de timestamp, acelerações linerares (ax, ay e az), giro (gx, gy e gz) e por um processamento que consiste em conversão e aplicação de formulas físicas podemos construir gráficos e análises da trajetória do foguete.
 </div>
 
 ---
