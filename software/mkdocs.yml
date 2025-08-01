@@ -1,0 +1,75 @@
+site_name: Projeto Foguete
+site_url: https://melohugo.github.io/PI1/
+
+nav:
+  - Início: index.md
+
+  - Planejamento:
+    - TAP: planejamento/tap.md
+    - EAP: planejamento/eap.md
+    - Cronograma: planejamento/cronograma.md
+    - SWOT: planejamento/swot.md
+
+theme:
+  name: material
+  icon: 
+    repo: fontawesome/brands/github
+
+  font:
+    text: Poppins
+
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.path
+    - navigation.prune
+    - navigation.top
+    - navigation.footer
+    - navigation.indexes
+    - content.code.copy
+    - toc.integrate
+    - search.suggest
+    - search.highlight  
+
+  language: pt
+
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Alternar para modo escuro
+      primary: blue
+      accent: red
+
+    - scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Alternar para modo claro
+      primary: red
+      accent: blue
+
+  # logo: assets/logo.png
+  # favicon: assets/favicon.ico
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+  - pymdownx.keys
+  - pymdownx.smartsymbols
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.betterem
+  - pymdownx.inlinehilite
+  - admonition
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - pymdownx.snippets
+
+repo_url: https://github.com/melohugo/PI1
+repo_name: GitHub
